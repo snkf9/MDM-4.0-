@@ -80,11 +80,11 @@
         </header>
 
         <main>
-            <div id="Screen_tool">  
+             
             <div class="container">
                 <h1 class="mt-4 mb-4 text-center text-primary"><b></b></h1>
         
-                <span id="message"></span>
+                <span id="message_tool"></span>
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
@@ -269,14 +269,14 @@
                 {
                     $('#action_buttontool').attr('disabled', false);
 
-                    $('#message').html('<div class="alert alert-success">'+data.message+'</div>');
+                    $('#message_tool').html('<div class="alert alert-success">'+data.message+'</div>');
 
                     $('#tool_action_modal').modal('hide');
 
                     load_datatool();
 
                     setTimeout(function(){
-                        $('#message').html('');
+                        $('#message_tool').html('');
                     }, 5000);
                 }
             });
@@ -326,10 +326,10 @@
                             dataType:"JSON",
                             success:function(data)
                             {
-                                $('#message').html('<div class="alert alert-success">'+data.message+'</div>');
+                                $('#message_tool').html('<div class="alert alert-success">'+data.message+'</div>');
                                 load_datatool();
                                 setTimeout(function(){
-                                    $('#message').html('');
+                                    $('#message_tool').html('');
                                 }, 5000);
                             }
                         });
