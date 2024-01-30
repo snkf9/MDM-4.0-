@@ -7,6 +7,9 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('home', { title: 'Express' });
 });
+router.get("/tool", function(req, res){
+  res.render("tool")
+});
 
 router.get("/manager", function(req, res){
   res.render("manager")

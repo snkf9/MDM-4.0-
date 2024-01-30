@@ -10,6 +10,7 @@ var managerRouter = require('./routes/manager.router');
 var partData = require('./routes/partData');
 var checkSheet = require('./routes/checkSheet');
 var measuare = require('./routes/measuare')
+var toolrouter = require('./routes/tool.router')
 var app = express();
 
 // view engine setup
@@ -18,7 +19,7 @@ app.set('view engine', 'ejs');
 
 var bodyPaser = require('body-parser');
 app.use(bodyPaser.json());
-var stdRouter = require('./routes/user.route')(app);
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -32,6 +33,7 @@ app.use('/manager',managerRouter);
 app.use('/partData',partData);
 app.use('/checkSheet', checkSheet);
 app.use('/measuare', measuare);
+app.use('/tool', toolrouter);
 
 // app.use('/manager',stdRouter);
 
