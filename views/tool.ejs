@@ -282,5 +282,59 @@
             });
 
             });
+            $(document).on('click', '.edit', function(){
+
+                var id = $(this).data('id');
+
+
+                $('#tool_dynamic_modal_title').text('Edit Tool');
+
+                $('#actionTool').val('editTool');
+
+                $('#action_buttontool').text('EditTool');
+
+                $('#tool_action_modal').modal('show');
+
+                $.ajax({
+                    url:"http://localhost:3000/tool/actionTool",
+                    method:"POST",
+                    data:{id:id, actionTool:'getOneTool'},
+                    dataType:"JSON",
+                    success :function(data)
+                    {
+                        
+                        $('#tool_name').val(data.Name_t);
+                        $('#tool_type').val(data.Type_t);
+                        $('#u_wave_t').val(data.Id_Tool);
+                        $('#factory_t').val(data.Factory_t);
+                        $('#u_wave_r').val(data.uwave_r);
+                        $('#id').val(id);
+                    }
+                });
+
+                });
+                $(document).on('click', '.delete', function(){
+
+                    var id = $(this).data('id');
+
+                    if(confirm("Are you sure you want to delete this data?"))
+                    {
+                        $.ajax({
+                            url:"http://localhost:3000/tool/actionTool",
+                            method:"POST",
+                            data:{actionTool:'deleteTool', id:id},
+                            dataType:"JSON",
+                            success:function(data)
+                            {
+                                $('#message').html('<div class="alert alert-success">'+data.message+'</div>');
+                                load_datatool();
+                                setTimeout(function(){
+                                    $('#message').html('');
+                                }, 5000);
+                            }
+                        });
+                    }
+
+                    });
     })
 </script>

@@ -39,19 +39,19 @@ router.post("/actionTool", async function(req, res){
       });
     });
   }
-//   if(action == 'getOneUser')
-//   {
-//     var pool =await conn;
-//     var id = req.body.id;
-//     var query = "SELECT * FROM userTable WHERE Id = " +id;
+  if(action == 'getOneTool')
+  {
+    var pool =await conn;
+    var id = req.body.id;
+    var query = "SELECT * FROM Tool_measuare WHERE Id = " +id;
     
-//     return await pool.request()
-//     .query(query, function(err, data){
+    return await pool.request()
+    .query(query, function(err, data){
       
-//       res.json({data});
+      res.json({data});
   
-//     });
-//   }
+    });
+  }
   if(action == "addTool"){
     var pool = await conn;
     var query =  `
@@ -62,7 +62,6 @@ router.post("/actionTool", async function(req, res){
     return await pool.request()
       .input('tool_name', sql.NVarChar , req.body.tool_name)
       .input('tool_type', sql.NVarChar , req.body.tool_type)
-      .input('active', sql.Int , req.body.active)
       .input('factory_t', sql.NVarChar , req.body.factory_t)
       .input('u_wave_t', sql.Int , req.body.u_wave_t)
       .input('u_wave_r', sql.Int , req.body.u_wave_r)  
@@ -74,37 +73,35 @@ router.post("/actionTool", async function(req, res){
       });
 
   }
-//   if(action == "editUser"){
-//     var pool = await conn;
-//     var id = req.body.id;
-//     var query = `UPDATE userTable SET SVN_Id = @svn_id , Name = @name , Dept = @dept ,Level_user= @level_user, Factory = @factory , Passw = @passw WHERE Id = ` +id;
-//     return await pool.request()
-//       .input('svn_id', sql.NVarChar , req.body.svn_id)
-//       .input('name', sql.NVarChar , req.body.name)
-//       .input('dept', sql.NVarChar , req.body.dept)
-//       .input('level_user', sql.Int , req.body.level_user)
-//       .input('factory', sql.NVarChar , req.body.factory)
-//       .input('passw', sql.Int , req.body.passw)  
-//       // .input('id', sql.Int , req.body.id) 
-//       .query(query, function(err, data){
-        
-//         res.json({
-//           message : 'Data Edited'
-//         });
+  if(action == "editTool"){
+    var pool = await conn;
+    var id = req.body.id;
+    var query = `UPDATE Tool_measuare SET Name_t = @tool_name , Type_t = @tool_type , InUse = 0 , Id_Tool= @u_wave_t, Factory_t = @factory_t , uwave_r = @u_wave_r WHERE Id = ` +id;
+    return await pool.request()
+      .input('tool_name', sql.NVarChar , req.body.tool_name)
+      .input('tool_type', sql.NVarChar , req.body.tool_type)
+      .input('u_wave_t', sql.Int , req.body.u_wave_t)
+      .input('factory_t', sql.NVarChar , req.body.factory_t)
+      .input('u_wave_r', sql.Int , req.body.u_wave_r)
+      .query(query, function(err, data){
+        console.log(err);
+        res.json({
+          message : 'Data Edited'
+        });
 
-//     });
-//   }
-//   if(action == "deleteUser"){
-//     var pool = await conn;
-//     var id = req.body.id;
-//     var query = "DELETE FROM userTable WHERE Id = " +id;
-//     return await pool.request()
-//     .query(query, function(err, data){
-//       res.json({
-// 				message : 'Data Deleted'
-// 			});
-//     })
-//   }
+    });
+  }
+  if(action == "deleteTool"){
+    var pool = await conn;
+    var id = req.body.id;
+    var query = "DELETE FROM Tool_measuare WHERE Id = " +id;
+    return await pool.request()
+    .query(query, function(err, data){
+      res.json({
+				message : 'Data Deleted'
+			});
+    })
+  }
 })
 
 module.exports = router;
