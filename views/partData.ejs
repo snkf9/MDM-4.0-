@@ -16,6 +16,19 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <link href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+
+        <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <link href= "https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
+
         <title>MDM SANTOMAS VIỆT NAM</title>
 
     </head>
@@ -70,20 +83,21 @@
         <main>
             <div class="container">
                 <h1 class="mt-4 mb-4 text-center text-primary"><b></b></h1>
-                <span id="mess_data"></span>
+                
+                <span id="message_part"></span>
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
                             <div class="col col-sm-9">PART DATA TABLE</div>
                             <div class="col col-sm-3">
-                                <button type="button" id="add_part" class="btn-success btn-sm float-end">Add</button>
+                                <button type="button" id="add_partdata" class="btn btn-success btn-sm float-end">Add</button>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered" id="part_data_table">
-                                <thea>
+                            <table class="table table-striped table-bordered table-compact " id="part_data_table">
+                                <thead>
                                     <tr>
                                         <th>Id</th>
                                         <th>Mold No</th>
@@ -92,8 +106,9 @@
                                         <th>Die No</th>
                                         <th>Factory</th>
                                         <th>Date Added</th>
+                                        <th></th>
                                     </tr>
-                                </thea>
+                                </thead>
                                 <tbody></tbody>
                             </table>
                         </div>
@@ -122,7 +137,7 @@
 <div class="modal" tabindex="-1" id="partdata_action_modal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" url="http://localhost:3000/partdata/addPartdata" body="partDataJson" id="partdata_form">
+            <form method="post" url="http://localhost:3000/partData/addPart" body="partDataJson" id="partdata_form">
                 <div class="modal-header" id="partdata_dynamic_modal_title">
                     <h5 class="modal-title"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>    
@@ -135,7 +150,7 @@
 
                     <div class="mb-3">
                         <label class="form-label">Part Name</label>
-                        <input type="text" name="part_name"  id="part_name" class="form-control" />
+                        <input type="text" name="name_part"  id="name_part" class="form-control" />
                     </div>
                 
                     <div class="mb-3">
@@ -154,17 +169,195 @@
                             <option value="SVN2">SVN2</option>
                             <option value="SVN3">SVN3</option>
                         </select>
+                        
                     </div>
 
                 </div>
 
                 <div class="modal-footer">
                     <input type="hidden" name="id" id="id" />
+                    <input type="hidden" name="add_date" id="add_date" />
                     <input type="hidden" name="actionPart" id="actionPart" value="Add" />
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="action_buttonpartdata" >Add</button>
+                    <button type="submit" class="btn btn-primary " id="action_buttonpartdata" >Add</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
+<script>
+
+    
+    $(document).ready(function(){
+        
+        load_datapart();
+
+        function load_datapart()
+        {
+            $.ajax({
+                url:"http://localhost:3000/partData/actionPart",
+                method:"POST",
+                data:{actionPart:'getAllPart'},
+                dataType : "JSON",
+                success:function(data){
+                    
+                
+                {
+                    var html = '';
+                    
+
+                    if(data.data.recordset.length > 0)
+                    {
+                        
+                        for(var count = 0; count < data.data.recordset.length; count++)
+                        {
+                            
+                            html += `
+                            <tr>
+                                <td>`+data.data.recordset[count].Id+`</td>
+                                <td>`+data.data.recordset[count].Mold_No+`</td>
+                                <td>`+data.data.recordset[count].Name_part+`</td>                                           
+                                <td>`+data.data.recordset[count].Part_no+`</td>
+                                <td>`+data.data.recordset[count].Dia_no+`</td>
+                                <td>`+data.data.recordset[count].Factory+`</td>
+                                <td>`+data.data.recordset[count].Add_date+`</td>
+                                <td><button type="button" class="btn btn-warning btn-sm edit" data-id="`+data.data.recordset[count].Id+`">Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm delete" data-id="`+data.data.recordset[count].Id+`">Delete</button>
+                                    &nbsp;<button type="button" class="btn btn-success btn-sm open" data-id="`+data.data.recordset[count].Id+`">Open</button></td>
+                            
+                            </tr>
+                            `;
+                        }
+                        
+                    }
+
+                    $('#part_data_table tbody').html(html);
+                    
+                    }
+
+                }
+            });
+        }
+        
+        $('#add_partdata').click(function(){  
+            
+
+            $('#partdata_dynamic_modal_title').text('Add Part');
+
+            $('#partdata_form')[0].reset();
+
+            $('#actionPart').val('addPart');
+
+            $('#action_buttonpartdata').text('addPart');
+
+            $('#partdata_action_modal').modal('show');
+
+
+        });
+
+        $('#partdata_form').on('submit', function(event){
+
+            event.preventDefault();
+            var curDate = new Date();
+            var curDay = curDate.getDate() + '/' + curDate.getMonth() + 1 + '/' + curDate.getFullYear() ;
+            $('#add_date').val(curDay);
+
+            
+
+            $.ajax({
+                url:"http://localhost:3000/partData/actionPart",
+                method:"POST",
+                data:$('#partdata_form').serialize(),
+                dataType:"JSON",
+                beforeSend:function(){
+                    $('#action_buttonpartdata').attr('disabled', 'disabled');
+                },
+                success:function(data)
+                {
+
+                    $('#action_buttonpartdata').attr('disabled', false);
+
+                    $('#message_part').html('<div class="alert alert-success">'+data.message+'</div>');
+
+                    $('#partdata_action_modal').modal('hide');
+
+                    load_datapart();
+
+                    setTimeout(function(){
+                        $('#message_part').html('');
+                    }, 5000);
+                }
+            });
+
+            });
+            $(document).on('click', '.edit', function(){
+                var id = $(this).data('id');
+
+                
+
+                $('#partdata_dynamic_modal_title').text('Edit Part');
+
+                $('#actionPart').val('editPart');
+
+                $('#action_buttonpartdata').text('EditPart');
+
+                $('#partdata_action_modal').modal('show');
+
+                $.ajax({
+                    url:"http://localhost:3000/partData/actionPart",
+                    method:"POST",
+                    data:{id:id, actionPart:'getOnePart'},
+                    dataType:"JSON",
+                    success :function(data)
+                    {
+                        
+                        $('#mold_no').val(data.Mold_No);
+                        $('#name_part').val(data.Name_part);
+                        $('#part_no').val(data.Part_no);
+                        $('#factory_p').val(data.Factory);
+                        $('#dia_no').val(data.Dia_no);
+                        
+                        $('#id').val(id);
+                    }
+                });
+
+                });
+                $(document).on('click', '.delete', function(){
+
+                    var id = $(this).data('id');
+
+                    if(confirm("Are you sure you want to delete this data?"))
+                    {
+                        $.ajax({
+                            url:"http://localhost:3000/partData/actionPart",
+                            method:"POST",
+                            data:{actionPart:'deletePart', id:id},
+                            dataType:"JSON",
+                            success:function(data)
+                            {
+                                $('#message_part').html('<div class="alert alert-success">'+data.message+'</div>');
+                                load_datapart();
+                                setTimeout(function(){
+                                    $('#message_part').html('');
+                                }, 5000);
+                            }
+                        });
+                    }
+
+                    });
+
+                $(document).on('click','.open', function(){
+                    var id = $(this).data('id');
+
+                    $.ajax({
+                        url:"http://localhost:3000/partData/actionPart",
+                        method: "POST",
+                        data: {id:id, actionPart:'PartChild'},
+                        
+                        dataType:"JSON"
+
+                    })
+                });
+    })
+</script>

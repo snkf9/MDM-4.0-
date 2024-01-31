@@ -11,6 +11,7 @@ var partData = require('./routes/partData');
 var checkSheet = require('./routes/checkSheet');
 var measuare = require('./routes/measuare')
 var toolrouter = require('./routes/tool.router')
+var partchildrouter = require('./routes/partchild.router')
 var app = express();
 
 // view engine setup
@@ -34,6 +35,7 @@ app.use('/partData',partData);
 app.use('/checkSheet', checkSheet);
 app.use('/measuare', measuare);
 app.use('/tool', toolrouter);
+app.use('/PartChild', partchildrouter);
 
 // app.use('/manager',stdRouter);
 
