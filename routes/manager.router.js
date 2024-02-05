@@ -28,6 +28,14 @@ router.get("/partData", function(req, res){
   res.render("partData")
 });
 
+// router.get("/partData/PartChild", function(req, res){
+  
+//   res.render("partchild")
+
+// });
+router.get("/partData/:id",function(req, res){
+  res.render("partchild")
+})
 router.post("/action", async function(req, res){
   var action = req.body.action;
   if(action == 'getAll'){

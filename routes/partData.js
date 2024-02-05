@@ -26,8 +26,17 @@ router.get("/checkSheet", function(req, res){
 router.get("/partData", function(req, res){
   res.render("partData")
 });
-router.get("/PartChild", function(){
-  res.render("partchild")
+
+
+// router.get("/PartChild", function(){
+  
+//   res.redirect("http://localhost:3000/PartChild")
+
+// });
+router.get("/partData/:id", function(req, res){
+  
+  res.render("partchild");
+
 });
 
 router.post("/actionPart", async function(req, res){
@@ -107,9 +116,9 @@ router.post("/actionPart", async function(req, res){
 			});
     })
   }
-  if(action == "PartChild"){
-    
-  }
+
+
+
 })
 
 module.exports = router;

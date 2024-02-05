@@ -26,6 +26,12 @@ router.get("/checkSheet", function(req, res){
 router.get("/partData", function(req, res){
   res.render("partData")
 });
+router.get("/partData/:id", function(req, res){
+  
+  res.render("partchild");
+  
+
+});
 
 
 module.exports = router;

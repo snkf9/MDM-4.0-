@@ -35,7 +35,7 @@ app.use('/partData',partData);
 app.use('/checkSheet', checkSheet);
 app.use('/measuare', measuare);
 app.use('/tool', toolrouter);
-app.use('/PartChild', partchildrouter);
+app.use('/partData/:id', partchildrouter);
 
 // app.use('/manager',stdRouter);
 

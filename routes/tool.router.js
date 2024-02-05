@@ -26,6 +26,15 @@ router.get("/checkSheet", function(req, res){
 router.get("/partData", function(req, res){
   res.render("partData")
 });
+router.get("/partData/PartChild/:id", function(req, res){
+  
+  res.render("partchild")
+
+});
+
+router.get("/partData/PartChild/*",function(req, res){
+  res.render("partchild")
+})
 
 router.post("/actionTool", async function(req, res){
   var action = req.body.actionTool;

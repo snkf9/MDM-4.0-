@@ -115,6 +115,8 @@
                     </div>
                 </div>
             </div>
+
+            
         </main>
         <footer>
             <!-- place footer here -->
@@ -224,7 +226,7 @@
                                 <td>`+data.data.recordset[count].Factory+`</td>
                                 <td>`+data.data.recordset[count].Add_date+`</td>
                                 <td><button type="button" class="btn btn-warning btn-sm edit" data-id="`+data.data.recordset[count].Id+`">Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm delete" data-id="`+data.data.recordset[count].Id+`">Delete</button>
-                                    &nbsp;<button type="button" class="btn btn-success btn-sm open" data-id="`+data.data.recordset[count].Id+`">Open</button></td>
+                                    &nbsp;<form method="GET" action=""/partData/"`+data.data.recordset[count].Id+`"?id="`+data.data.recordset[count].Id+`" ><button type="submit" class="btn btn-success btn-sm open" >Open</button></form></td>
                             
                             </tr>
                             `;
@@ -347,17 +349,21 @@
 
                     });
 
-                $(document).on('click','.open', function(){
-                    var id = $(this).data('id');
+                // $(document).on('click', '.open', function(){
+                //     var id = $(this).data('id');
+                //     console.log(id);
+                //     $.ajax({
+                //         path:"partData/PartChild/:id",
+                //         method:"get",
+                //         data:{id:id},
+                //         dataType:"JSON",
+                //     })
+                    
 
-                    $.ajax({
-                        url:"http://localhost:3000/partData/actionPart",
-                        method: "POST",
-                        data: {id:id, actionPart:'PartChild'},
-                        
-                        dataType:"JSON"
+                // }) ;
 
-                    })
-                });
+
+
+               
     })
 </script>
