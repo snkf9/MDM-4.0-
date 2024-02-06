@@ -33,8 +33,8 @@ router.get("/partData/:id",function(req, res){
 })
 module.exports = router;
 
-router.post("/action", async function(req, res){
-  var action = req.body.actionPart;
+router.post("/actionpc", async function(req, res){
+  var action = req.body.actionpc;
   var id= req.params.id;
   console.log(id);
     if(action == 'getAllPart'){
@@ -50,7 +50,7 @@ router.post("/action", async function(req, res){
   if(action == 'getOnePart')
   {
     var pool =await conn;
-    var id = req.params.id;
+    var id = req.body.id;
     console.log(id);
     var query = "SELECT * FROM Partdata WHERE Id = " +id;
     
@@ -63,7 +63,8 @@ router.post("/action", async function(req, res){
   }
   if(action == "editPart"){
     var pool = await conn;
-    var id = req.body.id;
+    var id = req.params.id;
+    console.log(id);
     var query = `UPDATE Partdata SET Mold_No = @mold_no , Name_part = @name_part , Factory = @factory_p , Dia_no= @dia_no  WHERE Id = ` +id;
     return await pool.request()
       .input('mold_no', sql.VarChar , req.body.mold_no)

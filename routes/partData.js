@@ -55,6 +55,7 @@ router.post("/actionPart", async function(req, res){
   {
     var pool =await conn;
     var id = req.body.id;
+    
     var query = "SELECT * FROM Partdata WHERE Id = " +id;
     
     return await pool.request()

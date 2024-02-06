@@ -226,7 +226,7 @@
                                 <td>`+data.data.recordset[count].Factory+`</td>
                                 <td>`+data.data.recordset[count].Add_date+`</td>
                                 <td><button type="button" class="btn btn-warning btn-sm edit" data-id="`+data.data.recordset[count].Id+`">Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm delete" data-id="`+data.data.recordset[count].Id+`">Delete</button>
-                                    &nbsp;<form method="GET" action=""/partData/"`+data.data.recordset[count].Id+`"?id="`+data.data.recordset[count].Id+`" ><button type="submit" class="btn btn-success btn-sm open" >Open</button></form></td>
+                                    &nbsp;<form method="get" action="/partData/`+data.data.recordset[count].Id+`" ><button type="submit" class="btn btn-success btn-sm open" >Open</button></form></td>
                             
                             </tr>
                             `;

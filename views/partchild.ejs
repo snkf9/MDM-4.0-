@@ -79,6 +79,48 @@
                     
                 </div>
             </nav>
+            <nav class="navbar navbar-expand-sm navbar-light" style="background-color: #c1cad0;">
+                
+                <div class="collapse navbar-collapse" id="collapsibleNavId1">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        
+                        <li class="nav-item active">
+                            <form method="GET" action="" class="form-inline my-2 my-lg-0">
+                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;"></button>
+                            </form>
+                        </li>
+
+                        <li class="nav-item active">
+                            <form method="GET" action="/manager" class="form-inline my-2 my-lg-0">
+                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;">USERS</button>
+                            </form>
+                        </li>
+
+                        <li class="nav-item active">
+                            <form method="GET" action="/partData" class="form-inline my-2 my-lg-0">
+                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;">PART DATA</button>
+                            </form>
+                        </li>
+
+                        <li class="nav-item active">
+                            <form method="GET" action="/measuare" class="form-inline my-2 my-lg-0">
+                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;">MEASUARE</button>
+                            </form>
+                        </li>
+
+                        <li class="nav-item active">
+                            <form method="GET" action="/checkSheet" class="form-inline my-2 my-lg-0">
+                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;">CHECK SHEET</button>
+                            </form>
+                        </li>
+
+                        
+
+                    </ul>
+                    
+                </div>
+            </nav>
+            
         </header>
         <main>
             <div class="container">
@@ -225,20 +267,17 @@
 
     
     $(document).ready(function(){
-        
-        load_datapart_child();
-        
-        
+        var id = window.location.pathname.slice(10);
 
+        load_datapart_child();
         function load_datapart_child()
         {
-            var id= location.search;
-            console.log(id);
+           
             $.ajax({
-                url: "http://localhost:3000" + location.pathname + "/action",
+                url: "http://localhost:3000" + window.location.pathname+ "/actionpc",
 
                 method:"POST",
-                data:{id:"1", action:'getOnePart'},
+                data:{id:id, actionpc:'getOnePart'},
                 dataType : "JSON",
                 success:function(data){
                     
@@ -249,18 +288,53 @@
                             html += `
                             <tr>
                                 <td>`+data.data.recordset[0].Id+`</td>
+                                <td>`+data.data.recordset[0].Customer+`</td>
+                                <td>`+data.data.recordset[0].Model+`</td>                                           
                                 <td>`+data.data.recordset[0].Mold_No+`</td>
-                                <td>`+data.data.recordset[0].Name_part+`</td>                                           
+                                <td>`+data.data.recordset[0].Name_part+`</td>
                                 <td>`+data.data.recordset[0].Part_no+`</td>
-                                <td>`+data.data.recordset[0].Dia_no+`</td>
+                                <td>`+data.data.recordset[0].Die_no+`</td>
                                 <td>`+data.data.recordset[0].Factory+`</td>
-                                <td>`+data.data.recordset[0].Add_date+`</td>
                                 
                             </tr>
                             `;
 
                     $('#part_data_child_table_1 tbody').html(html);
                     
+                    var html1 = '';
+ 
+                                html1 += `
+                                <tr>
+                                    <td>`+data.data.recordset[0].DWGrey+`</td>
+                                    <td>`+data.data.recordset[0].Material+`</td>
+                                    <td>`+data.data.recordset[0].Reg+`</td>                                           
+                                    <td>`+data.data.recordset[0].His_No+`</td>
+                                    <td>`+data.data.recordset[0].No_of_cav+`</td>
+                                    <td>`+data.data.recordset[0].Special_Cavity_Designation+`</td>
+                                    <td>`+data.data.recordset[0].Specifical_Cav+`</td>
+                                    
+                                </tr>
+                                `;
+
+                                $('#part_data_child_table_2 tbody').html(html1);
+                    
+                                var html2 = '';
+ 
+                                html2 += `
+                                <tr>
+                                    <td>`+data.data.recordset[0].Add_date+`</td>
+                                    <td>`+data.data.recordset[0].Rev_No+`</td>
+                                    <td>`+data.data.recordset[0].Ilustration+`</td>                                           
+                                    <td>`+data.data.recordset[0].Apperance_Caution+`</td>
+                                    <td>`+data.data.recordset[0].Measure_instruction+`</td>
+                                    <td>`+data.data.recordset[0].Drawing_file+`</td>
+                                    <td>`+data.data.recordset[0].His_file+`</td>
+                                    
+                                </tr>
+                                `;
+
+                                $('#part_data_child_table_3 tbody').html(html2);
+
                     }
 
                 }
