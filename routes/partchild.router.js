@@ -28,15 +28,20 @@ router.get("/partData", function(req, res){
 });
 
 
-router.get("/partData/:id",function(req, res){
+router.get("/partData/PartChild",function(req, res){
   res.render("partchild")
 })
 module.exports = router;
 
 router.post("/actionpc", async function(req, res){
   var action = req.body.actionpc;
-  var id= req.params.id;
-  console.log(id);
+  var id = req.body.id;
+  
+  // const urlValue= window.location.search;
+  // const urlParams = new URLSearchParams(urlValue);
+  // const id = urlParams.get('partId');
+    
+
     if(action == 'getAllPart'){
     var pool =await conn;
     var query = "SELECT * FROM Partdata ";
@@ -50,10 +55,9 @@ router.post("/actionpc", async function(req, res){
   if(action == 'getOnePart')
   {
     var pool =await conn;
-    var id = req.body.id;
-    console.log(id);
-    var query = "SELECT * FROM Partdata WHERE Id = " +id;
     
+    var query = "SELECT * FROM Partdata WHERE Id = " +id;
+   
     return await pool.request()
     .query(query, function(err, data){
       

@@ -226,7 +226,7 @@
                                 <td>`+data.data.recordset[count].Factory+`</td>
                                 <td>`+data.data.recordset[count].Add_date+`</td>
                                 <td><button type="button" class="btn btn-warning btn-sm edit" data-id="`+data.data.recordset[count].Id+`">Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm delete" data-id="`+data.data.recordset[count].Id+`">Delete</button>
-                                    &nbsp;<form method="get" action="/partData/`+data.data.recordset[count].Id+`" ><button type="submit" class="btn btn-success btn-sm open" >Open</button></form></td>
+                                    &nbsp;<form method="get" action="/partData/PartChild" ><button type="submit" class="btn btn-success btn-sm open" >Open</button><input type="hidden"name="partId" value="`+data.data.recordset[count].Id+`"></input></form></td>
                             
                             </tr>
                             `;
@@ -349,18 +349,18 @@
 
                     });
 
-                // $(document).on('click', '.open', function(){
-                //     var id = $(this).data('id');
-                //     console.log(id);
-                //     $.ajax({
-                //         path:"partData/PartChild/:id",
-                //         method:"get",
-                //         data:{id:id},
-                //         dataType:"JSON",
-                //     })
+                $(document).on('click', '.open', function(){
+                    var id = $(this).data('id');
+                    console.log(id);
+                    $.ajax({
+                        path:"partData/PartChild/:id",
+                        method:"get",
+                        data:{id:id},
+                        dataType:"JSON",
+                    })
                     
 
-                // }) ;
+                }) ;
 
 
 

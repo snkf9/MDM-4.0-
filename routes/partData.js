@@ -33,7 +33,7 @@ router.get("/partData", function(req, res){
 //   res.redirect("http://localhost:3000/PartChild")
 
 // });
-router.get("/partData/:id", function(req, res){
+router.get("/partData/PartChild", function(req, res){
   
   res.render("partchild");
 

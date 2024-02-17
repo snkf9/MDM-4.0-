@@ -85,35 +85,34 @@
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         
                         <li class="nav-item active">
-                            <form method="GET" action="" class="form-inline my-2 my-lg-0">
-                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;"></button>
+                            <form  method="GET" action="/partData/PartChild" class="form-inline my-2 my-lg-0">
+                                <input type="hidden" id="pc_sc" name="partId" >
+                                <button class="btn btn-secondary btn-lg" id="btt_pc" type="submit" style="margin-right: 0.5em;">Part data</button>
+                                
+
                             </form>
                         </li>
 
                         <li class="nav-item active">
-                            <form method="GET" action="/manager" class="form-inline my-2 my-lg-0">
-                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;">USERS</button>
+                            <form method="GET" action="/partData/acheckpoint" class="form-inline my-2 my-lg-0">
+                                <input type="hidden" id="pc_sc" name="partId" >
+                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;">A checkpoint</button>
                             </form>
                         </li>
 
                         <li class="nav-item active">
-                            <form method="GET" action="/partData" class="form-inline my-2 my-lg-0">
-                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;">PART DATA</button>
+                            <form method="GET" action="/partData/bcheckpoint" class="form-inline my-2 my-lg-0">
+                                <input type="hidden" id="pc_sc" name="partId" >
+                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;">B check point</button>
                             </form>
                         </li>
 
                         <li class="nav-item active">
-                            <form method="GET" action="/measuare" class="form-inline my-2 my-lg-0">
+                            <form method="GET" action="/partData/revision" class="form-inline my-2 my-lg-0">
+                                <input type="hidden" id="pc_sc" name="partId" >
                                 <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;">MEASUARE</button>
                             </form>
                         </li>
-
-                        <li class="nav-item active">
-                            <form method="GET" action="/checkSheet" class="form-inline my-2 my-lg-0">
-                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;">CHECK SHEET</button>
-                            </form>
-                        </li>
-
                         
 
                     </ul>
@@ -267,14 +266,17 @@
 
     
     $(document).ready(function(){
-        var id = window.location.pathname.slice(10);
-
+        // var id = window.location.pathname.slice(10);
+        const urlValue= window.location.search;
+        const urlParams = new URLSearchParams(urlValue);
+        const id = urlParams.get('partId');
+        $('#pc_sc').val(id);
         load_datapart_child();
         function load_datapart_child()
         {
            
             $.ajax({
-                url: "http://localhost:3000" + window.location.pathname+ "/actionpc",
+                url:  "http://localhost:3000" + window.location.pathname+ "/actionpc",
 
                 method:"POST",
                 data:{id:id, actionpc:'getOnePart'},
@@ -293,14 +295,15 @@
                                 <td>`+data.data.recordset[0].Mold_No+`</td>
                                 <td>`+data.data.recordset[0].Name_part+`</td>
                                 <td>`+data.data.recordset[0].Part_no+`</td>
-                                <td>`+data.data.recordset[0].Die_no+`</td>
+                                <td>`+data.data.recordset[0].Dia_no+`</td>
                                 <td>`+data.data.recordset[0].Factory+`</td>
                                 
                             </tr>
                             `;
 
                     $('#part_data_child_table_1 tbody').html(html);
-                    
+                }
+                {    
                     var html1 = '';
  
                                 html1 += `
@@ -317,7 +320,8 @@
                                 `;
 
                                 $('#part_data_child_table_2 tbody').html(html1);
-                    
+                            }
+                            {    
                                 var html2 = '';
  
                                 html2 += `
@@ -341,5 +345,9 @@
             });
         }
     });
+
+
+
+    
 
 </script>
