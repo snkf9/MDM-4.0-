@@ -30,6 +30,12 @@ router.get("/partData", function(req, res){
 router.get("/partData/PartChild",function(req, res){
   res.render("partchild")
 })
+router.get("/partData/acheckpoint",function(req, res){
+  res.render("aCheckPoint")
+})
+router.get("/partData/bcheckpoint",function(req, res){
+res.render("bCheckPoint")
+})
 
 module.exports = router;
 

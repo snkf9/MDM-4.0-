@@ -9,9 +9,11 @@ var usersRouter = require('./routes/users');
 var managerRouter = require('./routes/manager.router');
 var partData = require('./routes/partData');
 var checkSheet = require('./routes/checkSheet');
-var measuare = require('./routes/measuare')
-var toolrouter = require('./routes/tool.router')
-var partchildrouter = require('./routes/partchild.router')
+var measuare = require('./routes/measuare');
+var toolrouter = require('./routes/tool.router');
+var partchildrouter = require('./routes/partchild.router');
+var acheckpointrouter = require('./routes/aCheckPoint.router');
+var bcheckpointrouter = require('./routes/bCheckpoint.router');
 var app = express();
 
 // view engine setup
@@ -36,7 +38,8 @@ app.use('/checkSheet', checkSheet);
 app.use('/measuare', measuare);
 app.use('/tool', toolrouter);
 app.use('/partData/:id', partchildrouter);
-
+app.use('/partData/acheckpoint', acheckpointrouter);
+app.use('/partData/bcheckpoint', bcheckpointrouter);
 // app.use('/manager',stdRouter);
 
 // catch 404 and forward to error handler
