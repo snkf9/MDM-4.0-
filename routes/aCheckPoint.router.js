@@ -71,6 +71,39 @@ router.post("/actionac", async function(req, res){
   
     });
   }
+  if(action == "addPart"){
+    var pool = await conn;
+    var id = req.body.id;
+    var query =  `
+		INSERT INTO Partdata
+		(Item_No , Check_content ,Specs, Tool , Eng , Sp_Jig, QA , QA_Sample_size, QA_Frequence, IQPC , IQPC_Sample_size, IQPC_Frequence, OQC , OQC_Sample_size, OQC_Frequence) 
+		VALUES (@item_no, @check_content, @specs, @tool, @eng , @sp_jig, @qa, @qa_size, @qa_frequence, @iqpc, @iqpc_size, @iqpc_frequence, @oqc, @oqc_size, @oqc_frequence )
+		`;
+    
+    return await pool.request()
+      .input('item_no', sql.VarChar , req.body.item_no)
+      .input('check_content', sql.NVarChar , req.body.check_content)
+      .input('specs', sql.NVarChar , req.body.specs)
+      .input('tool', sql.NVarChar , req.body.tool)
+      .input('eng', sql.Int , req.body.eng)
+      .input('sp_jig', sql.NVarChar , req.body.sp_jig)
+      .input('qa', sql.Bit , req.body.qa)
+      .input('qa_size', sql.Bit , req.body.qa_size)
+      .input('qa_frequence', sql.Bit , req.body.qa_frequence)
+      .input('oqc', sql.Bit, req.body.oqc)
+      .input('oqc_size', sql.NVarChar , req.body.oqc_size)
+      .input('oqc_frequence', sql.NVarChar , req.body.oqc_frequence)
+      .input('iqpc', sql.Bit , req.body.iqpc)
+      .input('iqpc_size', sql.Bit , req.body.iqpc_size)
+      .input('iqpc_frequence', sql.Bit , req.body.iqpc_frequence)
+      .query(query, function(err, data){
+        console.log(err);
+        res.json({
+          message : 'Data Added'
+        });
+      });
+
+  }
   if(action == "editPart"){
     var pool = await conn;
     var id = req.params.id;
