@@ -122,12 +122,15 @@
             
         </header>
         <main>
+            
             <div class="container">
                 <h1 class="mt-4 mb-4 text-center text-primary"><b></b></h1>
                 
                 <span id="message_part"></span>
                 <div class="card">
-
+                    <div class="col col-sm-3">
+                        <button type="button" id="editpart" class="btn btn-success btn-sm float-end">Edit</button>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-compact " id="part_data_child_table_1">
@@ -217,11 +220,34 @@
                     <div class="mb-3">
                         <label class="form-label">Customer</label>
                         <input type="text" name="customer"  id="customer" class="form-control" value="" />
+                        
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Model</label>
                         <input type="text" name="model"  id="model" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Mold No</label>
+                        <input type="text" name="mold_no"  id="mold_no" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Name part</label>
+                        <input type="text" name="namepart"  id="namepart" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Part No</label>
+                        <input type="text" name="part_no"  id="part_no" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Dia No</label>
+                        <input type="text" name="diano"  id="model" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Reg</label>
+                        <input type="text" name="reg"  id="reg" class="form-control" />
                     </div>
                 
                     <div class="mb-3">
@@ -234,13 +260,58 @@
                         <input type="text" name="material"  id="material" class="form-control" />
                     </div>
 
+                 
+
                     <div class="mb-3">
-                        <label class="form-label">Reg</label>
-                        <input type="text" name="reg"  id="reg" class="form-control" />
+                        <label class="form-label">No of CAV</label>
+                        <input type="text" name="no_of_cav"  id="no_of_cav" class="form-control" />
                     </div>
 
+                
+
+                    <div class="mb-3">
+                        <label class="form-label">Special Cavity Designation</label>
+                        <input type="text" name="special_CD"  id="special_CD" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Specifical CAV</label>
+                        <input type="text" name="specifical_cav"  id="specifical_cav" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Rev No</label>
+                        <input type="text" name="rev_no"  id="rev_no" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Ilustration</label>
+                        <input type="text" name="ilustation"  id="ilustation" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Apperance Caution</label>
+                        <input type="text" name="apperance_caution"  id="apperance_caution" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Measuare instuction</label>
+                        <input type="text" name="measuare_instruction"  id="measuare_instruction" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Drawing file</label>
+                        <input type="text" name="drawing_file"  id="drawing_file" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">His file</label>
+                        <input type="text" name="his_file"  id="his_file" class="form-control" />
+                    </div>
+
+                   
                     <div class="mb-3" >
-                        <label class="form-label">Reg</label>
+                        <label class="form-label">Factory</label>
                         <select  id="factory_p" name="factory_p" class="form-control">
                             <option value="SVN2">SVN2</option>
                             <option value="SVN3">SVN3</option>
@@ -252,8 +323,8 @@
 
                 <div class="modal-footer">
                     <input type="hidden" name="id" id="id" />
-                    <input type="hidden" name="add_date" id="add_date" />
-                    <input type="hidden" name="actionPart" id="actionPart" value="Add" />
+                    
+                    <input type="hidden" name="actionpc" id="actionPart" value="editPart" />
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary " id="action_buttonpartdata" >Add</button>
                 </div>
@@ -270,10 +341,12 @@
         const urlValue= window.location.search;
         const urlParams = new URLSearchParams(urlValue);
         const id = urlParams.get('partId');
+        
         $('#pc_sc').val(id);
         $('#pc_sc1').val(id);
         $('#pc_sc2').val(id);
         $('#pc_sc3').val(id);
+        $('#id').val(id);
         load_datapart_child();
         function load_datapart_child()
         {
@@ -292,7 +365,7 @@
  
                             html += `
                             <tr>
-                                <td>`+data.data.recordset[0].Id+`</td>
+                                <td>`+data.data.recordset[0].Part_Id+`</td>
                                 <td>`+data.data.recordset[0].Customer+`</td>
                                 <td>`+data.data.recordset[0].Model+`</td>                                           
                                 <td>`+data.data.recordset[0].Mold_No+`</td>
@@ -347,6 +420,46 @@
                 }
             });
         }
+    
+    $('#editpart').click(function(){
+        
+                $('#partchild_dynamic_modal_title').text('Edit Part');
+
+                $('#actionpc').val('editPart');
+
+                $('#action_buttonpartdata').text('EditPart');
+
+                $('#partchild_action_modal').modal('show');
+                
+    });
+    $('#partdata_form').on('submit', function(event){
+        event.preventDefault();
+    $.ajax({
+               url:  "http://localhost:3000" + window.location.pathname+ "/actionpc",
+                method:"POST",
+                data:$('#partdata_form').serialize(),
+                dataType:"JSON",
+                beforeSend:function(){
+                    $('#action_buttonpartdata').attr('disabled', 'disabled');
+                },
+                success:function(data)
+                {
+
+                    $('#action_buttonpartdata').attr('disabled', false);
+
+                    $('#message_part').html('<div class="alert alert-success">'+data.message+'</div>');
+
+                    $('#partdata_action_modal').modal('hide');
+
+                    load_datapart_child()
+
+                    setTimeout(function(){
+                        $('#message_part').html('');
+                    }, 5000);
+                }
+            });
+        });
+
     });
 
 

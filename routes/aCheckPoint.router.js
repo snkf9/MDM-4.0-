@@ -39,7 +39,7 @@ res.render("bCheckPoint")
 })
 module.exports = router;
 
-router.post("/actionpc", async function(req, res){
+router.post("/actionac", async function(req, res){
   var action = req.body.actionpc;
   var id = req.body.id;
   

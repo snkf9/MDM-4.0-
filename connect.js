@@ -1,7 +1,7 @@
 var sql =require('mssql/msnodesqlv8');
 
 var config ={
-    server: "DESKTOP-S9TAIGG\\SQLEXPRESS",
+    server: "MAIN3\\SQLEXPRESS1",
     user  : "sa",
     port  : "1433",
     password: "123456",

@@ -133,54 +133,26 @@
                             <table class="table table-striped table-bordered table-compact " id="part_data_child_table_1">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Customer</th>
-                                        <th >Model</th>
-                                        <th>Mold No</th>
-                                        <th>Part Name</th>
-                                        <th>Part No</th>
-                                        <th>Die No</th>
-                                        <th>Factory</th>
+                                        <th></th>
+                                        <th>Item No</th>
+                                        <th>Check content</th>
+                                        <th >Specs</th>
+                                        <th>Tool</th>
+                                        <th>ENG</th>
+                                        <th>Supporting Jig</th>
+                                        <th>QA</th>
+                                        <th>QA Sample Size</th>
+                                        <th>QA Frequence</th>
+                                        <th>IQPC</th>
+                                        <th>IQPC Sample Size</th>
+                                        <th>IQPC Frequence</th>
                                         
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
                             </table>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-compact " id="part_data_child_table_2">
-                                <thead>
-                                    <tr>
-                                        
-                                        <th>DWGrew</th>
-                                        <th>Material</th>
-                                        <th>Reg</th>
-                                        <th>His No</th>
-                                        <th>No of CAV</th>
-                                        <th>Special cavity</p> Designation</th>
-                                        <th>Special </p>Cavity list</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-compact " id="part_data_child_table_3">
-                                <thead>
-                                    <tr>
-                                        <th>Data Added</th>
-                                        <th>Rev No</th>
-                                        <th>Ilustation</th>
-                                        <th>Apperance</p>Caution</th>
-                                        <th>Measuaring</p>instruction</th>
-                                        <th>Drawing File</th>
-                                        <th>History File</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -255,7 +227,7 @@
                     <input type="hidden" name="add_date" id="add_date" />
                     <input type="hidden" name="actionPart" id="actionPart" value="Add" />
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary " id="action_buttonpartdata" >Add</button>
+                    <button type="submit" class="btn btn-primary " id="action_buttonac" >Add</button>
                 </div>
             </form>
         </div>
@@ -279,71 +251,39 @@
         {
            
             $.ajax({
-                url:  "http://localhost:3000" + window.location.pathname+ "/actionpc",
+                url:  "http://localhost:3000" + window.location.pathname+ "/actionac",
 
                 method:"POST",
-                data:{id:id, actionpc:'getOnePart'},
+                data:{actionpc:'getAllPart'},
                 dataType : "JSON",
                 success:function(data){
                     
+                for(var count = 0; count < data.data.recordset.length; count++)
+                    {
                 
-                {
                     var html = '';
  
                             html += `
                             <tr>
-                                <td>`+data.data.recordset[0].Id+`</td>
-                                <td>`+data.data.recordset[0].Customer+`</td>
-                                <td>`+data.data.recordset[0].Model+`</td>                                           
-                                <td>`+data.data.recordset[0].Mold_No+`</td>
-                                <td>`+data.data.recordset[0].Name_part+`</td>
-                                <td>`+data.data.recordset[0].Part_no+`</td>
-                                <td>`+data.data.recordset[0].Dia_no+`</td>
-                                <td>`+data.data.recordset[0].Factory+`</td>
-                                
+                                <td><button type="button" class="btn btn-warning btn-sm edit" data-id="`+data.data.recordset[count].Id+`">Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm delete" data-id="`+data.data.recordset[count].Id+`">Delete</button>
+                                <td>`+data.data.recordset[0].Item_No+`</td>
+                                <td>`+data.data.recordset[0].Check_content+`</td>
+                                <td>`+data.data.recordset[0].Specs+`</td>                                           
+                                <td>`+data.data.recordset[0].Tool+`</td>
+                                <td>`+data.data.recordset[0].Eng+`</td>
+                                <td>`+data.data.recordset[0].Sp_Jig+`</td>
+                                <td>`+data.data.recordset[0].QA+`</td>
+                                <td>`+data.data.recordset[0].QA_Sample_size+`</td>
+                                <td>`+data.data.recordset[0].QA_Frequence+`</td>
+                                <td>`+data.data.recordset[0].IQPC+`</td>
+                                <td>`+data.data.recordset[0].IQPC_Sample_size+`</td>
                             </tr>
                             `;
 
                     $('#part_data_child_table_1 tbody').html(html);
                 }
-                {    
-                    var html1 = '';
- 
-                                html1 += `
-                                <tr>
-                                    <td>`+data.data.recordset[0].DWGrey+`</td>
-                                    <td>`+data.data.recordset[0].Material+`</td>
-                                    <td>`+data.data.recordset[0].Reg+`</td>                                           
-                                    <td>`+data.data.recordset[0].His_No+`</td>
-                                    <td>`+data.data.recordset[0].No_of_cav+`</td>
-                                    <td>`+data.data.recordset[0].Special_Cavity_Designation+`</td>
-                                    <td>`+data.data.recordset[0].Specifical_Cav+`</td>
-                                    
-                                </tr>
-                                `;
-
-                                $('#part_data_child_table_2 tbody').html(html1);
-                            }
-                            {    
-                                var html2 = '';
- 
-                                html2 += `
-                                <tr>
-                                    <td>`+data.data.recordset[0].Add_date+`</td>
-                                    <td>`+data.data.recordset[0].Rev_No+`</td>
-                                    <td>`+data.data.recordset[0].Ilustration+`</td>                                           
-                                    <td>`+data.data.recordset[0].Apperance_Caution+`</td>
-                                    <td>`+data.data.recordset[0].Measure_instruction+`</td>
-                                    <td>`+data.data.recordset[0].Drawing_file+`</td>
-                                    <td>`+data.data.recordset[0].His_file+`</td>
-                                    
-                                </tr>
-                                `;
-
-                                $('#part_data_child_table_3 tbody').html(html2);
-
-                    }
-
+            
+              
                 }
             });
         }
