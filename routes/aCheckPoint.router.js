@@ -73,9 +73,9 @@ router.post("/actionac", async function(req, res){
   }
   if(action == "addPart"){
     var pool = await conn;
-    var id = req.body.id;
+    
     var query =  `
-		INSERT INTO Partdata
+		INSERT INTO ApprearanceCheckpoint
 		(Item_No , Check_content ,Specs, Tool , Eng , Sp_Jig, QA , QA_Sample_size, QA_Frequence, IQPC , IQPC_Sample_size, IQPC_Frequence, OQC , OQC_Sample_size, OQC_Frequence) 
 		VALUES (@item_no, @check_content, @specs, @tool, @eng , @sp_jig, @qa, @qa_size, @qa_frequence, @iqpc, @iqpc_size, @iqpc_frequence, @oqc, @oqc_size, @oqc_frequence )
 		`;

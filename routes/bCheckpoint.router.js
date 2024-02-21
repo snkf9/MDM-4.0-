@@ -39,7 +39,7 @@ res.render("bCheckPoint")
 })
 module.exports = router;
 
-router.post("/actionpc", async function(req, res){
+router.post("/actionac", async function(req, res){
   var action = req.body.actionpc;
   var id = req.body.id;
   
@@ -50,7 +50,7 @@ router.post("/actionpc", async function(req, res){
 
     if(action == 'getAllPart'){
     var pool =await conn;
-    var query = "SELECT * FROM Partdata ";
+    var query = "SELECT * FROM Dim_checkpoint ";
     return await pool.request()
     .query(query, function(err, data){
       res.json({
@@ -62,7 +62,7 @@ router.post("/actionpc", async function(req, res){
   {
     var pool =await conn;
     
-    var query = "SELECT * FROM Partdata WHERE Id = " +id;
+    var query = "SELECT * FROM Dim_checkpoint WHERE Partid = " +id;
    
     return await pool.request()
     .query(query, function(err, data){
@@ -71,17 +71,50 @@ router.post("/actionpc", async function(req, res){
   
     });
   }
+  if(action == "addPart"){
+    var pool = await conn;
+    var id = req.body.id;
+    var query =  `
+		INSERT INTO Dim_checkpoint
+		(Item_No , Check_content ,Specs, Tool , Eng , Sp_Jig, QA , QA_Sample_size, QA_Frequence, IQPC , IQPC_Sample_size, IQPC_Frequence, OQC , OQC_Sample_size, OQC_Frequence) 
+		VALUES (@item_no, @check_content, @specs, @tool, @eng , @sp_jig, @qa, @qa_size, @qa_frequence, @iqpc, @iqpc_size, @iqpc_frequence, @oqc, @oqc_size, @oqc_frequence )
+		`;
+    
+    return await pool.request()
+      .input('item_no', sql.VarChar , req.body.item_no)
+      .input('check_content', sql.NVarChar , req.body.check_content)
+      .input('specs', sql.NVarChar , req.body.specs)
+      .input('tool', sql.NVarChar , req.body.tool)
+      .input('eng', sql.Int , req.body.eng)
+      .input('sp_jig', sql.NVarChar , req.body.sp_jig)
+      .input('qa', sql.Bit , req.body.qa)
+      .input('qa_size', sql.Bit , req.body.qa_size)
+      .input('qa_frequence', sql.Bit , req.body.qa_frequence)
+      .input('oqc', sql.Bit, req.body.oqc)
+      .input('oqc_size', sql.NVarChar , req.body.oqc_size)
+      .input('oqc_frequence', sql.NVarChar , req.body.oqc_frequence)
+      .input('iqpc', sql.Bit , req.body.iqpc)
+      .input('iqpc_size', sql.Bit , req.body.iqpc_size)
+      .input('iqpc_frequence', sql.Bit , req.body.iqpc_frequence)
+      .query(query, function(err, data){
+        console.log(err);
+        res.json({
+          message : 'Data Added'
+        });
+      });
+
+  }
   if(action == "editPart"){
     var pool = await conn;
     var id = req.params.id;
     console.log(id);
-    var query = `UPDATE Partdata SET Mold_No = @mold_no , Name_part = @name_part , Factory = @factory_p , Dia_no= @dia_no  WHERE Id = ` +id;
+    var query = `UPDATE Dim_checkpoint SET Check_content = @checkcontent , Name_part = @name_part , Factory = @factory_p , Dia_no= @dia_no  WHERE Id = ` +id;
     return await pool.request()
-      .input('mold_no', sql.VarChar , req.body.mold_no)
-      .input('name_part', sql.VarChar , req.body.name_part)
-      .input('factory_p', sql.VarChar , req.body.factory_p)
-      .input('part_no', sql.NVarChar , req.body.part_no)
-      .input('dia_no', sql.NVarChar , req.body.dia_no)
+      .input('checkcontent', sql.VarChar , req.body.mold_no)
+      .input('Specs', sql.VarChar , req.body.name_part)
+      .input('tool', sql.VarChar , req.body.factory_p)
+      .input('Eng', sql.NVarChar , req.body.part_no)
+      .input('Sp_Jig', sql.NVarChar , req.body.dia_no)
         
       .query(query, function(err, data){
         console.log(err);
