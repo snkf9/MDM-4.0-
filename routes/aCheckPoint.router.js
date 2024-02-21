@@ -73,11 +73,11 @@ router.post("/actionac", async function(req, res){
   }
   if(action == "addPart"){
     var pool = await conn;
-    
+
     var query =  `
 		INSERT INTO ApprearanceCheckpoint
-		(Item_No , Check_content ,Specs, Tool , Eng , Sp_Jig, QA , QA_Sample_size, QA_Frequence, IQPC , IQPC_Sample_size, IQPC_Frequence, OQC , OQC_Sample_size, OQC_Frequence) 
-		VALUES (@item_no, @check_content, @specs, @tool, @eng , @sp_jig, @qa, @qa_size, @qa_frequence, @iqpc, @iqpc_size, @iqpc_frequence, @oqc, @oqc_size, @oqc_frequence )
+		(Item_No , Check_content ,Specs, Tool , Eng , Sp_Jig , QA , QA_Sample_size, QA_Frequence, IQPC , IQPC_Sample_size, IQPC_Frequence, OQC , OQC_Sample_size, OQC_Frequence) 
+		VALUES (@item_no, @check_content, @specs, @tool, @eng5 , @sp_jig, @qa, @qa_size, @qa_frequence, @iqpc, @iqpc_size, @iqpc_frequence, @oqc, @oqc_size, @oqc_frequence )
 		`;
     
     return await pool.request()
@@ -85,14 +85,14 @@ router.post("/actionac", async function(req, res){
       .input('check_content', sql.NVarChar , req.body.check_content)
       .input('specs', sql.NVarChar , req.body.specs)
       .input('tool', sql.NVarChar , req.body.tool)
-      .input('eng', sql.Int , req.body.eng)
+      .input('eng5', sql.Bit , req.body.eng5)
       .input('sp_jig', sql.NVarChar , req.body.sp_jig)
       .input('qa', sql.Bit , req.body.qa)
       .input('qa_size', sql.Bit , req.body.qa_size)
       .input('qa_frequence', sql.Bit , req.body.qa_frequence)
       .input('oqc', sql.Bit, req.body.oqc)
-      .input('oqc_size', sql.NVarChar , req.body.oqc_size)
-      .input('oqc_frequence', sql.NVarChar , req.body.oqc_frequence)
+      .input('oqc_size', sql.Bit , req.body.oqc_size)
+      .input('oqc_frequence', sql.Bit , req.body.oqc_frequence)
       .input('iqpc', sql.Bit , req.body.iqpc)
       .input('iqpc_size', sql.Bit , req.body.iqpc_size)
       .input('iqpc_frequence', sql.Bit , req.body.iqpc_frequence)

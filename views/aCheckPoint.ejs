@@ -217,76 +217,63 @@
                         <input type="text" name="tool"  id="tool" class="form-control" />
                     </div>
 
-                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                        <input type="checkbox" class="btn-check" name="eng"  id="eng" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="eng">ENG</label>
-                    </div>
 
                     <div class="mb-3">
                         <label class="form-label">Supporting Jig</label>
                         <input type="text" name="sp_jig"  id="sp_jig" class="form-control" />
                         
                     </div>
+
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="eng5" id="eng5" value="true">
+                            <label class="form-check-label" for="eng">ENG</label>
+                        </div>
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="true" name="qa"  id="qa">
+                             <label class="form-check-label" for="inlineCheckbox2">QA</label>
+                        </div>
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="qa_size"  id="qa_size" value="true" >
+                             <label class="form-check-label" for="inlineCheckbox3">QA Sample Size</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="qa_frequence" id="qa_frequence" value="true">
+                            <label class="form-check-label" for="inlineCheckbox1">QA frequence</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="true" name="iqpc"  id="iqpc">
+                            <label class="form-check-label" for="inlineCheckbox2">IQPC</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="iqpc_size"  id="iqpc_size" value="true" >
+                            <label class="form-check-label" for="inlineCheckbox3">IQPC Sample Size</label>
+                        </div>
+
+                    </div>
                     
-                    <div class="form-check form-check-inline">
-                        <label class="form-label">ENG</label>
-                        <input class="form-check-input" type="radio" name="eng" id="eng1" value="true">
-                        <label class="form-check-label" for="eng1"></label>
-                      </div>
-                      <div class="form-check form-check-inline" type="hidden">
-                        <input class="form-check-input" type="radio" name="eng" id="eng2" value="false" checked>
-                        <label class="form-check-label" for="eng2" type="hidden"></label>
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="iqpc_frequence" id="iqpc_frequence" value="true">
+                            <label class="form-check-label" for="inlineCheckbox1">IQPC Frequence</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="true" name="oqc"  id="oqc">
+                            <label class="form-check-label" for="inlineCheckbox2">OQC</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="oqc_size"  id="oqc_size" value="true" >
+                            <label class="form-check-label" for="inlineCheckbox3">OQC Sample Size</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="oqc_frequence"  id="oqc_frequence" value="true" >
+                            <label class="form-check-label" for="inlineCheckbox3">OQC Frequrnce</label>
+                        </div>
+
                     </div>
-                       
-                    
-
-
-                    <input type="checkbox" name="acceptRules" class="inline checkbox" id="checkbox1" value="false">
-
-                    <input name="ag" type="hidden" id="checkbox-value">
-
-                        <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="true" name="qa"  id="qa">
-                        <label class="form-check-label" for="eng">
-                            QA
-                        </label>
-                    </div>
-
-                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                        
-                        <input type="checkbox" class="btn-check" name="qa"  id="qa" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="qa"></label>
-                      
-                        <input type="checkbox" class="btn-check" name="qa_size"  id="qa_size" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="qa_size">QA sample</p>size</label>
-                      
-                        <input type="checkbox" class="btn-check" name="qa_frequence"  id="qa_frequence" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="qa_frequence">QA</p>frequence</label>
-                    </div>
-
-                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                        <input type="checkbox" class="btn-check" name="iqpc"  id="iqpc" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="iqpc">IQPC</label>
-                      
-                        <input type="checkbox" class="btn-check" name="iqpc_size"  id="iqpc_size" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="iqpc_size">IQPC sample</p>size</label>
-                      
-                        <input type="checkbox" class="btn-check" name="iqpc_frequence"  id="iqpc_frequence" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="iqpc_frequence">IQPC</p>frequence</label>
-                    </div>
-
-                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                        <input type="checkbox" class="btn-check" name="oqc"  id="oqc" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="oqc">OQC</label>
-                      
-                        <input type="checkbox" class="btn-check" name="oqc_size"  id="oqc_size" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="oqc_size">OQC sample</p>size</label>
-                      
-                        <input type="checkbox" class="btn-check" name="oqc_frequence"  id="oqc_frequence" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="oqc_frequence">OQC</p>frequence</label>
-                    </div>
-
-                    
                     
 
                 </div>
@@ -294,7 +281,6 @@
                 <div class="modal-footer">
                     <input type="hidden" name="id" id="id" />
                     <input type="hidden" name="partid" id="partid" />
-                    <input type="hidden" name="aa" id="aa" />
                     <input type="hidden" name="actionpc" id="actionac" value="addPart" />
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary " id="action_buttonac" >Add</button>
@@ -310,6 +296,8 @@
     $("#checkbox1").on('change', function() {
     if ($(this).is(':checked')) {
         $(this).attr('value', 'true');
+        var i = document.getElementById(checkbox1);
+        $('#aa').val(i);
     } else {
         $(this).attr('value', 'false');
     }
@@ -345,26 +333,87 @@
                 
                 
                     var html = '';
+                    
                     for(var count = 0; count < data.data.recordset.length; count++)
-                    {    
+                    {     
+                        var ac= data.data.recordset[count].Tool;
+                        if (ac == null){var bd="";}
+                        else {var bd= data.data.recordset[count].Tool;}
+
+                        var a1= data.data.recordset[count].Specs;
+                        if (a1 == null){var b1="";}
+                        else {var b1= data.data.recordset[count].Specs;}
+
+                        var ac= data.data.recordset[count].Tool;
+                        if (ac == null){var bd="";}
+                        else {var bd= data.data.recordset[count].Tool;}
+
+                        var ad= data.data.recordset[count].Check_content;
+                        if (ad == null){var be="";}
+                        else {var be= data.data.recordset[count].Check_content;}
+
+                        var a= data.data.recordset[count].QA;
+                        if (a == null){var b="";}
+                        else {var b= data.data.recordset[count].QA;}
+
+                        var ab= data.data.recordset[count].QA_Sample_size;
+                        if (ab == null){var bc="";}
+                        else {var bc= data.data.recordset[count].QA_Sample_size;}
+
+                        var ba= data.data.recordset[count].QA_Frequence;
+                        if (ba == null){var cd="";}
+                        else {var cd= data.data.recordset[count].QA_Frequence;}
+
+                        var a2= data.data.recordset[count].Eng;
+                        if (a2 == null){var b2="";}
+                        else {var b2= data.data.recordset[count].Eng;}
+
+                        var a3= data.data.recordset[count].Sp_Jig;
+                        if (a3 == null){var b3="";}
+                        else {var b3= data.data.recordset[count].Sp_Jig;}
+
+                        var a4= data.data.recordset[count].IQPC;
+                        if (a4 == null){var b4="";}
+                        else {var b4= data.data.recordset[count].IQPC;}
+
+                        var a5= data.data.recordset[count].IQPC_Sample_size;
+                        if (a5 == null){var b5="";}
+                        else {var b5= data.data.recordset[count].IQPC_Sample_size;}
+
+                        var a6= data.data.recordset[count].IQPC_Frequence;
+                        if (a6 == null){var b6="";}
+                        else {var b6= data.data.recordset[count].IQPC_Frequence;}
+
+                        var a7= data.data.recordset[count].OQC;
+                        if (a7 == null){var b7="";}
+                        else {var b7= data.data.recordset[count].OQC;}
+
+                        var a8= data.data.recordset[count].OQC_Sample_size;
+                        if (a8 == null){var b8="";}
+                        else {var b8= data.data.recordset[count].OQC_Sample_size;}
+                       
+                        var a9= data.data.recordset[count].OQC_Frequence;
+                        if (a9 == null){var b9="";}
+                        else {var b9= data.data.recordset[count].OQC_Frequence;}
                             html += `
                             <tr>
                                 <td><button type="button" class="btn btn-warning btn-sm edit" data-id="`+data.data.recordset[count].Id+`">Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm delete" data-id="`+data.data.recordset[count].Id+`">Delete</button>
                                 <td>`+data.data.recordset[count].Item_No+`</td>
-                                <td>`+data.data.recordset[count].Check_content+`</td>
-                                <td>`+data.data.recordset[count].Specs+`</td>                                           
-                                <td>`+data.data.recordset[count].Tool+`</td>
-                                <td>`+data.data.recordset[count].Eng+`</td>
-                                <td>`+data.data.recordset[count].Sp_Jig+`</td>
-                                <td>`+data.data.recordset[count].QA+`</td>
-                                <td>`+data.data.recordset[count].QA_Sample_size+`</td>
-                                <td>`+data.data.recordset[count].QA_Frequence+`</td>
-                                <td>`+data.data.recordset[count].IQPC+`</td>
-                                <td>`+data.data.recordset[count].IQPC_Sample_size+`</td>
-                                <td>`+data.data.recordset[count].IQPC_Frequence+`</td>
-                                <td>`+data.data.recordset[count].OQC+`</td>
-                                <td>`+data.data.recordset[count].OQC_Sample_size+`</td>
-                                <td>`+data.data.recordset[count].OQC_Frequence+`</td>
+                                <td>`+ad+`</td>
+                                <td>`+b1+`</td>                    
+
+                                <td>`+bd+`</td>
+                                <td>`+b2+`</td>
+                                <td>`+b3+`</td>
+                                <td>`+b+`</td>
+                                <td>`+bc+`</td>
+                                <td>`+cd+`</td>
+                                <td>`+b4+`</td>
+                                <td>`+b5+`</td>
+                                <td>`+b6+`</td>
+                                <td>`+b7+`</td>
+                                <td>`+b8+`</td>
+                                <td>`+b9+`</td>
                             </tr>
                             `;
 
