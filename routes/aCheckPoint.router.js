@@ -103,20 +103,31 @@ router.post("/actionac", async function(req, res){
           message : 'Data Added'
         });
       });
-
+     
   }
   if(action == "editPart"){
     var pool = await conn;
     var id = req.params.id;
     console.log(id);
-    var query = `UPDATE ApprearanceCheckpoint SET Check_content = @checkcontent , Name_part = @name_part , Factory = @factory_p , Dia_no= @dia_no  WHERE Id = ` +id;
+    var query = `UPDATE ApprearanceCheckpoint SET Item_No = @item_no Check_content = @check_content , Specs = @specs, Tool= @tool, Eng= @eng5, Sp_Jig= @sp_jig
+    QA = @qa, QA_Sample_size= @qa_size , QA_Frequence= @qa_frequence , IQPC =@iqpc , IQPC_Sample_size = @iqpc_size, IQPC_Frequence= @iqpc_frequence,  OQC = @oqc, OQC_Sample_size = @oqc_size, OQC_Frequence = @oqc_frequence  WHERE Id = ` +id;
     return await pool.request()
-      .input('checkcontent', sql.VarChar , req.body.mold_no)
-      .input('Specs', sql.VarChar , req.body.name_part)
-      .input('tool', sql.VarChar , req.body.factory_p)
-      .input('Eng', sql.NVarChar , req.body.part_no)
-      .input('Sp_Jig', sql.NVarChar , req.body.dia_no)
-        
+      .input('item_no', sql.VarChar , req.body.item_no)
+      .input('check_content', sql.NVarChar , req.body.check_content)
+      .input('specs', sql.NVarChar , req.body.specs)
+      .input('tool', sql.NVarChar , req.body.tool)
+      .input('eng5', sql.Bit , req.body.eng5)
+      .input('sp_jig', sql.NVarChar , req.body.sp_jig)
+      .input('qa', sql.Bit , req.body.qa)
+      .input('qa_size', sql.Bit , req.body.qa_size)
+      .input('qa_frequence', sql.Bit , req.body.qa_frequence)
+      .input('oqc', sql.Bit, req.body.oqc)
+      .input('oqc_size', sql.Bit , req.body.oqc_size)
+      .input('oqc_frequence', sql.Bit , req.body.oqc_frequence)
+      .input('iqpc', sql.Bit , req.body.iqpc)
+      .input('iqpc_size', sql.Bit , req.body.iqpc_size)
+      .input('iqpc_frequence', sql.Bit , req.body.iqpc_frequence)
+      .input('partid', sql.Int , req.body.partid)       
       .query(query, function(err, data){
         console.log(err);
         res.json({
@@ -124,5 +135,17 @@ router.post("/actionac", async function(req, res){
         });
 
     });
+  }
+
+  if(action == "deletePart"){
+    var pool = await conn;
+    var id = req.body.id;
+    var query = "DELETE FROM ApprearanceCheckpoint WHERE Part_Id = " +id;
+    return await pool.request()
+    .query(query, function(err, data){
+      res.json({
+				message : 'Data Deleted'
+			});
+    })
   }
 })

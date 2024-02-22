@@ -197,53 +197,70 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>    
                 </div>
                 <div class="modal-body" >
-                    <div class="mb-3">
-                        <label class="form-label">Item No</label>
-                        <input type="text" name="item_no"  id="item_no" class="form-control" value="" />
+                    <div class="col-12">
+                        <label class="visually-hidden" for="item_no">Item No</label>
+                        <div class="input-group">
+                        <div class="input-group-text">Item No</div>
+                        <input type="text" class="form-control" name="item_no" id="item_no" >
                     </div>
+                    </div> </p>
 
-                    <div class="mb-3">
-                        <label class="form-label">Check content</label>
-                        <input type="text" name="check_content"  id="check_content" class="form-control" />
+                    <div class="col-12">
+                        <label class="visually-hidden" for="check_content">Check content</label>
+                        <div class="input-group">
+                        <div class="input-group-text">Check content</div>
+                        <input type="text" class="form-control" name="check_content" id="check_content" >
                     </div>
+                    </div> </p>
+
+                    <div class="col-12"> 
+                        <label class="visually-hidden" for="specs">Specs</label>
+                        <div class="input-group">
+                        <div class="input-group-text">Specs</div>
+                        <input type="text" class="form-control" name="specs" id="specs" >
+                    </div>
+                    </div></p>
                 
-                    <div class="mb-3">
-                        <label class="form-label">Specs</label>
-                        <input type="text" name="specs"  id="specs" class="form-control" />
+                    <div class="col-12"> 
+                        <label class="visually-hidden" for="specs">Tool</label>
+                        <div class="input-group">
+                        <div class="input-group-text">Tool</div>
+                        <input type="text" class="form-control" name="tool" id="tool" >
                     </div>
+                    </div></p>
 
-                    <div class="mb-3">
-                        <label class="form-label">Tool</label>
-                        <input type="text" name="tool"  id="tool" class="form-control" />
+                    <div class="col-12">
+                        <label class="visually-hidden" for="sp_jig">Supporting Jig</label>
+                        <div class="input-group">
+                        <div class="input-group-text">Supporting Jig</div>
+                        <input type="text" class="form-control" name="sp_jig" id="sp_jig" >
                     </div>
+                    </div></p>
 
-
-                    <div class="mb-3">
-                        <label class="form-label">Supporting Jig</label>
-                        <input type="text" name="sp_jig"  id="sp_jig" class="form-control" />
-                        
-                    </div>
 
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="eng5" id="eng5" value="true">
                             <label class="form-check-label" for="eng">ENG</label>
                         </div>
+                    </div>
+                    <div class="mb-3">
                             <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" value="true" name="qa"  id="qa">
                              <label class="form-check-label" for="inlineCheckbox2">QA</label>
                         </div>
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="qa_size"  id="qa_size" value="true" >
-                             <label class="form-check-label" for="inlineCheckbox3">QA Sample Size</label>
+                                <input class="form-check-input" type="checkbox" name="qa_size"  id="qa_size" value="true" >
+                                <label class="form-check-label" for="inlineCheckbox3">QA Sample Size</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="qa_frequence" id="qa_frequence" value="true">
+                                <label class="form-check-label" for="inlineCheckbox1">QA frequence</label>
+                            </div>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="qa_frequence" id="qa_frequence" value="true">
-                            <label class="form-check-label" for="inlineCheckbox1">QA frequence</label>
-                        </div>
+                        
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" value="true" name="iqpc"  id="iqpc">
                             <label class="form-check-label" for="inlineCheckbox2">IQPC</label>
@@ -252,14 +269,14 @@
                             <input class="form-check-input" type="checkbox" name="iqpc_size"  id="iqpc_size" value="true" >
                             <label class="form-check-label" for="inlineCheckbox3">IQPC Sample Size</label>
                         </div>
-
-                    </div>
-                    
-                    <div class="mb-3">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="iqpc_frequence" id="iqpc_frequence" value="true">
                             <label class="form-check-label" for="inlineCheckbox1">IQPC Frequence</label>
                         </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" value="true" name="oqc"  id="oqc">
                             <label class="form-check-label" for="inlineCheckbox2">OQC</label>
@@ -270,7 +287,7 @@
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="oqc_frequence"  id="oqc_frequence" value="true" >
-                            <label class="form-check-label" for="inlineCheckbox3">OQC Frequrnce</label>
+                            <label class="form-check-label" for="inlineCheckbox3">OQC Frequence</label>
                         </div>
 
                     </div>
