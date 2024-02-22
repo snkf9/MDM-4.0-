@@ -40,7 +40,7 @@ res.render("bCheckPoint")
 module.exports = router;
 
 router.post("/actionac", async function(req, res){
-  var action = req.body.actionpc;
+  var action = req.body.actionac;
   var id = req.body.id;
   
   // const urlValue= window.location.search;
@@ -50,7 +50,7 @@ router.post("/actionac", async function(req, res){
 
     if(action == 'getAllPart'){
     var pool =await conn;
-    var query = "SELECT * FROM Dim_checkpoint ";
+    var query = "SELECT * FROM Dim_checkpoint WHERE Partid = " + id;
     return await pool.request()
     .query(query, function(err, data){
       res.json({
@@ -76,26 +76,33 @@ router.post("/actionac", async function(req, res){
     var id = req.body.id;
     var query =  `
 		INSERT INTO Dim_checkpoint
-		(Item_No , Check_content ,Specs, Tool , Eng , Sp_Jig, QA , QA_Sample_size, QA_Frequence, IQPC , IQPC_Sample_size, IQPC_Frequence, OQC , OQC_Sample_size, OQC_Frequence) 
-		VALUES (@item_no, @check_content, @specs, @tool, @eng , @sp_jig, @qa, @qa_size, @qa_frequence, @iqpc, @iqpc_size, @iqpc_frequence, @oqc, @oqc_size, @oqc_frequence )
+		(Partid , Item_No , DimTool , Geometric_Tolerance ,Specs, Tolerance , Lower_limit, Upper_limit , FA_Accepted_min , FA_Accepted_max , Position , Eng , Supporting_Jig, QA , QA_SampleSize, QA_Frequence, IQPC , IQPC_Sample_size, IQPC_Frequence, OQC , OQC_Sample_size, OQC_Frequence) 
+		VALUES (@partid, @item_no, @dimtool , @geometric_tolerance, @specs, @tolerance, @lowerlimit ,@upperlimit , @fa_accept_min, @fa_accept_max ,@position ,  @eng5 , @sp_jig, @qa, @qa_size, @qa_frequence, @iqpc, @iqpc_size, @iqpc_frequence, @oqc, @oqc_size, @oqc_frequence )
 		`;
     
     return await pool.request()
-      .input('item_no', sql.VarChar , req.body.item_no)
-      .input('check_content', sql.NVarChar , req.body.check_content)
-      .input('specs', sql.NVarChar , req.body.specs)
-      .input('tool', sql.NVarChar , req.body.tool)
-      .input('eng', sql.Int , req.body.eng)
-      .input('sp_jig', sql.NVarChar , req.body.sp_jig)
+      .input('item_no', sql.Int , req.body.item_no)
+      .input('geometric_tolerance', sql.NVarChar , req.body.geometric_tolerance)
+      .input('specs', sql.Float , req.body.specs)
+      .input('tolerance', sql.Float , req.body.tolerance)
+      .input('lowerlimit', sql.Float , req.body.lowerlimit)
+      .input('upperlimit', sql.Float , req.body.upperlimit)
+      .input('fa_accept_min', sql.Float , req.body.fa_accept_min)
+      .input('fa_accept_max', sql.Float , req.body.fa_accept_max)
+      .input('position', sql.NVarChar , req.body.position)
+      .input('dimtool', sql.VarChar , req.body.dimtool)
+      .input('eng5', sql.Bit , req.body.eng5)
+      .input('sp_jig', sql.VarChar , req.body.sp_jig)
       .input('qa', sql.Bit , req.body.qa)
-      .input('qa_size', sql.Bit , req.body.qa_size)
-      .input('qa_frequence', sql.Bit , req.body.qa_frequence)
+      .input('qa_size', sql.Float , req.body.qa_size)
+      .input('qa_frequence', sql.Float , req.body.qa_frequence)
       .input('oqc', sql.Bit, req.body.oqc)
-      .input('oqc_size', sql.NVarChar , req.body.oqc_size)
-      .input('oqc_frequence', sql.NVarChar , req.body.oqc_frequence)
+      .input('oqc_size', sql.Real , req.body.oqc_size)
+      .input('oqc_frequence', sql.Float , req.body.oqc_frequence)
       .input('iqpc', sql.Bit , req.body.iqpc)
-      .input('iqpc_size', sql.Bit , req.body.iqpc_size)
-      .input('iqpc_frequence', sql.Bit , req.body.iqpc_frequence)
+      .input('iqpc_size', sql.Float , req.body.iqpc_size)
+      .input('iqpc_frequence', sql.Float , req.body.iqpc_frequence)
+      .input('partid', sql.Int , req.body.partid)
       .query(query, function(err, data){
         console.log(err);
         res.json({

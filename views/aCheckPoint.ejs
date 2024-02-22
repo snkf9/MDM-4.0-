@@ -111,7 +111,7 @@
                         <li class="nav-item active">
                             <form method="GET" action="/partData/revision" class="form-inline my-2 my-lg-0">
                                 <input type="hidden" id="pc_sc3" name="partId" >
-                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;">MEASUARE</button>
+                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;">Revision</button>
                             </form>
                         </li>
                         
@@ -326,7 +326,7 @@
                 url:  "http://localhost:3000" + window.location.pathname+ "/actionac",
 
                 method:"POST",
-                data:{actionpc:'getAllPart'},
+                data:{id:id, actionpc:'getAllPart'},
                 dataType : "JSON",
                 success:function(data){
                     

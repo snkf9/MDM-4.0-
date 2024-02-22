@@ -50,7 +50,7 @@ router.post("/actionac", async function(req, res){
 
     if(action == 'getAllPart'){
     var pool =await conn;
-    var query = "SELECT * FROM ApprearanceCheckpoint ";
+    var query = "SELECT * FROM ApprearanceCheckpoint WHERE Partid = "+ id;
     return await pool.request()
     .query(query, function(err, data){
       res.json({
@@ -76,8 +76,8 @@ router.post("/actionac", async function(req, res){
 
     var query =  `
 		INSERT INTO ApprearanceCheckpoint
-		(Item_No , Check_content ,Specs, Tool , Eng , Sp_Jig , QA , QA_Sample_size, QA_Frequence, IQPC , IQPC_Sample_size, IQPC_Frequence, OQC , OQC_Sample_size, OQC_Frequence) 
-		VALUES (@item_no, @check_content, @specs, @tool, @eng5 , @sp_jig, @qa, @qa_size, @qa_frequence, @iqpc, @iqpc_size, @iqpc_frequence, @oqc, @oqc_size, @oqc_frequence )
+		(Item_No , Check_content ,Specs, Tool , Eng , Sp_Jig , QA , QA_Sample_size, QA_Frequence, IQPC , IQPC_Sample_size, IQPC_Frequence, OQC , OQC_Sample_size, OQC_Frequence, Partid) 
+		VALUES (@item_no, @check_content, @specs, @tool, @eng5 , @sp_jig, @qa, @qa_size, @qa_frequence, @iqpc, @iqpc_size, @iqpc_frequence, @oqc, @oqc_size, @oqc_frequence, @partid )
 		`;
     
     return await pool.request()
@@ -96,6 +96,7 @@ router.post("/actionac", async function(req, res){
       .input('iqpc', sql.Bit , req.body.iqpc)
       .input('iqpc_size', sql.Bit , req.body.iqpc_size)
       .input('iqpc_frequence', sql.Bit , req.body.iqpc_frequence)
+      .input('partid', sql.Int , req.body.partid)
       .query(query, function(err, data){
         console.log(err);
         res.json({

@@ -110,7 +110,7 @@
                         <li class="nav-item active">
                             <form method="GET" action="/partData/revision" class="form-inline my-2 my-lg-0">
                                 <input type="hidden" id="pc_sc3" name="partId" >
-                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;">MEASUARE</button>
+                                <button class="btn btn-secondary btn-lg" type="submit" style="margin-right: 0.5em;">Revision</button>
                             </form>
                         </li>
                         
@@ -196,85 +196,179 @@
 <div class="modal" tabindex="-1" id="partchild_action_modal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" url="http://localhost:3000/partData/PartChild/:id/action" body="partDataJson" id="partdata_form">
+            <form method="post"  url="http://localhost:3000/partData/PartChild/:id/action" body="partDataJson" id="partdata_form">
                 <div class="modal-header" id="partchild_dynamic_modal_title">
                     <h5 class="modal-title"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>    
                 </div>
                 <div class="modal-body" >
-                    <div class="mb-3">
-                        <label class="form-label">Item No</label>
-                        <input type="text" name="item_no"  id="item_no" class="form-control" value="" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Check content</label>
-                        <input type="text" name="check_content"  id="check_content" class="form-control" />
-                    </div>
-                
-                    <div class="mb-3">
-                        <label class="form-label">Specs</label>
-                        <input type="text" name="specs"  id="specs" class="form-control" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Tool</label>
-                        <input type="text" name="tool"  id="tool" class="form-control" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">ENG</label>
-                        <input type="checkbox" name="eng"  id="eng" class="form-control" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Supporting Jig</label>
-                        <input type="text" name="sp_jig"  id="sp_jig" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">QA</label>
-                        <input type="checkbox" name="qa"  id="qa" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">QA Sample Size</label>
-                        <input type="checkbox" name="qa_size"  id="qa_size" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">QA Frequence</label>
-                        <input type="checkbox" name="qa_frequence"  id="qa_frequence" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">IQPC</label>
-                        <input type="checkbox" name="iqpc"  id="iqpc" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">IQPC Sample Size</label>
-                        <checkbox name="iqpc_size"  id="iqpc_size" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">IQPC Frequence</label>
-                        <input type="checkbox" name="iqpc_frequence"  id="iqpc_frequence" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">OQC</label>
-                        <input type="checkbox" name="oqc"  id="oqc" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">OQC Sample Size</label>
-                        <input type="checkbox" name="oqc_size"  id="oqc_size" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">OQC Frequence</label>
-                        <input type="checkbox" name="oqc_frequence"  id="oqc_frequence" class="form-control" />
-                    </div>
                     
+                    
+                        <div class="col-12">
+                            <label class="visually-hidden" for="item_no">Item No</label>
+                            <div class="input-group">
+                            <div class="input-group-text">Item No</div>
+                            <input type="text" class="form-control" name="item_no" id="item_no" >
+                        </div>
+                        </div> </p>
+
+                        <div class="col-12"> 
+                            <label class="visually-hidden" for="geometric_tolerance">Geometric Tolerance</label>
+                            <div class="input-group">
+                            <div class="input-group-text">Geometric Tolerance</div>
+                            <input type="text" value="ø" class="form-control" name="geometric_tolerance" id="geometric_tolerance" placeholder="ø">
+                        </div>
+                        </div></p>
+
+                        <div class="col-12"> 
+                            <label class="visually-hidden" for="specs">Specs</label>
+                            <div class="input-group">
+                            <div class="input-group-text">Specs</div>
+                            <input type="text" class="form-control" name="specs" id="specs" >
+                        </div>
+                        </div></p>
+
+                        <div class="col-12"> 
+                            <label class="visually-hidden" for="tolerance">Tolerance</label>
+                            <div class="input-group">
+                            <div class="input-group-text">Tolerance</div>
+                            <input type="text" class="form-control" name="tolerance" id="tolerance" >
+                        </div>
+                        </div></p>
+
+                        <div class="col-12">
+                            <label class="visually-hidden" for="lowerlimit">Lower limit</label>
+                            <div class="input-group">
+                            <div class="input-group-text">Lower limit</div>
+                            <input type="text" class="form-control" name="lowerlimit" id="lowerlimit" >
+                        </div>
+                        </div></p>
+
+                        <div class="col-12">
+                            <label class="visually-hidden" for="upperlimit">Upper limit</label>
+                            <div class="input-group">
+                            <div class="input-group-text">Upper limit</div>
+                            <input type="text" class="form-control" name="upperlimit" id="upperlimit" >
+                        </div>
+                        </div></p>
+
+                        <div class="col-12">
+                            <label class="visually-hidden" for="fa_accept_min">FA Accepted Min</label>
+                            <div class="input-group">
+                            <div class="input-group-text">FA Accepted Min</div>
+                            <input type="text" class="form-control" name="fa_accept_min" id="fa_accept_min" >
+                        </div>
+                        </div></p>
+
+                        <div class="col-12">
+                            <label class="visually-hidden" for="fa_accept_max">FA Accepted Max</label>
+                            <div class="input-group">
+                            <div class="input-group-text">FA Accepted Min</div>
+                            <input type="text" class="form-control" name="fa_accept_max" id="fa_accept_max" >
+                        </div>
+                        </div></p>
+
+                        <div class="col-12">
+                            <label class="visually-hidden" for="position">Position</label>
+                            <div class="input-group">
+                            <div class="input-group-text">Position</div>
+                            <input type="text" class="form-control" name="position" id="position" >
+                        </div>
+                        </div></p>
+
+                        <div class="col-12">
+                            <label class="visually-hidden" for="dimtool">Dim Tool</label>
+                            <div class="input-group">
+                            <div class="input-group-text">Dim Tool</div>
+                            <input type="text" class="form-control" name="dimtool" id="dimtool" >
+                        </div>
+                        </div></p>
+
+                        <div class="col-12">
+                            <label class="visually-hidden" for="sp_jig">Supporting Jig</label>
+                            <div class="input-group">
+                            <div class="input-group-text">Supporting Jig</div>
+                            <input type="text" class="form-control" name="sp_jig" id="sp_jig" >
+                        </div>
+                        </div></p>
+
+                        <div class="col-12">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="eng5" id="eng5" value="true">
+                            <label class="form-check-label" for="eng">ENG</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="true" name="qa"  id="qa">
+                             <label class="form-check-label" for="inlineCheckbox2">QA</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="true" name="iqpc"  id="iqpc">
+                            <label class="form-check-label" for="inlineCheckbox2">IQPC</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="true" name="oqc"  id="oqc">
+                            <label class="form-check-label" for="inlineCheckbox2">OQC</label>
+                        </div>
+                    </div></p>
+
+                    <div class="col-12">
+                        <label class="visually-hidden" for="qa_size">QA Sample Size</label>
+                        <div class="input-group">
+                        <div class="input-group-text">QA Sample Size</div>
+                        <input type="text" class="form-control" name="qa_size" id="qa_size" >
+                    </div>
+                    </div></p>
+
+                    <div class="col-12">
+                        <label class="visually-hidden" for="qa_frequence">QA Frequence</label>
+                        <div class="input-group">
+                        <div class="input-group-text">QA Frequence</div>
+                        <input type="text" class="form-control" name="qa_frequence" id="qa_frequence" >
+                    </div>
+                    </div></p>
+
+                    <div class="col-12">
+                        <label class="visually-hidden" for="iqpc_size">IQPC Sample Size</label>
+                        <div class="input-group">
+                        <div class="input-group-text">IQPC Sample Size</div>
+                        <input type="text" class="form-control" name="iqpc_size" id="iqpc_size" >
+                    </div>
+                    </div></p>
+
+                    <div class="col-12">
+                        <label class="visually-hidden" for="iqpc_frequence">IQPC Frequence</label>
+                        <div class="input-group">
+                        <div class="input-group-text">IQPC Frequence</div>
+                        <input type="text" class="form-control" name="iqpc_frequence" id="iqpc_frequence" >
+                    </div>
+                    </div></p>
+
+                    <div class="col-12">
+                        <label class="visually-hidden" for="oqc_size">OQC Sample Size</label>
+                        <div class="input-group">
+                        <div class="input-group-text">OQC Sample Size</div>
+                        <input type="text" class="form-control" name="oqc_size" id="oqc_size" >
+                    </div>
+                    </div></p>
+
+                    <div class="col-12">
+                        <label class="visually-hidden" for="oqc_frequence">OQC Frequence</label>
+                        <div class="input-group">
+                        <div class="input-group-text">OQC Frequence</div>
+                        <input type="text" class="form-control" name="oqc_frequence" id="oqc_frequence" >
+                    </div>
+                    </div></p>
+
+
+
 
                 </div>
 
                 <div class="modal-footer">
                     <input type="hidden" name="id" id="id" />
-                    <input type="hidden" name="add_date" id="add_date" />
-                    <input type="hidden" name="actionPart" id="actionPart" value="Add" />
+                    
+                    <input type="hidden" name="partid" id="partid" />
+                    <input type="hidden" name="actionac" id="actionPart" value="addPart" />
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary " id="action_buttonac" >Add</button>
                 </div>
@@ -295,6 +389,7 @@
         $('#pc_sc1').val(id);
         $('#pc_sc2').val(id);
         $('#pc_sc3').val(id);
+        $('#partid').val(id);
         load_datapart_child();
         function load_datapart_child()
         {
@@ -303,7 +398,7 @@
                 url:  "http://localhost:3000" + window.location.pathname+ "/actionac",
 
                 method:"POST",
-                data:{actionpc:'getAllPart'},
+                data:{id: id , actionac:'getAllPart'},
                 dataType : "JSON",
                 success:function(data){
                     
@@ -311,30 +406,107 @@
                 
                     var html = '';
                     for(var count = 0; count < data.data.recordset.length; count++)
-                    {    
+                    {       
+                        var c1= data.data.recordset[count].Geometric_Tolerance;
+                        if (c1 == null){var d1="";}
+                        else {var d1= data.data.recordset[count].Geometric_Tolerance;}
+
+                        var c2= data.data.recordset[count].Specs;
+                        if (c2 == null){var d2="";}
+                        else {var d2= data.data.recordset[count].Specs;}
+
+                        var c3= data.data.recordset[count].Tolerance;
+                        if (c3 == null){var d3="";}
+                        else {var d3= data.data.recordset[count].Tolerance;}
+
+                        var c4= data.data.recordset[count].Lower_limit;
+                        if (c4 == null){var d4="";}
+                        else {var d4= data.data.recordset[count].Lower_limit;}
+
+                        var c5= data.data.recordset[count].Lower_limit;
+                        if (c5 == null){var d5="";}
+                        else {var d5= data.data.recordset[count].Lower_limit;}
+
+                        var c6= data.data.recordset[count].Upper_limit;
+                        if (c6 == null){var d6="";}
+                        else {var d6= data.data.recordset[count].Upper_limit;}
+
+                        var c7= data.data.recordset[count].Position;
+                        if (c7 == null){var d7="";}
+                        else {var d7= data.data.recordset[count].Position;}
+
+                        var c8= data.data.recordset[count].DimTool;
+                        if (c8 == null){var d8="";}
+                        else {var d8= data.data.recordset[count].DimTool;}
+
+                        var c9= data.data.recordset[count].Supporting_Jig;
+                        if (c9 == null){var d9="";}
+                        else {var d9= data.data.recordset[count].Supporting_Jig;}
+
+                        var c10= data.data.recordset[count].ENG;
+                        if (c10 == null){var d10="";}
+                        else {var d10= data.data.recordset[count].ENG;}
+
+                        var c11= data.data.recordset[count].QA;
+                        if (c11 == null){var d11="";}
+                        else {var d11= data.data.recordset[count].QA;}
+
+                        var c12= data.data.recordset[count].QA_SampleSize;
+                        if (c12 == null){var d12="";}
+                        else {var d12= data.data.recordset[count].QA_SampleSize;}
+
+                        var c13= data.data.recordset[count].QA_Frequence;
+                        if (c13 == null){var d13="";}
+                        else {var d13= data.data.recordset[count].QA_Frequence;}
+
+                        var c14= data.data.recordset[count].IQPC;
+                        if (c14 == null){var d14="";}
+                        else {var d14= data.data.recordset[count].IQPC;}
+
+                        var c15= data.data.recordset[count].IQPC_SampleSize;
+                        if (c15 == null){var d15="";}
+                        else {var d15= data.data.recordset[count].IQPC_SampleSize;}
+
+                        var c16= data.data.recordset[count].IQPC_Frequence;
+                        if (c16 == null){var d16="";}
+                        else {var d16= data.data.recordset[count].IQPC_Frequence;}
+
+                        var c17= data.data.recordset[count].OQC;
+                        if (c17 == null){var d17="";}
+                        else {var d17= data.data.recordset[count].OQC;}
+
+                        var c18= data.data.recordset[count].OQC_SampleSize;
+                        if (c18 == null){var d18="";}
+                        else {var d18= data.data.recordset[count].OQC_SampleSize;}
+
+                        var c19= data.data.recordset[count].OQC_Frequence;
+                        if (c19 == null){var d19="";}
+                        else {var d19= data.data.recordset[count].OQC_Frequence;}
+
+
                             html += `
                             <tr>
                                 <td><button type="button" class="btn btn-warning btn-sm edit" data-id="`+data.data.recordset[count].Id+`">Edit</button>&nbsp;<button type="button" class="btn btn-danger btn-sm delete" data-id="`+data.data.recordset[count].Id+`">Delete</button>
                                 <td>`+data.data.recordset[count].Item_No+`</td>
-                                <td>`+data.data.recordset[count].Geometric_Tolerance+`</td>
-                                <td>`+data.data.recordset[count].Specs+`</td>                                           
-                                <td>`+data.data.recordset[count].Tolerance+`</td>
-                                <td>`+data.data.recordset[count].Lower_limit+`</td>
-                                <td>`+data.data.recordset[count].Upper_limit+`</td>
-                                <td>`+data.data.recordset[count].FA_Accepted+`</td>
-                                <td>`+data.data.recordset[count].Position+`</td>
-                                <td>`+data.data.recordset[count].DimTool+`</td>
-                                <td>`+data.data.recordset[count].Supporting_Jig+`</td>
-                                <td>`+data.data.recordset[count].ENG+`</td>
-                                <td>`+data.data.recordset[count].QA+`</td>
-                                <td>`+data.data.recordset[count].QA_SampleSize+`</td>
-                                <td>`+data.data.recordset[count].QA_Frequence+`</td>
-                                <td>`+data.data.recordset[count].IQPC+`</td>
-                                <td>`+data.data.recordset[count].IQPC_sample_size+`</td>
-                                <td>`+data.data.recordset[count].IQPC_Frequence+`</td>
-                                <td>`+data.data.recordset[count].OQC+`</td>
-                                <td>`+data.data.recordset[count].OQC_sample_size+`</td>
-                                <td>`+data.data.recordset[count].OQC_Frequence+`</td>
+                                <td>`+d1+`</td>
+                                <td>`+d2+`</td>                                           
+                                <td>`+d3+`</td>
+                                <td>`+d4+`</td>
+                                <td>`+d5+`</td>
+                                <td>`+d6+`</td>
+                                <td>`+d7+`</td>
+                                <td>`+d8+`</td>
+                                <td>`+d9+`</td>
+                                <td>`+d10+`</td>
+                                <td>`+d11+`</td>
+                                <td>`+d12+`</td>
+                                <td>`+d13+`</td>
+                                <td>`+d14+`</td>
+                                <td>`+d15+`</td>
+                                <td>`+d16+`</td>
+                                <td>`+d17+`</td>
+                                <td>`+d18+`</td>
+                                <td>`+d19+`</td>
                             </tr>
                             `;
 
@@ -352,7 +524,7 @@
 
             $('#partdata_form')[0].reset();
 
-            $('#actionPart').val('addPart');
+            $('#actionac').val('addPart');
 
             $('#action_buttonpartdata').text('addPart');
 
@@ -363,7 +535,7 @@
 
         $('#partdata_form').on('submit', function(event){
 
-            // event.preventDefault();
+            event.preventDefault();
             // var curDate = new Date();
             // var curDay = curDate.getDate() + '/' + curDate.getMonth() + 1 + '/' + curDate.getFullYear() ;
             // $('#add_date').val(curDay);
@@ -371,7 +543,7 @@
             
 
             $.ajax({
-                url:"http://localhost:3000/partData/actionPart",
+                url:"http://localhost:3000" + window.location.pathname+ "/actionac",
                 method:"POST",
                 data:$('#partdata_form').serialize(),
                 dataType:"JSON",
@@ -387,7 +559,7 @@
 
                     $('#partchild_action_modal').modal('hide');
 
-                    load_datapart();
+                    load_datapart_child();
 
                     setTimeout(function(){
                         $('#message_part').html('');
@@ -403,14 +575,14 @@
 
                 $('#partdata_dynamic_modal_title').text('Edit Part');
 
-                $('#actionPart').val('editPart');
+                $('#actionac').val('editPart');
 
                 $('#action_buttonpartdata').text('EditPart');
 
                 $('#partchild_action_modal').modal('show');
 
                 $.ajax({
-                    url:"http://localhost:3000/partData/actionPart",
+                    url:"http://localhost:3000" + window.location.pathname+ "/actionac",
                     method:"POST",
                     data:{id:id, actionPart:'getOnePart'},
                     dataType:"JSON",
