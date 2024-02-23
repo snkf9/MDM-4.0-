@@ -333,7 +333,7 @@
         $('#pc_sc2').val(id);
         $('#pc_sc3').val(id);
         $('#partid').val(id);
-        $('#id').val(id);
+        //$('#id').val(id);
         
         load_datapart_child();
         function load_datapart_child()
@@ -509,7 +509,7 @@
                 $.ajax({
                     url:"http://localhost:3000" + window.location.pathname+ "/actionac",
                     method:"POST",
-                    data:{id:id, actionac:'getOnePart'},
+                    data:{id:id, actionpc:'getOnePart'},
                     dataType:"JSON",
                     success :function(data)
                     {

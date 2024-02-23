@@ -109,7 +109,7 @@ router.post("/actionac", async function(req, res){
     var pool = await conn;
     var id = req.params.id;
     console.log(id);
-    var query = `UPDATE ApprearanceCheckpoint SET Item_No = @item_no Check_content = @check_content , Specs = @specs, Tool= @tool, Eng= @eng5, Sp_Jig= @sp_jig
+    var query = `UPDATE ApprearanceCheckpoint SET Item_No = @item_no , Check_content = @check_content , Specs = @specs, Tool= @tool, Eng= @eng5, Sp_Jig= @sp_jig,
     QA = @qa, QA_Sample_size= @qa_size , QA_Frequence= @qa_frequence , IQPC =@iqpc , IQPC_Sample_size = @iqpc_size, IQPC_Frequence= @iqpc_frequence,  OQC = @oqc, OQC_Sample_size = @oqc_size, OQC_Frequence = @oqc_frequence  WHERE Id = ` +id;
     return await pool.request()
       .input('item_no', sql.VarChar , req.body.item_no)

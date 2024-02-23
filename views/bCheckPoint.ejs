@@ -423,13 +423,17 @@
                         if (c4 == null){var d4="";}
                         else {var d4= data.data.recordset[count].Lower_limit;}
 
-                        var c5= data.data.recordset[count].Lower_limit;
+                        var c5= data.data.recordset[count].Upper_limit;
                         if (c5 == null){var d5="";}
-                        else {var d5= data.data.recordset[count].Lower_limit;}
+                        else {var d5= data.data.recordset[count].Upper_limit;}
 
-                        var c6= data.data.recordset[count].Upper_limit;
+                        var c6= data.data.recordset[count].FA_Accepted_min;
                         if (c6 == null){var d6="";}
-                        else {var d6= data.data.recordset[count].Upper_limit;}
+                        else {var d6= data.data.recordset[count].FA_Accepted_min;}
+
+                        var c20= data.data.recordset[count].FA_Accepted_max;
+                        if (c20 == null){var d20="";}
+                        else {var d20= data.data.recordset[count].FA_Accepted_max;}
 
                         var c7= data.data.recordset[count].Position;
                         if (c7 == null){var d7="";}
@@ -494,6 +498,7 @@
                                 <td>`+d4+`</td>
                                 <td>`+d5+`</td>
                                 <td>`+d6+`</td>
+                                <td>`+d20+`</td>
                                 <td>`+d7+`</td>
                                 <td>`+d8+`</td>
                                 <td>`+d9+`</td>
