@@ -128,8 +128,8 @@
                 
                 <span id="message_part"></span>
                 <div class="card">
-                    <div class="col col-sm-3">
-                        <button type="button" id="editpart" class="btn btn-success btn-sm float-end">Edit</button>
+                    <div class="col ">
+                        <button type="button" id="editpart" class="btn btn-success btn-lg btn-primary float-end">Edit</button>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -208,8 +208,8 @@
     </body>
 </html>
 
-<div class="modal" tabindex="-1" id="partchild_action_modal">
-    <div class="modal-dialog">
+<div class="modal" tabindex="-1" id="partchild_action_modal" >
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <form  method="post" url="http://localhost:3000/partData/PartChild/:id/action" body="partDataJson" id="partdata_form">
                 <div class="modal-header" id="partchild_dynamic_modal_title">
@@ -217,152 +217,165 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>    
                 </div>
                 <div class="modal-body" >
-                    <div class="col-12">
+                    <div class="container-fluid">
+                    <div class="row">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="customer">Customer</label>
                         <div class="input-group">
                         <div class="input-group-text">Customer</div>
                         <input type="text" class="form-control" name="customer" id="customer" >
                     </div>
-                    </div></p>
+                    </div>
                     
-                    <div class="col-12">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="model">Model</label>
                         <div class="input-group">
                         <div class="input-group-text">Model</div>
                         <input type="text" class="form-control" name="model" id="model" >
                     </div>
-                    </div></p>
+                    </div>
 
-                    <div class="col-12">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="mold_no">Mold No</label>
                         <div class="input-group">
                         <div class="input-group-text">Mold No</div>
                         <input type="text" class="form-control" name="mold_no" id="mold_no" >
                     </div>
-                    </div></p>
+                    </div>
+                   </div> </p>
 
-                    <div class="col-12">
+                   <div class="row">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="namepart">Name part</label>
                         <div class="input-group">
                         <div class="input-group-text">Name part</div>
                         <input type="text" class="form-control" name="namepart" id="namepart" >
                     </div>
-                    </div></p>
+                    </div>
 
-                    <div class="col-12">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="part_no">Part No</label>
                         <div class="input-group">
                         <div class="input-group-text">Part No</div>
                         <input type="text" class="form-control" name="part_no" id="part_no" >
                     </div>
-                    </div></p>
+                    </div>
 
-                    <div class="col-12">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="diano">Dia No</label>
                         <div class="input-group">
                         <div class="input-group-text">Dia No</div>
                         <input type="text" class="form-control" name="diano" id="diano" >
                     </div>
-                    </div></p>
+                    </div>
+                </div></p>
 
-                    <div class="col-12">
+
+                <div class="row">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="reg">Reg</label>
                         <div class="input-group">
                         <div class="input-group-text">Reg</div>
                         <input type="text" class="form-control" name="reg" id="reg" >
                     </div>
-                    </div></p>
+                    </div>
                  
-                    <div class="col-12">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="dwgrey">DWGrey</label>
                         <div class="input-group">
                         <div class="input-group-text">DWGrey</div>
                         <input type="text" class="form-control" name="dwgrey" id="dwgrey" >
                     </div>
-                    </div></p>
+                    </div>
 
-                    <div class="col-12">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="material">Material</label>
                         <div class="input-group">
                         <div class="input-group-text">Material</div>
                         <input type="text" class="form-control" name="material" id="material" >
                     </div>
+                    </div>
                     </div></p>
-                
-                    <div class="col-12">
+
+                    <div class="row">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="no_of_cav">No of CAV</label>
                         <div class="input-group">
                         <div class="input-group-text">No of CAV</div>
                         <input type="text" class="form-control" name="no_of_cav" id="no_of_cav" >
                     </div>
-                    </div></p>
+                    </div>
                     
-                    <div class="col-12">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="special_CD">Special Cavity Designation</label>
                         <div class="input-group">
                         <div class="input-group-text">Special Cavity Designation</div>
                         <input type="text" class="form-control" name="special_CD" id="special_CD" >
                     </div>
-                    </div></p>
+                    </div>
   
-                    <div class="col-12">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="specifical_cav">Specifical CAV</label>
                         <div class="input-group">
                         <div class="input-group-text">Specifical CAV</div>
                         <input type="text" class="form-control" name="specifical_cav" id="specifical_cav" >
                     </div>
-                    </div></p>
-            
-                    <div class="col-12">
+                    </div>
+                </div></p>
+                
+                <div class="row">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="rev_no">Rev No</label>
                         <div class="input-group">
                         <div class="input-group-text">Rev No</div>
                         <input type="text" class="form-control" name="rev_no" id="rev_no" >
                     </div>
-                    </div></p>
+                    </div>
 
-                    <div class="col-12">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="rev_no">Ilustration</label>
                         <div class="input-group">
                         <div class="input-group-text">Ilustration</div>
                         <input type="text" class="form-control" name="ilustation" id="ilustation" >
                     </div>
-                    </div></p>
+                    </div>
 
-                    <div class="col-12">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="apperance_caution">Apperance Caution</label>
                         <div class="input-group">
                         <div class="input-group-text">Apperance Caution</div>
                         <input type="text" class="form-control" name="apperance_caution" id="apperance_caution" >
                     </div>
-                    </div></p>
+                    </div>
+                </div></p>
 
-                    <div class="col-12">
+                <div class="row">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="measuare_instruction">Measuare instuction</label>
                         <div class="input-group">
                         <div class="input-group-text">Measuare instuction</div>
                         <input type="text" class="form-control" name="measuare_instruction" id="measuare_instruction" >
                     </div>
-                    </div></p>
+                    </div>
 
-                    <div class="col-12">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="drawing_file">Drawing file</label>
                         <div class="input-group">
                         <div class="input-group-text">Drawing file</div>
                         <input type="text" class="form-control" name="drawing_file" id="drawing_file" >
                     </div>
-                    </div></p>
+                    </div>
                     
-                    <div class="col-12">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="his_file">His file</label>
                         <div class="input-group">
                         <div class="input-group-text">His file</div>
                         <input type="text" class="form-control" name="his_file" id="his_file" >
                     </div>
+                    </div>
                     </div></p>
-                    
 
-                    <div class="mb-3" >
+                    <div class="col-md-4" >
                         <label class="form-label">Factory</label>
                         <select  id="factory_p" name="factory_p" class="form-control">
                             <option value="SVN2">SVN2</option>
@@ -370,6 +383,7 @@
                         </select>
                         
                     </div>
+                </div>
 
                 </div>
 
@@ -501,9 +515,9 @@
 
                     $('#message_part').html('<div class="alert alert-success">'+data.message+'</div>');
 
-                    $('#partdata_action_modal').modal('hide');
+                    $('#partchild_action_modal').modal('hide');
 
-                    load_datapart_child()
+                    load_datapart_child();
 
                     setTimeout(function(){
                         $('#message_part').html('');

@@ -532,14 +532,14 @@
                     if(confirm("Are you sure you want to delete this data?"))
                     {
                         $.ajax({
-                            url:"http://localhost:3000/partData/actionPart",
+                            url:"http://localhost:3000" + window.location.pathname+ "/actionac",
                             method:"POST",
-                            data:{actionPart:'deletePart', id:id},
+                            data:{actionpc:'deletePart', id:id},
                             dataType:"JSON",
                             success:function(data)
                             {
                                 $('#message_part').html('<div class="alert alert-success">'+data.message+'</div>');
-                                load_datapart();
+                                load_datapart_child();
                                 setTimeout(function(){
                                     $('#message_part').html('');
                                 }, 5000);

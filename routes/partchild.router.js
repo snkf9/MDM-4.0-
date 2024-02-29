@@ -80,7 +80,7 @@ router.post("/actionpc", async function(req, res){
       .input('material', sql.NVarChar , req.body.material)
       .input('no_of_cav', sql.VarChar , req.body.no_of_cav)
       .input('special_CD', sql.VarChar , req.body.special_CD)
-      .input('specifical_cav', sql.VarChar , req.body.specifical_cav)
+      .input('specifical_cav', sql.NVarChar , req.body.specifical_cav)
       .input('rev_no', sql.VarChar , req.body.rev_no)
       .input('ilustration', sql.VarChar , req.body.ilustation)
       .input('apperance_caution', sql.VarChar , req.body.apperance_caution)

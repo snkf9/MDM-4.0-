@@ -113,16 +113,32 @@ router.post("/actionac", async function(req, res){
   }
   if(action == "editPart"){
     var pool = await conn;
-    var id = req.params.id;
+    
     console.log(id);
-    var query = `UPDATE Dim_checkpoint SET Check_content = @checkcontent , Name_part = @name_part , Factory = @factory_p , Dia_no= @dia_no  WHERE Id = ` +id;
+    var query = `UPDATE Dim_checkpoint SET Item_No=@item_no, Geometric_Tolerance= @geometric_tolerance, Specs=@specs, Tolerance= @tolerance, Lower_limit= @lowerlimit, Upper_limit = @upperlimit
+                  FA_Accepted_min = @fa_accepted_min , Position = @position , DimTool= @dimtool, Supporting_Jig = @sp_jig , ENG= @eng5, QA= @qa, QA_SampleSize= @qa_size , QA_Frequence = @qa_frequence, IQPC= @iqpc, IQPC_sample_size = @iqpc_size , IQPC_Frequence = @iqpc_frequence , OQC = @oqc , OQC_sample_size = @oqc_size , OQC_Frequence = oqc_frequence WHERE Id = ` +id;
     return await pool.request()
-      .input('checkcontent', sql.VarChar , req.body.mold_no)
-      .input('Specs', sql.VarChar , req.body.name_part)
-      .input('tool', sql.VarChar , req.body.factory_p)
-      .input('Eng', sql.NVarChar , req.body.part_no)
-      .input('Sp_Jig', sql.NVarChar , req.body.dia_no)
-        
+      .input('item_no', sql.Int , req.body.item_no)
+      .input('geometric_tolerance', sql.NVarChar , req.body.geometric_tolerance)
+      .input('specs', sql.Float , req.body.specs)
+      .input('tolerance', sql.Float , req.body.tolerance)
+      .input('lowerlimit', sql.Float , req.body.lowerlimit)
+      .input('upperlimit', sql.Float , req.body.upperlimit)
+      .input('fa_accept_min', sql.Float , req.body.fa_accept_min)
+      .input('fa_accept_max', sql.Float , req.body.fa_accept_max)
+      .input('position', sql.NVarChar , req.body.position)
+      .input('dimtool', sql.VarChar , req.body.dimtool)
+      .input('eng5', sql.Bit , req.body.eng5)
+      .input('sp_jig', sql.VarChar , req.body.sp_jig)
+      .input('qa', sql.Bit , req.body.qa)
+      .input('qa_size', sql.Float , req.body.qa_size)
+      .input('qa_frequence', sql.Float , req.body.qa_frequence)
+      .input('oqc', sql.Bit, req.body.oqc)
+      .input('oqc_size', sql.Real , req.body.oqc_size)
+      .input('oqc_frequence', sql.Float , req.body.oqc_frequence)
+      .input('iqpc', sql.Bit , req.body.iqpc)
+      .input('iqpc_size', sql.Float , req.body.iqpc_size)
+      .input('iqpc_frequence', sql.Float , req.body.iqpc_frequence)
       .query(query, function(err, data){
         console.log(err);
         res.json({
@@ -130,5 +146,17 @@ router.post("/actionac", async function(req, res){
         });
 
     });
+  }
+
+  if(action == "deletePart"){
+    var pool = await conn;
+    
+    var query = "DELETE FROM Dim_checkpoint WHERE Id = " +id;
+    return await pool.request()
+    .query(query, function(err, data){
+      res.json({
+				message : 'Data Deleted'
+			});
+    })
   }
 })

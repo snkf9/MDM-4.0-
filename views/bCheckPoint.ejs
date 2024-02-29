@@ -194,7 +194,7 @@
 </html>
 
 <div class="modal" tabindex="-1" id="partchild_action_modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <form method="post"  url="http://localhost:3000/partData/PartChild/:id/action" body="partDataJson" id="partdata_form">
                 <div class="modal-header" id="partchild_dynamic_modal_title">
@@ -203,95 +203,107 @@
                 </div>
                 <div class="modal-body" >
                     
-                    
-                        <div class="col-12">
+                    <div class="container-fluid">
+                        <div class="row">
+                        <div class="col-md-4">
                             <label class="visually-hidden" for="item_no">Item No</label>
                             <div class="input-group">
                             <div class="input-group-text">Item No</div>
                             <input type="text" class="form-control" name="item_no" id="item_no" >
                         </div>
-                        </div> </p>
+                        </div> 
 
-                        <div class="col-12"> 
+                        <div class="col-md-4">
                             <label class="visually-hidden" for="geometric_tolerance">Geometric Tolerance</label>
                             <div class="input-group">
                             <div class="input-group-text">Geometric Tolerance</div>
                             <input type="text" value="ø" class="form-control" name="geometric_tolerance" id="geometric_tolerance" placeholder="ø">
                         </div>
-                        </div></p>
+                        </div>
 
-                        <div class="col-12"> 
+                        <div class="col-md-4">
                             <label class="visually-hidden" for="specs">Specs</label>
                             <div class="input-group">
                             <div class="input-group-text">Specs</div>
                             <input type="text" class="form-control" name="specs" id="specs" >
                         </div>
-                        </div></p>
+                        </div>
+                    </div></p>
 
-                        <div class="col-12"> 
+                        <div class="row">
+                        <div class="col-md-4">
                             <label class="visually-hidden" for="tolerance">Tolerance</label>
                             <div class="input-group">
                             <div class="input-group-text">Tolerance</div>
                             <input type="text" class="form-control" name="tolerance" id="tolerance" >
                         </div>
-                        </div></p>
+                        </div>
+                        
 
-                        <div class="col-12">
+                        <div class="col-md-4">
                             <label class="visually-hidden" for="lowerlimit">Lower limit</label>
                             <div class="input-group">
                             <div class="input-group-text">Lower limit</div>
                             <input type="text" class="form-control" name="lowerlimit" id="lowerlimit" >
                         </div>
-                        </div></p>
+                        </div>
 
-                        <div class="col-12">
+                        <div class="col-md-4">
                             <label class="visually-hidden" for="upperlimit">Upper limit</label>
                             <div class="input-group">
                             <div class="input-group-text">Upper limit</div>
                             <input type="text" class="form-control" name="upperlimit" id="upperlimit" >
                         </div>
-                        </div></p>
+                        </div>
+                    </div></p>
 
-                        <div class="col-12">
+                    <div class="row">
+                        <div class="col-md-4">
                             <label class="visually-hidden" for="fa_accept_min">FA Accepted Min</label>
                             <div class="input-group">
                             <div class="input-group-text">FA Accepted Min</div>
                             <input type="text" class="form-control" name="fa_accept_min" id="fa_accept_min" >
                         </div>
-                        </div></p>
+                        </div>
+                        
 
-                        <div class="col-12">
+                        
+                            <div class="col-md-4">
                             <label class="visually-hidden" for="fa_accept_max">FA Accepted Max</label>
                             <div class="input-group">
                             <div class="input-group-text">FA Accepted Min</div>
                             <input type="text" class="form-control" name="fa_accept_max" id="fa_accept_max" >
                         </div>
-                        </div></p>
+                        </div>
 
-                        <div class="col-12">
+                        <div class="col-md-4">
                             <label class="visually-hidden" for="position">Position</label>
                             <div class="input-group">
                             <div class="input-group-text">Position</div>
                             <input type="text" class="form-control" name="position" id="position" >
                         </div>
-                        </div></p>
+                        </div>
+                    </div></p>
 
-                        <div class="col-12">
+                    <div class="row">
+                        <div class="col-md-4">
                             <label class="visually-hidden" for="dimtool">Dim Tool</label>
                             <div class="input-group">
                             <div class="input-group-text">Dim Tool</div>
                             <input type="text" class="form-control" name="dimtool" id="dimtool" >
                         </div>
-                        </div></p>
+                        </div>  
+                    
 
-                        <div class="col-12">
+                    
+                        <div class="col-md-4">
                             <label class="visually-hidden" for="sp_jig">Supporting Jig</label>
                             <div class="input-group">
                             <div class="input-group-text">Supporting Jig</div>
                             <input type="text" class="form-control" name="sp_jig" id="sp_jig" >
                         </div>
-                        </div></p>
-
+                        </div>
+                    </div></p>
                         <div class="col-12">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="eng5" id="eng5" value="true">
@@ -311,57 +323,62 @@
                         </div>
                     </div></p>
 
-                    <div class="col-12">
+                    <div class="row">
+                        <div class="col-md-4">
                         <label class="visually-hidden" for="qa_size">QA Sample Size</label>
                         <div class="input-group">
                         <div class="input-group-text">QA Sample Size</div>
                         <input type="text" class="form-control" name="qa_size" id="qa_size" >
                     </div>
-                    </div></p>
-
-                    <div class="col-12">
-                        <label class="visually-hidden" for="qa_frequence">QA Frequence</label>
-                        <div class="input-group">
-                        <div class="input-group-text">QA Frequence</div>
-                        <input type="text" class="form-control" name="qa_frequence" id="qa_frequence" >
                     </div>
-                    </div></p>
 
-                    <div class="col-12">
+                    <div class="col-md-4">
                         <label class="visually-hidden" for="iqpc_size">IQPC Sample Size</label>
                         <div class="input-group">
                         <div class="input-group-text">IQPC Sample Size</div>
                         <input type="text" class="form-control" name="iqpc_size" id="iqpc_size" >
                     </div>
-                    </div></p>
-
-                    <div class="col-12">
-                        <label class="visually-hidden" for="iqpc_frequence">IQPC Frequence</label>
-                        <div class="input-group">
-                        <div class="input-group-text">IQPC Frequence</div>
-                        <input type="text" class="form-control" name="iqpc_frequence" id="iqpc_frequence" >
                     </div>
-                    </div></p>
 
-                    <div class="col-12">
+                    <div class="col-md-4">
+                   
                         <label class="visually-hidden" for="oqc_size">OQC Sample Size</label>
                         <div class="input-group">
                         <div class="input-group-text">OQC Sample Size</div>
                         <input type="text" class="form-control" name="oqc_size" id="oqc_size" >
                     </div>
-                    </div></p>
-
-                    <div class="col-12">
-                        <label class="visually-hidden" for="oqc_frequence">OQC Frequence</label>
-                        <div class="input-group">
-                        <div class="input-group-text">OQC Frequence</div>
-                        <input type="text" class="form-control" name="oqc_frequence" id="oqc_frequence" >
                     </div>
                     </div></p>
 
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="visually-hidden" for="qa_frequence">QA Frequence</label>
+                            <div class="input-group">
+                            <div class="input-group-text">QA Frequence</div>
+                            <input type="text" class="form-control" name="qa_frequence" id="qa_frequence" >
+                        </div>
+                        </div>
+                     
+                        <div class="col-md-4">
+                            <label class="visually-hidden" for="iqpc_frequence">IQPC Frequence</label>
+                            <div class="input-group">
+                            <div class="input-group-text">IQPC Frequence</div>
+                            <input type="text" class="form-control" name="iqpc_frequence" id="iqpc_frequence" >
+                        </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="visually-hidden" for="oqc_frequence">OQC Frequence</label>
+                            <div class="input-group">
+                            <div class="input-group-text">OQC Frequence</div>
+                            <input type="text" class="form-control" name="oqc_frequence" id="oqc_frequence" >
+                        </div>
+                        </div>
+                    </div></p>
 
 
 
+                    </div>
                 </div>
 
                 <div class="modal-footer">
@@ -589,7 +606,7 @@
                 $.ajax({
                     url:"http://localhost:3000" + window.location.pathname+ "/actionac",
                     method:"POST",
-                    data:{id:id, actionPart:'getOnePart'},
+                    data:{id:id, actionac:'getOnePart'},
                     dataType:"JSON",
                     success :function(data)
                     {
@@ -605,29 +622,30 @@
                 });
 
                 });
-                $(document).on('click', '.delete', function(){
+                
+                    $(document).on('click', '.delete', function(){
 
-                    var id = $(this).data('id');
+                        var id = $(this).data('id');
 
-                    if(confirm("Are you sure you want to delete this data?"))
-                    {
-                        $.ajax({
-                            url:"http://localhost:3000/partData/actionPart",
-                            method:"POST",
-                            data:{actionPart:'deletePart', id:id},
-                            dataType:"JSON",
-                            success:function(data)
-                            {
-                                $('#message_part').html('<div class="alert alert-success">'+data.message+'</div>');
-                                load_datapart();
-                                setTimeout(function(){
-                                    $('#message_part').html('');
-                                }, 5000);
-                            }
+                        if(confirm("Are you sure you want to delete this data?"))
+                        {
+                            $.ajax({
+                                url:"http://localhost:3000" + window.location.pathname+ "/actionac",
+                                method:"POST",
+                                data:{actionac:'deletePart', id:id},
+                                dataType:"JSON",
+                                success:function(data)
+                                {
+                                    $('#message_part').html('<div class="alert alert-success">'+data.message+'</div>');
+                                    load_datapart_child();
+                                    setTimeout(function(){
+                                        $('#message_part').html('');
+                                    }, 5000);
+                                }
+                            });
+                        }
+
                         });
-                    }
-
-                    });
     });
 
 
