@@ -385,7 +385,7 @@
                     <input type="hidden" name="id" id="id" />
                     
                     <input type="hidden" name="partid" id="partid" />
-                    <input type="hidden" name="actionac" id="actionPart" value="addPart" />
+                    <input type="hidden" name="actionac" id="actionac" value="addPart" />
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary " id="action_buttonac" >Add</button>
                 </div>
@@ -548,7 +548,7 @@
 
             $('#actionac').val('addPart');
 
-            $('#action_buttonpartdata').text('addPart');
+            $('#action_buttonac').text('Add');
 
             $('#partchild_action_modal').modal('show');
 
@@ -592,6 +592,8 @@
             });
             $(document).on('click', '.edit', function(){
                 var id = $(this).data('id');
+                
+                
 
                 
 
@@ -599,9 +601,11 @@
 
                 $('#actionac').val('editPart');
 
-                $('#action_buttonpartdata').text('EditPart');
+                $('#action_buttonac').text('Edit Part');
 
                 $('#partchild_action_modal').modal('show');
+
+                
 
                 $.ajax({
                     url:"http://localhost:3000" + window.location.pathname+ "/actionac",
@@ -610,13 +614,27 @@
                     dataType:"JSON",
                     success :function(data)
                     {
-                        
-                        $('#mold_no').val(data.Mold_No);
-                        $('#name_part').val(data.Name_part);
-                        $('#part_no').val(data.Part_no);
-                        $('#factory_p').val(data.Factory);
-                        $('#dia_no').val(data.Dia_no);
-                        
+                        document.getElementById('item_no').value = data.data.recordset[0].Item_No;
+                        document.getElementById('geometric_tolerance').value = data.data.recordset[0].Geometric_Tolerance;
+                        document.getElementById('specs').value = data.data.recordset[0].Specs;
+                        document.getElementById('tolerance').value = data.data.recordset[0].Tolerance;
+                        document.getElementById('lowerlimit').value = data.data.recordset[0].Lower_limit;
+                        document.getElementById('upperlimit').value = data.data.recordset[0].Upper_limit;
+                        document.getElementById('fa_accept_min').value = data.data.recordset[0].FA_Accepted_min;
+                        document.getElementById('fa_accept_max').value = data.data.recordset[0].FA_Accepted_max;
+                        document.getElementById('position').value = data.data.recordset[0].Position;
+                        document.getElementById('dimtool').value = data.data.recordset[0].DimTool;
+                        document.getElementById('sp_jig').value = data.data.recordset[0].Supporting_Jig;
+                        document.getElementById('eng5').value = data.data.recordset[0].ENG;
+                        document.getElementById('qa').value = data.data.recordset[0].QA;
+                        document.getElementById('iqpc').value = data.data.recordset[0].IQPC;
+                        document.getElementById('oqc').value = data.data.recordset[0].OQC;
+                        document.getElementById('qa_size').value = data.data.recordset[0].QA_SampleSize;
+                        document.getElementById('iqpc_size').value = data.data.recordset[0].IQPC_SampleSize;
+                        document.getElementById('oqc_size').value = data.data.recordset[0].OQC_SampleSize;
+                        document.getElementById('qa_frequence').value = data.data.recordset[0].QA_Frequence;
+                        document.getElementById('iqpc_frequence').value = data.data.recordset[0].IQPC_SampleSize;
+                        document.getElementById('oqc_frequence').value = data.data.recordset[0].OQC_Frequence;
                         $('#id').val(id);
                     }
                 });

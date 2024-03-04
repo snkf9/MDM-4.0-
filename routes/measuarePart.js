@@ -50,9 +50,27 @@ router.get("/measuare/measuarePart", function(req, res){
 
 router.post("/actionPart", async function(req, res){
   var action = req.body.actionPart;
+  var id = req.body.partId;
+//   var urlValue= window.location.search;
+//   var urlParams = new URLSearchParams(urlValue);
+//   var id = urlParams.get('partId');
   if(action == 'getAllPart'){
     var pool =await conn;
-    var query = "SELECT * FROM Partdata ";
+    
+    var query = "SELECT * FROM ApprearanceCheckpoint WHERE Partid = " +id;
+    var query1 = "SELECT * FROM Dim_checkpoint WHERE Partid = " + id;
+    return await pool.request()
+    .query(query, function(err, data){
+      res.json({
+        data:data
+      });
+    });
+
+    
+  }
+  if(action == 'getAllPartd'){
+    var pool =await conn;
+    var query = "SELECT * FROM Dim_checkpoint WHERE Partid = " + id;
     return await pool.request()
     .query(query, function(err, data){
       res.json({
@@ -63,8 +81,7 @@ router.post("/actionPart", async function(req, res){
   if(action == 'getOnePart')
   {
     var pool =await conn;
-    var id = req.body.id;
-    
+  
     var query = "SELECT * FROM Partdata WHERE Part_Id = " +id;
     
     return await pool.request()

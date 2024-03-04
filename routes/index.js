@@ -19,6 +19,10 @@ router.get("/measuare", function(req, res){
   res.render("measuare")
 });
 
+router.get("/measuare/measuarePart", function(req, res){
+  res.render("measuarePart")
+});
+
 router.get("/checkSheet", function(req, res){
   res.render("checkSheet")
 });

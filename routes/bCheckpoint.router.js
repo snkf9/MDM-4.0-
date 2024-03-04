@@ -62,7 +62,7 @@ router.post("/actionac", async function(req, res){
   {
     var pool =await conn;
     
-    var query = "SELECT * FROM Dim_checkpoint WHERE Partid = " +id;
+    var query = "SELECT * FROM Dim_checkpoint WHERE Id = " +id;
    
     return await pool.request()
     .query(query, function(err, data){
@@ -76,8 +76,8 @@ router.post("/actionac", async function(req, res){
     var id = req.body.id;
     var query =  `
 		INSERT INTO Dim_checkpoint
-		(Partid , Item_No , DimTool , Geometric_Tolerance ,Specs, Tolerance , Lower_limit, Upper_limit , FA_Accepted_min , FA_Accepted_max , Position , Eng , Supporting_Jig, QA , QA_SampleSize, QA_Frequence, IQPC , IQPC_Sample_size, IQPC_Frequence, OQC , OQC_Sample_size, OQC_Frequence) 
-		VALUES (@partid, @item_no, @dimtool , @geometric_tolerance, @specs, @tolerance, @lowerlimit ,@upperlimit , @fa_accept_min, @fa_accept_max ,@position ,  @eng5 , @sp_jig, @qa, @qa_size, @qa_frequence, @iqpc, @iqpc_size, @iqpc_frequence, @oqc, @oqc_size, @oqc_frequence )
+		(Partid , Item_No , DimTool , Geometric_Tolerance ,Specs, Tolerance , Lower_limit, Upper_limit , FA_Accepted_min , FA_Accepted_max , Position , Eng , Supporting_Jig, QA , QA_SampleSize, QA_Frequence, IQPC , IQPC_sample_size , IQPC_Frequence , OQC , OQC_sample_size , OQC_Frequence) 
+		VALUES (@partid, @item_no, @dimtool , @geometric_tolerance, @specs, @tolerance, @lowerlimit ,@upperlimit , @fa_accept_min, @fa_accept_max ,@position ,  @eng5 , @sp_jig, @qa, @qa_size, @qa_frequence, @iqpc, @iqpc_size , @iqpc_frequence , @oqc , @oqc_size , @oqc_frequence )
 		`;
     
     return await pool.request()
@@ -115,8 +115,7 @@ router.post("/actionac", async function(req, res){
     var pool = await conn;
     
     console.log(id);
-    var query = `UPDATE Dim_checkpoint SET Item_No=@item_no, Geometric_Tolerance= @geometric_tolerance, Specs=@specs, Tolerance= @tolerance, Lower_limit= @lowerlimit, Upper_limit = @upperlimit
-                  FA_Accepted_min = @fa_accepted_min , Position = @position , DimTool= @dimtool, Supporting_Jig = @sp_jig , ENG= @eng5, QA= @qa, QA_SampleSize= @qa_size , QA_Frequence = @qa_frequence, IQPC= @iqpc, IQPC_sample_size = @iqpc_size , IQPC_Frequence = @iqpc_frequence , OQC = @oqc , OQC_sample_size = @oqc_size , OQC_Frequence = oqc_frequence WHERE Id = ` +id;
+    var query = `UPDATE Dim_checkpoint SET Item_No=@item_no, Geometric_Tolerance= @geometric_tolerance, Specs=@specs, Tolerance= @tolerance, Lower_limit= @lowerlimit, Upper_limit = @upperlimit , FA_Accepted_min = @fa_accept_min , FA_Accepted_max = @fa_accept_max , Position = @position , DimTool= @dimtool, Supporting_Jig = @sp_jig , ENG= @eng5, QA= @qa, QA_SampleSize= @qa_size , QA_Frequence = @qa_frequence, IQPC= @iqpc, IQPC_sample_size = @iqpc_size , IQPC_Frequence = @iqpc_frequence , OQC = @oqc , OQC_sample_size = @oqc_size , OQC_Frequence = oqc_frequence WHERE Id = ` +id;
     return await pool.request()
       .input('item_no', sql.Int , req.body.item_no)
       .input('geometric_tolerance', sql.NVarChar , req.body.geometric_tolerance)

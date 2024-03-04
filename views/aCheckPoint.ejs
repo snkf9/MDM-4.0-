@@ -298,7 +298,7 @@
                 <div class="modal-footer">
                     <input type="hidden" name="id" id="id" />
                     <input type="hidden" name="partid" id="partid" />
-                    <input type="hidden" name="actionpc" id="actionac" value="addPart" />
+                    <input type="hidden" name="actionpc" id="actionpc" value="addPart" />
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary " id="action_buttonac" >Add</button>
                 </div>
@@ -449,9 +449,9 @@
 
             $('#partdata_form')[0].reset();
 
-            $('#actionac').val('addPart');
+            $('#actionpc').val('addPart');
 
-            $('#action_buttonpartdata').text('addPart');
+            $('#action_buttonac').text('addPart');
 
             $('#partchild_action_modal').modal('show');
 
@@ -478,7 +478,7 @@
                 success:function(data)
                 {
 
-                    $('#action_buttonpartdata').attr('disabled', false);
+                    $('#action_buttonac').attr('disabled', false);
 
                     $('#message_part').html('<div class="alert alert-success">'+data.message+'</div>');
 
@@ -500,9 +500,9 @@
 
                 $('#partdata_dynamic_modal_title').text('Edit Part');
 
-                $('#actionac').val('editPart');
+                $('#actionpc').val('editPart');
 
-                $('#action_buttonpartdata').text('EditPart');
+                $('#action_buttonac').text('EditPart');
 
                 $('#partchild_action_modal').modal('show');
 

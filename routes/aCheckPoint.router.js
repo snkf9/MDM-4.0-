@@ -43,6 +43,7 @@ router.post("/actionac", async function(req, res){
   var action = req.body.actionpc;
   var id = req.body.id;
   
+  
   // const urlValue= window.location.search;
   // const urlParams = new URLSearchParams(urlValue);
   // const id = urlParams.get('partId');
@@ -50,6 +51,7 @@ router.post("/actionac", async function(req, res){
 
     if(action == 'getAllPart'){
     var pool =await conn;
+   
     var query = "SELECT * FROM ApprearanceCheckpoint WHERE Partid = "+ id;
     return await pool.request()
     .query(query, function(err, data){
