@@ -58,7 +58,7 @@ router.post("/actionPart", async function(req, res){
     var pool =await conn;
     
     var query = "SELECT * FROM ApprearanceCheckpoint WHERE Partid = " +id;
-    var query1 = "SELECT * FROM Dim_checkpoint WHERE Partid = " + id;
+    
     return await pool.request()
     .query(query, function(err, data){
       res.json({
@@ -89,7 +89,8 @@ router.post("/actionPart", async function(req, res){
       
       res.json({data});
   
-    });
+    })
+    ;
   }
   if(action == "addPart"){
     var pool = await conn;

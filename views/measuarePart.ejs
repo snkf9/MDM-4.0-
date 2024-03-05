@@ -90,7 +90,7 @@
                         <div class="row">
                             <div class="col col-sm-9">MEASUARE</div>
                             <div class="col col-sm-3">
-                                <button type="button" id="add_partdata" class="btn btn-success btn-sm float-end">Save</button>
+                                <button type="button" id="save_measuare" class="btn btn-success btn-sm float-end">Save</button>
                             </div>
                         </div>
                     </div>
@@ -114,9 +114,10 @@
                                         <th>Cavity 4</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-
+                                <tbody id="abc">
+                                    
                                 </tbody>
+                                <tbody id="def"></tbody>
                                 
                             </table>
                             
@@ -160,7 +161,7 @@
               var id = urlParams.get('partId');
               var x =0;
               var y =0;
-
+              
               
             $.ajax({
                 url:"http://localhost:3000/measuare/measuarePart/actionPart",
@@ -168,116 +169,93 @@
                 data:{partId:id, actionPart:'getAllPart'},
                 dataType : "JSON",
                 success:function(data){
-                    
-                
-                {
-                    
-                    
-                    
-                    // if(data.data.recordset.length > 0)
-                    // {   
-                        var html = '';
+                      
+                    var html1 = '';
                         for(var count = 0; count < data.data.recordset.length; count++)
                         {
                             
-                            html += `
+                            html1 += `
                             <tr>
-                                <td id= "`+x+`.`+y+`">`+data.data.recordset[count].Item_No+`</td>                                
-                                <td id= "`+x+1+`.`+y+`">`+data.data.recordset[count].Check_content+`</td>
-                                <td id= "`+x+2+`.`+y+`"></td>
-                                <td id= "`+x+3+`.`+y+`"></td>
-                                <td id= "`+x+4+`.`+y+`"></td>
-                                <td id= "`+x+5+`.`+y+`"></td>
-                                <td id= "`+x+6+`.`+y+`"></td>
-                                <td id= "`+x+7+`.`+y+`">`+data.data.recordset[count].Tool+`</td>
-                                <td id= "`+x+8+`.`+y+`"><input type="checkbox" class="btn-check" id="`+x+8+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+8+`">OK</label><br>                                    
+                                <td >`+data.data.recordset[count].Item_No+`</td>                                
+                                <td >`+data.data.recordset[count].Check_content+`</td>
+                                <td ></td>
+                                <td ></td>
+                                <td ></td>
+                                <td ></td>
+                                <td ></td>                                
+                                <td >`+data.data.recordset[count].Tool+`</td>
+                                <td ><input type="checkbox" class="btn-check" id="`+x+1+`.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="`+x+1+`.`+y+`">OK</label><br>                                    
                                 </td>
-                                <td id= "`+x+9+`.`+y+9+`"><input type="checkbox" class="btn-check" id="`+x+9+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+9+`">OK</label><br>                                    
+                                <td ><input type="checkbox" class="btn-check" id="`+x+2+`.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="`+x+2+`.`+y+`">OK</label><br>                                    
                                 </td>
-                                <td id= "`+x+10+`.`+y+10+`"><input type="checkbox" class="btn-check" id="`+x+10+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+10+`">OK</label><br>                                    
+                                <td ><input type="checkbox" class="btn-check" id="`+x+3+`.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="`+x+3+`.`+y+`">OK</label><br>                                    
                                 </td>
-                                <td id= "`+x+11+`.`+y+11+`"><input type="checkbox" class="btn-check" id="`+x+11+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+11+`">OK</label><br>                                    
+                                <td ><input type="checkbox" class="btn-check" id="`+x+4+`.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="`+x+4+`.`+y+`">OK</label><br>                                    
                                 </td>
-                                <td id= "`+x+12+`.`+y+12+`"><input type="checkbox" class="btn-check" id="`+x+12+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+12+`">OK</label><br>                                    
+                                <td ><input type="checkbox" class="btn-check" id="`+x+5+`.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="`+x+5+`.`+y+`">OK</label><br>                                    
                                 </td>
                                 
                             </tr>
                             `;
-                            x = x+12;
+                            x = x+6;
                             y = y++;
-                            }
-
-                            if(count== data.data.recordset.length){
-                                $.ajax({
-                                    url:"http://localhost:3000/measuare/measuarePart/actionPart",
-                                    method:"POST",
-                                    data:{partId:id, actionPart:'getAllPart'},
-                                    dataType : "JSON",
-                                    success:function(data){
-                                        
-                                    
-                                    {
-                                        
-                                        
-                                        
-                                        // if(data.data.recordset.length > 0)
-                                        // {   
-                                            var html = '';
-                                            for(var count = 0; count < data.data.recordset.length; count++)
-                                            {
-                                                
-                                                html += `
-                                                <tr>
-                                                    <td id= "`+x+`.`+y+`">`+data.data.recordset[count].Item_No+`</td>                                
-                                                    <td id= "`+x+1+`.`+y+`">`+data.data.recordset[count].Check_content+`</td>
-                                                    <td id= "`+x+2+`.`+y+`"></td>
-                                                    <td id= "`+x+3+`.`+y+`"></td>
-                                                    <td id= "`+x+4+`.`+y+`"></td>
-                                                    <td id= "`+x+5+`.`+y+`"></td>
-                                                    <td id= "`+x+6+`.`+y+`"></td>
-                                                    <td id= "`+x+7+`.`+y+`">`+data.data.recordset[count].Tool+`</td>
-                                                    <td id= "`+x+8+`.`+y+`"><input type="checkbox" class="btn-check" id="`+x+8+`" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="`+x+8+`">OK</label><br>                                    
-                                                    </td>
-                                                    <td id= "`+x+9+`.`+y+9+`"><input type="checkbox" class="btn-check" id="`+x+9+`" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="`+x+9+`">OK</label><br>                                    
-                                                    </td>
-                                                    <td id= "`+x+10+`.`+y+10+`"><input type="checkbox" class="btn-check" id="`+x+10+`" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="`+x+10+`">OK</label><br>                                    
-                                                    </td>
-                                                    <td id= "`+x+11+`.`+y+11+`"><input type="checkbox" class="btn-check" id="`+x+11+`" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="`+x+11+`">OK</label><br>                                    
-                                                    </td>
-                                                    <td id= "`+x+12+`.`+y+12+`"><input type="checkbox" class="btn-check" id="`+x+12+`" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="`+x+12+`">OK</label><br>                                    
-                                                    </td>
-                                                    
-                                                </tr>
-                                                `;
-                                                x = x+12;
-                                                y = y++;
-                                                }
-
-                                                }
-                            // if(count == data.data.recordset.length){
-                                            
-                                        // }
-                                    // }
-                                    $('#part_data_table tbody').html(html);
-                    
-                    }
-                });
-                    // $('#part_data_table tbody').html(html1);
                 }
+                //  $('#part_data_table tbody').html(html);
+                $('#abc').html(html1);
+                
+          }});
+
+          $.ajax({
+            url:"http://localhost:3000/measuare/measuarePart/actionPart",
+            method:"POST",
+            data:{partId:id, actionPart:'getAllPartd'},
+            dataType : "JSON",
+            success:function(data){
+
+                var html2 = '';      
+                        for(var count1 = 0; count1 < data.data.recordset.length; count1++)
+                        {
+                            
+                            html2 += `
+                            <tr>
+                                <td >`+data.data.recordset[count1].Item_No+`</td>                                
+                                <td >`+data.data.recordset[count1].Geometric_Tolerance+``+data.data.recordset[count1].Specs+`</td>
+                                <td >`+data.data.recordset[count1].Tolerance+`</td>
+                                <td >`+data.data.recordset[count1].Lower_limit+`~`+data.data.recordset[count1].Upper_limit+`</td>
+                                <td >`+data.data.recordset[count1].FA_Accepted_min+`</td>
+                                <td >`+data.data.recordset[count1].FA_Accepted_max+`</td>
+                                <td >`+data.data.recordset[count1].Tool+`</td>
+                                <td >`+data.data.recordset[count1].Position+`</td>
+                                <td ><input type="checkbox" class="btn-check" id="`+x+`.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="`+x+`.`+y+`">OK</label><br>                                    
+                                </td>
+                                <td ><input type="text" class="form-control" id="`+x+1+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                  
+                                </td>
+                                <td ><input type="text" class="form-control" id="`+x+2+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                    
+                                </td>
+                                <td ><input type="text" class="form-control" id="`+x+3+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                    
+                                </td>
+                                <td ><input type="text" class="form-control" id="`+x+4+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                   
+                                </td>
+                                
+                            </tr>
+                            `;
+                            x = x+5;
+                            y = y++;
+                            
+                            }
+                            $('#def').html(html2);
+                        }
+                            
+                        
+        }) 
+          
             }
-            }});
-            
-        }
     
         
         $('#add_partdata').click(function(){  
@@ -408,52 +386,7 @@
 
 
 
+<script>
 
 
-<!-- $.ajax({
-    url:"http://localhost:3000/measuare/measuarePart/actionPart",
-    method:"POST",
-    data:{partId:id, actionPart:'getAllPartd'},
-    dataType : "JSON",
-    success:function(data){
-        // if(data.data.recordset.length > 0)
-        //     {   
-                
-                for(var count1 = 0; count1 < data.data.recordset.length; count1++)
-                {
-                    
-                    html += `
-                    <tr>
-                        <td id= "`+x+`.`+y+`">`+data.data.recordset[count1].Item_No+`</td>                                
-                        <td id= "`+x+1+`.`+y+`">`+data.data.recordset[count1].Geometric_Tolerance+``+data.data.recordset[count1].Specs+`</td>
-                        <td id= "`+x+2+`.`+y+`">`+data.data.recordset[count1].Tolerance+`</td>
-                        <td id= "`+x+3+`.`+y+`">`+data.data.recordset[count1].Lower_limit+`~`+data.data.recordset[count1].Upper_limit+`</td>
-                        <td id= "`+x+4+`.`+y+`">`+data.data.recordset[count1].FA_Accepted_min+`</td>
-                        <td id= "`+x+5+`.`+y+`">`+data.data.recordset[count1].FA_Accepted_max+`</td>
-                        <td id= "`+x+6+`.`+y+`">`+data.data.recordset[count1].Tool+`</td>
-                        <td id= "`+x+7+`.`+y+`">`+data.data.recordset[count1].Position+`</td>
-                        <td id= "`+x+8+`.`+y+`"><input type="checkbox" class="btn-check" id="`+x+8+`" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="`+x+8+`">OK</label><br>                                    
-                        </td>
-                        <td id= "`+x+9+`.`+y+9+`"><input type="checkbox" class="btn-check" id="`+x+9+`" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="`+x+9+`">OK</label><br>                                    
-                        </td>
-                        <td id= "`+x+10+`.`+y+10+`"><input type="checkbox" class="btn-check" id="`+x+10+`" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="`+x+10+`">OK</label><br>                                    
-                        </td>
-                        <td id= "`+x+11+`.`+y+11+`"><input type="checkbox" class="btn-check" id="`+x+11+`" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="`+x+11+`">OK</label><br>                                    
-                        </td>
-                        <td id= "`+x+12+`.`+y+12+`"><input type="checkbox" class="btn-check" id="`+x+12+`" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="`+x+12+`">OK</label><br>                                    
-                        </td>
-                        
-                    </tr>
-                    `;
-                    x = x+12;
-                    y = y++;
-                    
-                    }}
-                    
-                // }
-}) -->
+</script>
