@@ -30,6 +30,14 @@ app.set('view engine', 'ejs');
 var bodyPaser = require('body-parser');
 app.use(bodyPaser.json());
 
+//session
+  var session = require('express-session');
+  app.use(session({
+  secret : 'webslesson',
+  resave : true,
+  saveUninitialized : true
+}));
+
 
 app.use(logger('dev'));
 app.use(express.json());

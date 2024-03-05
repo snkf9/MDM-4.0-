@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var {conn, sql} = require('../connect');
 
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('home', { title: 'Express' });
+  res.render('index', { title: 'Express', session : req.session });
 });
 router.get("/tool", function(req, res){
   res.render("tool")
@@ -40,6 +41,64 @@ router.get("/partData/acheckpoint",function(req, res){
 router.get("/partData/bcheckpoint",function(req, res){
 res.render("bCheckPoint")
 })
+
+
+router.post('/login', async function(req, res, next){
+
+  var user = req.body.svnId;
+
+  var user_password = req.body.password;
+
+  if(user && user_password)
+  {
+    var pool = await conn;
+    var query = `SELECT * FROM userTable 
+      WHERE SVN_Id = "${user}"
+      `;
+
+      return await pool.request()
+      .query(query, function(err, data){
+        if(data.length > 0)
+        {
+            for(var count = 0; count < data.length; count++)
+            {
+                if(data.data.recordset[count].Passw == user_password)
+                {
+                    req.session.user_id = data[count].user_id;
+
+                    res.redirect("/");
+                }
+                else
+                {
+                    res.send('Incorrect Password');
+                }
+            }
+        }
+        else
+        {
+            res.send('Incorrect Email Address');
+        }
+        res.end();
+        
+      })
+
+  }
+  else
+  {
+      res.send('Please Enter Email Address and Password Details');
+      res.end();
+  }
+
+});
+
+router.get('/logout', function(request, response, next){
+
+  request.session.destroy();
+
+  response.redirect("/");
+
+});
+
 
 module.exports = router;
 
