@@ -43,7 +43,7 @@ res.render("bCheckPoint")
 })
 
 
-router.post('/login', async function(req, res, next){
+router.post("/login", async function(req, res, next){
 
   var user = req.body.svnId;
 
@@ -52,37 +52,41 @@ router.post('/login', async function(req, res, next){
   if(user && user_password)
   {
     var pool = await conn;
-    var query = `SELECT * FROM userTable 
-      WHERE SVN_Id = "${user}"
-      `;
+    var query = "SELECT * FROM userTable WHERE SVN_Id =" + user;
 
       return await pool.request()
       .query(query, function(err, data){
-        if(data.length > 0)
+                if(data.recordset.length > 0)
         {
+          console.log(data.recordset.length);
             for(var count = 0; count < data.length; count++)
             {
                 if(data.data.recordset[count].Passw == user_password)
                 {
-                    req.session.user_id = data[count].user_id;
+                    req.session.user_id = data.data.recordset[count].user_id;
 
-                    res.redirect("/");
+                    res.redirect("http://localhost:3000/home");
                 }
                 else
                 {
-                    res.send('Incorrect Password');
+                  res.redirect("/");
+                  
                 }
             }
         }
         else
         {
-            res.send('Incorrect Email Address');
+          res.redirect("/");
+          
         }
         res.end();
-        
-      })
 
-  }
+        })
+        
+        
+      }
+
+  
   else
   {
       res.send('Please Enter Email Address and Password Details');
