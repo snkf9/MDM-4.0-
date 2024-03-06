@@ -5,7 +5,7 @@ var {conn, sql} = require('../connect');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('home', { title: 'Express' });
+  res.render('index', { title: 'Express', session : req.session });
 });
 router.get("/tool", function(req, res){
   res.render("tool")

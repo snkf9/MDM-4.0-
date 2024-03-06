@@ -52,23 +52,26 @@ router.post("/login", async function(req, res, next){
   if(user && user_password)
   {
     var pool = await conn;
-    var query = "SELECT * FROM userTable WHERE SVN_Id =" + user;
-
+    var query = "SELECT * FROM userTable WHERE SVN_Id = " + user;
       return await pool.request()
       .query(query, function(err, data){
+        
                 if(data.recordset.length > 0)
         {
-          console.log(data.recordset.length);
-            for(var count = 0; count < data.length; count++)
+          
+            for(var count = 0; count < data.recordset.length; count++)
             {
-                if(data.data.recordset[count].Passw == user_password)
+              console.log(data.recordset[count].Passw);
+                if(data.recordset[count].Passw == user_password)
                 {
-                    req.session.user_id = data.data.recordset[count].user_id;
+                  
+                    // req.session.user_id = data.recordset[count].user_id;
 
-                    res.redirect("http://localhost:3000/home");
+                    res.redirect("http://localhost:3000/partData");
                 }
                 else
                 {
+                  
                   res.redirect("/");
                   
                 }
@@ -76,12 +79,13 @@ router.post("/login", async function(req, res, next){
         }
         else
         {
+          
           res.redirect("/");
           
         }
         res.end();
 
-        })
+        });
         
         
       }
@@ -89,8 +93,8 @@ router.post("/login", async function(req, res, next){
   
   else
   {
-      res.send('Please Enter Email Address and Password Details');
-      res.end();
+    res.redirect("/");
+
   }
 
 });
