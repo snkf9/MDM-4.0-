@@ -87,20 +87,28 @@
                 
                 <span id="message_part"></span>
                 <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col col-sm-9">PART DATA TABLE</div>
-                            <div class="col col-sm-3">
-                                <button type="button" id="add_partdata" class="btn btn-success btn-sm float-end">Add</button>
-                            </div>
+                    <div class="col-md-4">
+                        
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="false" name="dept" id="qa"  >
+                             <label class="form-check-label" for="inlineCheckbox2">QA</label>
                         </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="false" name="dept" id="iqpc" >
+                            <label class="form-check-label" for="inlineCheckbox2">IQPC</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="false" name="dept" id="oqc">
+                            <label class="form-check-label" for="inlineCheckbox2">OQC</label>
+                        </div>
+                        
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-compact " id="part_data_table">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        
                                         <th>Mold No</th>
                                         <th>Part Name</th>
                                         <th>Part No</th>
@@ -137,58 +145,6 @@
     </body>
 </html>
 
-<div class="modal" tabindex="-1" id="partdata_action_modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="post" url="http://localhost:3000/partData/addPart" body="partDataJson" id="partdata_form">
-                <div class="modal-header" id="partdata_dynamic_modal_title">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>    
-                </div>
-                <div class="modal-body" >
-                    <div class="mb-3">
-                        <label class="form-label">Mold No</label>
-                        <input type="text" name="mold_no"  id="mold_no" class="form-control" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Part Name</label>
-                        <input type="text" name="name_part"  id="name_part" class="form-control" />
-                    </div>
-                
-                    <div class="mb-3">
-                        <label class="form-label">Part No</label>
-                        <input type="text" name="part_no"  id="part_no" class="form-control" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Dia No</label>
-                        <input type="text" name="dia_no"  id="dia_no" class="form-control" />
-                    </div>
-
-                    <div class="mb-3" >
-                        <label class="form-label">Factory No</label>
-                        <select  id="factory_p" name="factory_p" class="form-control">
-                            <option value="SVN2">SVN2</option>
-                            <option value="SVN3">SVN3</option>
-                        </select>
-                        
-                    </div>
-
-                </div>
-
-                <div class="modal-footer">
-                    <input type="hidden" name="id" id="id" />
-                    <input type="hidden" name="add_date" id="add_date" />
-                    <input type="hidden" name="actionPart" id="actionPart" value="Add" />
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary " id="action_buttonpartdata" >Add</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 
 <script>
 
@@ -216,17 +172,18 @@
                         
                         for(var count = 0; count < data.data.recordset.length; count++)
                         {
-                            
+                            // <td><form method="get" action="/measuare/measuarePart" ><button type="submit" class="btn btn-success btn-sm open" >Open</button><input type="hidden"name="partId" value="`+data.data.recordset[count].Part_Id+`"></form></td>
+                            // <td><form method="get" action="/measuare/measuarePart" ><button type="submit" class="btn btn-success btn-sm open" >Open</button><input type="hidden" name="partId" value="`+data.data.recordset[count].Part_Id+`"><input type="hidden" name="qa" value=""><input type="hidden" name="iqpc" value=""><input type="hidden" name="oqc" value=""></form></td>
                             html += `
                             <tr>
-                                <td>`+data.data.recordset[count].Part_Id+`</td>
+                                
                                 <td>`+data.data.recordset[count].Mold_No+`</td>
                                 <td>`+data.data.recordset[count].Name_part+`</td>                                           
                                 <td>`+data.data.recordset[count].Part_no+`</td>
                                 <td>`+data.data.recordset[count].Dia_no+`</td>
                                 <td>`+data.data.recordset[count].Factory+`</td>
                                 <td>`+data.data.recordset[count].Add_date+`</td>
-                                <td><form method="get" action="/measuare/measuarePart" ><button type="submit" class="btn btn-success btn-sm open" >Open</button><input type="hidden"name="partId" value="`+data.data.recordset[count].Part_Id+`"></form></td>
+                                <td><button type="button" class="btn btn-success btn-sm open" data-id="`+data.data.recordset[count].Part_Id+`">Open</button></td>
                             
                             </tr>
                             `;
@@ -241,117 +198,47 @@
                 }
             });
         }
-        
-        $('#add_partdata').click(function(){  
-            
 
-            $('#partdata_dynamic_modal_title').text('Add Part');
-
-            $('#partdata_form')[0].reset();
-
-            $('#actionPart').val('addPart');
-
-            $('#action_buttonpartdata').text('addPart');
-
-            $('#partdata_action_modal').modal('show');
-
-
-        });
-
-        $('#partdata_form').on('submit', function(event){
-
-            event.preventDefault();
-            var curDate = new Date();
-            var curDay = curDate.getDate() + '/' + curDate.getMonth() + 1 + '/' + curDate.getFullYear() ;
-            $('#add_date').val(curDay);
-
-            
-
-            $.ajax({
-                url:"http://localhost:3000/partData/actionPart",
-                method:"POST",
-                data:$('#partdata_form').serialize(),
-                dataType:"JSON",
-                beforeSend:function(){
-                    $('#action_buttonpartdata').attr('disabled', 'disabled');
-                },
-                success:function(data)
-                {
-
-                    $('#action_buttonpartdata').attr('disabled', false);
-
-                    $('#message_part').html('<div class="alert alert-success">'+data.message+'</div>');
-
-                    $('#partdata_action_modal').modal('hide');
-
-                    load_datapart();
-
-                    setTimeout(function(){
-                        $('#message_part').html('');
-                    }, 5000);
+            $(document).on('click', '.open', function(){
+                var id = $(this).data('id');               
+                var iqpc = document.getElementById('iqpc');
+                if (iqpc.checked === true){
+                    iqpc = 'true';
                 }
-            });
-
-            });
-            $(document).on('click', '.edit', function(){
-                var id = $(this).data('id');
-
+                else {
+                    iqpc = 'false';
+                }
+                var qa = document.getElementById('qa');
+                if (qa.checked === true){
+                    qa = 'true';
+                }
+                else {
+                    qa = 'false';
+                }
+                var oqc = document.getElementById('oqc');
+                if (oqc.checked === true){
+                    oqc = 'true';
+                }
+                else {
+                    oqc = 'false';
+                }
                 
-
-                $('#partdata_dynamic_modal_title').text('Edit Part');
-
-                $('#actionPart').val('editPart');
-
-                $('#action_buttonpartdata').text('EditPart');
-
-                $('#partdata_action_modal').modal('show');
+                              
 
                 $.ajax({
-                    url:"http://localhost:3000/partData/actionPart",
+                    url:"http://localhost:3000/measuare/actionPart",
                     method:"POST",
-                    data:{id:id, actionPart:'getOnePart'},
+                    data:{id:id, iqpc: iqpc , qa:qa , oqc:oqc , actionPart:'getOnePart'},
                     dataType:"JSON",
                     success :function(data)
-                    {
-                        
-                        $('#mold_no').val(data.Mold_No);
-                        $('#name_part').val(data.Name_part);
-                        $('#part_no').val(data.Part_no);
-                        $('#factory_p').val(data.Factory);
-                        $('#dia_no').val(data.Dia_no);
-                        
-                        $('#id').val(id);
-                    }
-                });
-
-                });
-                $(document).on('click', '.delete', function(){
-
-                    var id = $(this).data('id');
-
-                    if(confirm("Are you sure you want to delete this data?"))
-                    {
-                        $.ajax({
-                            url:"http://localhost:3000/partData/actionPart",
-                            method:"POST",
-                            data:{actionPart:'deletePart', id:id},
-                            dataType:"JSON",
-                            success:function(data)
-                            {
-                                $('#message_part').html('<div class="alert alert-success">'+data.message+'</div>');
-                                load_datapart();
-                                setTimeout(function(){
-                                    $('#message_part').html('');
-                                }, 5000);
-                            }
-                        });
+                    {                    
+  
+                        res.redirect('/measuare/measuarePart')
                     }
 
-                    });
-
-
-
-
-               
+                });
+                
+                });
+         
     })
 </script>

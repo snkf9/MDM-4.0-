@@ -103,7 +103,7 @@
                             <table class="table table-striped table-bordered table-compact " id="part_data_table">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        
                                         <th>Mold No</th>
                                         <th>Part Name</th>
                                         <th>Part No</th>
@@ -222,7 +222,7 @@
                             
                             html += `
                             <tr>
-                                <td>`+data.data.recordset[count].Part_Id+`</td>
+                                
                                 <td>`+data.data.recordset[count].Mold_No+`</td>
                                 <td>`+data.data.recordset[count].Name_part+`</td>                                           
                                 <td>`+data.data.recordset[count].Part_no+`</td>
@@ -265,7 +265,8 @@
 
             event.preventDefault();
             var curDate = new Date();
-            var curDay = curDate.getDate() + '/' + curDate.getMonth() + 1 + '/' + curDate.getFullYear() ;
+            var curMonth = curDate.getMonth() + 1;
+            var curDay = curDate.getDate() + '/' + curMonth + '/' + curDate.getFullYear() ;
             $('#add_date').val(curDay);
 
             

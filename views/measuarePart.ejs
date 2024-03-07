@@ -277,13 +277,7 @@
         $('#partdata_form').on('submit', function(event){
 
             event.preventDefault();
-            var curDate = new Date();
-            var curDay = curDate.getDate() + '/' + curDate.getMonth() + 1 + '/' + curDate.getFullYear() ;
-            $('#add_date').val(curDay);
-
-            
-
-            $.ajax({
+               $.ajax({
                 url:"http://localhost:3000/partData/actionPart",
                 method:"POST",
                 data:$('#partdata_form').serialize(),
@@ -308,85 +302,9 @@
                 }
             });
 
-            });
-            $(document).on('click', '.edit', function(){
-                var id = $(this).data('id');
-
-                
-
-                $('#partdata_dynamic_modal_title').text('Edit Part');
-
-                $('#actionPart').val('editPart');
-
-                $('#action_buttonpartdata').text('EditPart');
-
-                $('#partdata_action_modal').modal('show');
-
-                $.ajax({
-                    url:"http://localhost:3000/partData/actionPart",
-                    method:"POST",
-                    data:{id:id, actionPart:'getOnePart'},
-                    dataType:"JSON",
-                    success :function(data)
-                    {
-                        
-                        $('#mold_no').val(data.Mold_No);
-                        $('#name_part').val(data.Name_part);
-                        $('#part_no').val(data.Part_no);
-                        $('#factory_p').val(data.Factory);
-                        $('#dia_no').val(data.Dia_no);
-                        
-                        $('#id').val(id);
-                    }
-                });
-
-                });
-                $(document).on('click', '.delete', function(){
-
-                    var id = $(this).data('id');
-
-                    if(confirm("Are you sure you want to delete this data?"))
-                    {
-                        $.ajax({
-                            url:"http://localhost:3000/partData/actionPart",
-                            method:"POST",
-                            data:{actionPart:'deletePart', id:id},
-                            dataType:"JSON",
-                            success:function(data)
-                            {
-                                $('#message_part').html('<div class="alert alert-success">'+data.message+'</div>');
-                                load_datapart();
-                                setTimeout(function(){
-                                    $('#message_part').html('');
-                                }, 5000);
-                            }
-                        });
-                    }
-
-                    });
-
-                $(document).on('click', '.open', function(){
-                    var id = $(this).data('id');
-                    console.log(id);
-                    $.ajax({
-                        path:"partData/PartChild/:id",
-                        method:"get",
-                        data:{id:id},
-                        dataType:"JSON",
-                    })
-                    
-
-                }) ;
-
-
-
-               
+            });    
     })
 </script>
 
 
 
-<script>
-
-
-</script>

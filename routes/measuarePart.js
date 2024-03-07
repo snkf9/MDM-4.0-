@@ -61,16 +61,14 @@ router.post("/actionPart", async function(req, res){
     
     return await pool.request()
     .query(query, function(err, data){
-      res.json({
-        data:data
-      });
+      res.redirect("http://localhost:3000/measuare/measuarePart");
     });
-
+    
     
   }
   if(action == 'getAllPartd'){
     var pool =await conn;
-    var query = "SELECT * FROM Dim_checkpoint WHERE Partid = " + id;
+    var query = "SELECT * FROM Dim_checkpoint WHERE Partid = " + id ;
     return await pool.request()
     .query(query, function(err, data){
       res.json({
