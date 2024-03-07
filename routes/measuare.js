@@ -67,7 +67,7 @@ router.post("/actionPart", async function(req, res){
     var query = "SELECT * FROM Partdata WHERE Part_Id = " +id;    
     return await pool.request()
     .query(query, function(err, data){      
-                           
+      res.redirect('/measuare/measuarePart')               
     });
   }
 })
