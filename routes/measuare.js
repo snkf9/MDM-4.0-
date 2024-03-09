@@ -33,11 +33,7 @@ router.get("/partData/acheckpoint",function(req, res){
 router.get("/partData/bcheckpoint",function(req, res){
 res.render("bCheckPoint")
 })
-// router.get("/PartChild", function(){
-  
-//   res.redirect("http://localhost:3000/PartChild")
 
-// });
 router.get("/partData/PartChild", function(req, res){
   
   res.render("partchild");
@@ -60,16 +56,7 @@ router.post("/actionPart", async function(req, res){
       });
     });
   }
-  if(action == 'getOnePart')
-  {
-    var pool =await conn;
-    var id = req.body.id;    
-    var query = "SELECT * FROM Partdata WHERE Part_Id = " +id;    
-    return await pool.request()
-    .query(query, function(err, data){      
-      res.redirect('/measuare/measuarePart')               
-    });
-  }
-})
+});
+
 
 module.exports = router;

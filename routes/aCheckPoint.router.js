@@ -75,12 +75,17 @@ router.post("/actionac", async function(req, res){
   }
   if(action == "addPart"){
     var pool = await conn;
-
-    var query =  `
-		INSERT INTO ApprearanceCheckpoint
-		(Item_No , Check_content ,Specs, Tool , Eng , Sp_Jig , QA , QA_Sample_size, QA_Frequence, IQPC , IQPC_Sample_size, IQPC_Frequence, OQC , OQC_Sample_size, OQC_Frequence, Partid) 
-		VALUES (@item_no, @check_content, @specs, @tool, @eng5 , @sp_jig, @qa, @qa_size, @qa_frequence, @iqpc, @iqpc_size, @iqpc_frequence, @oqc, @oqc_size, @oqc_frequence, @partid )
-		`;
+    var qa = req.body.qa;
+    var iqpc = req.body.iqpc;
+    var oqc = req.body.oqc;
+    if(qa == 'true'){qa = 1}
+    else(qa=0);
+    if(iqpc == 'true'){iqpc = 1}
+    else(iqpc=0);
+    if(oqc == 'true'){oqc=1}
+    else(oqc=0);
+    // console.log(qa);
+    var query =  "INSERT INTO ApprearanceCheckpoint	(Item_No , Check_content ,Specs, Tool , Eng , Sp_Jig , QA , QA_Sample_size, QA_Frequence, IQPC , IQPC_Sample_size, IQPC_Frequence, OQC , OQC_Sample_size, OQC_Frequence, Partid) VALUES (@item_no, @check_content, @specs, @tool, @eng5 , @sp_jig, "+qa+" , @qa_size, @qa_frequence, "+iqpc+" , @iqpc_size, @iqpc_frequence, "+oqc+" , @oqc_size, @oqc_frequence, @partid )";
     
     return await pool.request()
       .input('item_no', sql.VarChar , req.body.item_no)
@@ -89,13 +94,13 @@ router.post("/actionac", async function(req, res){
       .input('tool', sql.NVarChar , req.body.tool)
       .input('eng5', sql.Bit , req.body.eng5)
       .input('sp_jig', sql.NVarChar , req.body.sp_jig)
-      .input('qa', sql.Bit , req.body.qa)
+      // .input('qa', sql.Bit , req.body.qa)
       .input('qa_size', sql.Bit , req.body.qa_size)
       .input('qa_frequence', sql.Bit , req.body.qa_frequence)
-      .input('oqc', sql.Bit, req.body.oqc)
+      // .input('oqc', sql.Bit, req.body.oqc)
       .input('oqc_size', sql.Bit , req.body.oqc_size)
       .input('oqc_frequence', sql.Bit , req.body.oqc_frequence)
-      .input('iqpc', sql.Bit , req.body.iqpc)
+      // .input('iqpc', sql.Bit , req.body.iqpc)
       .input('iqpc_size', sql.Bit , req.body.iqpc_size)
       .input('iqpc_frequence', sql.Bit , req.body.iqpc_frequence)
       .input('partid', sql.Int , req.body.partid)

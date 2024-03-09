@@ -51,6 +51,9 @@ router.get("/measuare/measuarePart", function(req, res){
 router.post("/actionPart", async function(req, res){
   var action = req.body.actionPart;
   var id = req.body.partId;
+  var qa = req.body.qa;
+  var iqpc= req.body.iqpc;
+  var oqc = req.body.oqc;
 //   var urlValue= window.location.search;
 //   var urlParams = new URLSearchParams(urlValue);
 //   var id = urlParams.get('partId');
@@ -61,7 +64,9 @@ router.post("/actionPart", async function(req, res){
     
     return await pool.request()
     .query(query, function(err, data){
-      res.redirect("http://localhost:3000/measuare/measuarePart");
+      res.json({
+        data:data
+      });
     });
     
     
@@ -76,74 +81,46 @@ router.post("/actionPart", async function(req, res){
       });
     });
   }
-  if(action == 'getOnePart')
-  {
+  if(action == 'getAllParte'){
     var pool =await conn;
-  
-    var query = "SELECT * FROM Partdata WHERE Part_Id = " +id;
     
-    return await pool.request()
-    .query(query, function(err, data){
-      
-      res.json({data});
-  
-    })
-    ;
-  }
-  if(action == "addPart"){
-    var pool = await conn;
-    var id = req.body.id;
-    var query =  `
-		INSERT INTO Partdata
-		(Mold_No , Name_part ,Part_no, Factory , Dia_no , Add_date) 
-		VALUES (@mold_no, @name_part, @part_no , @factory_p , @dia_no, @add_date)
-		`;
+    var query = "SELECT * FROM ApprearanceCheckpoint WHERE Partid = " +id;
+    var queryQA = " AND QA = "+qa;
+    var queryIQPC = " AND IQPC = "+iqpc;
+    var queryOQC = " AND OQC = "+ oqc;
     
-    return await pool.request()
-      .input('mold_no', sql.VarChar , req.body.mold_no)
-      .input('name_part', sql.VarChar , req.body.name_part)
-      .input('factory_p', sql.VarChar , req.body.factory_p)
-      .input('part_no', sql.NVarChar , req.body.part_no)
-      .input('dia_no', sql.NVarChar , req.body.dia_no)
-      .input('add_date', sql.NVarChar , req.body.add_date)  
-      .query(query, function(err, data){
-        console.log(err);
-        res.json({
-          message : 'Data Added'
-        });
-      });
-
-  }
-  if(action == "editPart"){
-    var pool = await conn;
-    var id = req.body.id;
-    var query = `UPDATE Partdata SET Mold_No = @mold_no ,Part_no=@part_no, Name_part = @name_part , Factory = @factory_p , Dia_no= @dia_no  WHERE Part_Id = ` +id;
-    return await pool.request()
-      .input('mold_no', sql.VarChar , req.body.mold_no)
-      .input('name_part', sql.VarChar , req.body.name_part)
-      .input('factory_p', sql.VarChar , req.body.factory_p)
-      .input('part_no', sql.NVarChar , req.body.part_no)
-      .input('dia_no', sql.NVarChar , req.body.dia_no)
-        
-      .query(query, function(err, data){
-        console.log(err);
-        res.json({
-          message : 'Data Edited'
-        });
-
-    });
-  }
-  if(action == "deletePart"){
-    var pool = await conn;
-    var id = req.body.id;
-    var query = "DELETE FROM Partdata WHERE Part_Id = " +id;
+    if (qa == true){query +=queryQA};
+    if (iqpc == true){query +=queryIQPC};
+    if(oqc == true){query += queryOQC};
+    console.log(query);
+    
     return await pool.request()
     .query(query, function(err, data){
       res.json({
-				message : 'Data Deleted'
-			});
-    })
+        data:data
+      });
+    });
+    
+    
   }
+  if(action == 'getAllPartf'){
+    var pool =await conn;
+    var query = "SELECT * FROM Dim_checkpoint WHERE Partid = " + id ;
+    var queryQA = " AND QA = "+qa;
+    var queryIQPC = " AND IQPC = "+iqpc;
+    var queryOQC = " AND OQC = "+ oqc;
+    if (qa == true){query +=queryQA};
+    if (iqpc == true){query +=queryIQPC};
+    if(oqc == true){query += queryOQC};
+    return await pool.request()
+    .query(query, function(err, data){
+      res.json({
+        data:data
+      });
+    });
+  }
+
+  
 
 
 

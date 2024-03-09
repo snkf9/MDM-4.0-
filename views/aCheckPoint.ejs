@@ -372,10 +372,12 @@
 
                         var a= data.data.recordset[count].QA;
                         if (a == null){var b="";}
+                        else if (a == false){var b="";}
                         else {var b= data.data.recordset[count].QA;}
 
                         var ab= data.data.recordset[count].QA_Sample_size;
                         if (ab == null){var bc="";}
+                        
                         else {var bc= data.data.recordset[count].QA_Sample_size;}
 
                         var ba= data.data.recordset[count].QA_Frequence;
@@ -384,6 +386,7 @@
 
                         var a2= data.data.recordset[count].Eng;
                         if (a2 == null){var b2="";}
+                        else if (a2 == false){var b2="";}
                         else {var b2= data.data.recordset[count].Eng;}
 
                         var a3= data.data.recordset[count].Sp_Jig;
@@ -392,6 +395,7 @@
 
                         var a4= data.data.recordset[count].IQPC;
                         if (a4 == null){var b4="";}
+                        else if (a4 == false){var b4="";}
                         else {var b4= data.data.recordset[count].IQPC;}
 
                         var a5= data.data.recordset[count].IQPC_Sample_size;
@@ -404,6 +408,7 @@
 
                         var a7= data.data.recordset[count].OQC;
                         if (a7 == null){var b7="";}
+                        else if (a7 == false) {var b7="";}
                         else {var b7= data.data.recordset[count].OQC;}
 
                         var a8= data.data.recordset[count].OQC_Sample_size;
@@ -455,18 +460,14 @@
             $('#action_buttonac').text('addPart');
 
             $('#partchild_action_modal').modal('show');
-
+            
 
         });
 
         $('#partdata_form').on('submit', function(event){
 
-            event.preventDefault();
-            // var curDate = new Date();
-            // var curDay = curDate.getDate() + '/' + curDate.getMonth() + 1 + '/' + curDate.getFullYear() ;
-            // $('#add_date').val(curDay);
-         
-
+            event.preventDefault();             
+            
             $.ajax({
                 url:"http://localhost:3000" + window.location.pathname+ "/actionac",
                 method:"POST",
@@ -506,6 +507,7 @@
                 $('#action_buttonac').text('EditPart');
 
                 $('#partchild_action_modal').modal('show');
+                
 
                 $.ajax({
                     url:"http://localhost:3000" + window.location.pathname+ "/actionac",
