@@ -54,8 +54,9 @@ router.post("/login", async function(req, res, next){
   if(user && user_password)
   {
     var pool = await conn;
-    var query = "SELECT * FROM userTable WHERE SVN_Id = " + user;
     
+    var query = "SELECT * FROM userTable WHERE SVN_Id = " + user;
+   
     
       return await pool.request()
       .query(query, function(err, data){
@@ -66,11 +67,12 @@ router.post("/login", async function(req, res, next){
             for(var count = 0; count < data.recordset.length; count++)
             {
               
-                if(data.recordset[count].Passw == user_password)
+                if(data.recordset[count].Passw == user_password )
                 {
                   
                     req.session.user_id = data.recordset[count].Id;
-                    res.redirect("/")
+                    res.redirect("/");
+                    
                     //res.redirect("http://localhost:3000/partData");
                 }
                 else
@@ -91,6 +93,8 @@ router.post("/login", async function(req, res, next){
 
         });
         
+        
+        
       }
 
   else
@@ -102,11 +106,12 @@ router.post("/login", async function(req, res, next){
 
 });
 
-router.get('/logout', function(request, response, next){
+router.get('/logout', async function(request, response, next){
 
   request.session.destroy();
 
   response.redirect("/");
+  
 
 });
 

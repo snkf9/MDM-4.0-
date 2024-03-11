@@ -81,39 +81,105 @@
             </nav>
         </header>
         <main>
-            <div class="container">
-                <h1 class="mt-4 mb-4 text-center text-primary"><b></b></h1>
-                
-                <span id="message_part"></span>
+            <div class="container">                               
                 <div class="card">
+
                     <div class="card-header">
-                        <div class="row">
-                            <div class="col col-sm-9">MEASUARE</div>
-                            <div class="col-md-4">
+
+                        <div class="row"> 
+
+                            <div class="col-sm-9">
                                 <form method="post" id="partdata_form">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" value="true" name="qa" id="qa"  >
-                                     <label class="form-check-label" for="inlineCheckbox2">QA</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" value="true" name="iqpc" id="iqpc" >
-                                    <label class="form-check-label" for="inlineCheckbox2">IQPC</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" value="true" name="oqc" id="oqc">
-                                    <label class="form-check-label" for="inlineCheckbox2">OQC</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <button type="submit" id="btt_choose" class="btn btn-success btn-sm ">OK</button>
-                                </div>
-                                <input type="hidden" name="partId" id="partId">
-                                <!-- <input type="hidden" name="actionPart" id="actionPart"> -->
-                            </form>    
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" value="true" name="qa" id="qa"  >
+                                        <label class="form-check-label" for="inlineCheckbox2">QA</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" value="true" name="iqpc" id="iqpc" >
+                                        <label class="form-check-label" for="inlineCheckbox2">IQPC</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" value="true" name="oqc" id="oqc">
+                                        <label class="form-check-label" for="inlineCheckbox2">OQC</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <button type="submit" id="btt_choose" class="btn btn-success btn-sm ">OK</button>
+                                        <input type="hidden" name="partId" id="partId">
+                                    </div>
+                                
+                                </form>    
                             </div>
-                            <div class="col col-sm-3">
-                                <button type="button" id="save_measuare" class="btn btn-success btn-sm float-end">Save</button>
-                            </div>
+
+                             
+                        
+                         <div class="col-sm-13">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <label class="form-check-label" for="inlineCheckbox2">INJ Date</label>
+                                    <input type="date" name="injDate" id="injDate">
+                                </li>
+                                <li class="list-inline-item">
+                                    <label class="form-check-label" for="batch">Batch</label>
+                                </li>
+                                <li class="list-inline-item">
+                                    
+                                    <select class="form-select" id="batch" style="width: 100px;">
+                                    <option selected>Batch</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">New batch</option>
+                                    </select>
+                                </li>  
+                                <li class="list-inline-item">
+                                    <label>MC</label>
+                                </li>  
+                                <li class="list-inline-item">
+                                    
+                                        <input type="number" id="mc" name="mc" style="width: 50px;">
+                                    
+                                </li>      
+                                <li class="list-inline-item">
+                                    <label>Shift</label>
+                                </li>  
+                                <li class="list-inline-item">
+                                    <select class="form-select" id="shift">
+                                        <option selected>Shift</option>
+                                        <option value="ms">MS</option>
+                                        <option value="as">AS</option>
+                                        <option value="ns">NS</option>
+                                        </select>
+                                </li> 
+                                <li class="list-inline-item">
+                                    <label>Note</label>
+                                </li>  
+                                <li class="list-inline-item">
+                                    <input type="text" id="note" name="note" style="width: 250px;">
+                                </li>    
+                                <li class="list-inline-item">
+                                    <label>Temp</label>
+                                </li>  
+                                <li class="list-inline-item">
+                                    <input type="text" id="temp" name="temp" style="width: 50px;">
+                                </li>  
+                                <li class="list-inline-item">
+                                    <label>ºC      </label>
+                                    <label>Humidity</label>
+                                </li>  
+                                <li class="list-inline-item">
+                                    <input type="text" id="humidity" name="humidity" style="width: 50px;">
+                                </li>    
+                                <li class="list-inline-item">
+                                    <label>%</label>
+                                </li>                      
+                            </ul>
+                          </div>
+                          <div class="col-6 col-sm-3">
+                            <button type="button" id="save_measuare" class="btn btn-secondary btn-lg">Save</button>
                         </div>
+                        <div class="col-6 col-sm-3">
+
+                        </div>
+                    </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -183,7 +249,27 @@
             var id = urlParams.get('partId');
               var x =0;
               var y =0;
-              
+              var iqpc = document.getElementById('iqpc');
+                if (iqpc.checked === true){
+                    iqpc = '1';
+                }
+                else {
+                    iqpc = '0';
+                }
+                var qa = document.getElementById('qa');
+                if (qa.checked === true){
+                    qa = '1';
+                }
+                else {
+                    qa = '0';
+                }
+                var oqc = document.getElementById('oqc');
+                if (oqc.checked === true){
+                    oqc = '1';
+                }
+                else {
+                    oqc = '0';
+                }
               
             $.ajax({
                 url:"http://localhost:3000/measuare/measuarePart/actionPart",
@@ -251,8 +337,8 @@
                                 <td >`+data.data.recordset[count1].Lower_limit+`~`+data.data.recordset[count1].Upper_limit+`</td>
                                 <td >`+data.data.recordset[count1].FA_Accepted_min+`</td>
                                 <td >`+data.data.recordset[count1].FA_Accepted_max+`</td>
-                                <td >`+data.data.recordset[count1].Tool+`</td>
                                 <td >`+data.data.recordset[count1].Position+`</td>
+                                <td >`+data.data.recordset[count1].DimTool+`</td>
                                 <td ><input type="checkbox" class="btn-check" id="`+x+`.`+y+`" autocomplete="off">
                                     <label class="btn btn-outline-primary" for="`+x+`.`+y+`">OK</label><br>                                    
                                 </td>
@@ -272,11 +358,12 @@
                             
                             }
                             $('#def').html(html2);
+                              
                         }
-                            
+                         
                         
         }) 
-          
+         
             }
     
         
@@ -317,10 +404,10 @@
                 var urlValue= window.location.search;
                 var urlParams = new URLSearchParams(urlValue);
                 var id = urlParams.get('partId');
+                var x =0;
+                var y =0;
                 $('#partId').val(id);
-                
-
-            event.preventDefault();
+                event.preventDefault();
                $.ajax({
                 url:"http://localhost:3000/measuare/measuarePart/actionPart",
                 method:"POST",
@@ -365,7 +452,7 @@
                 }
                 //  $('#part_data_table tbody').html(html);
                 $('#abc').html(html1);
-                    
+                console.log(html1);
 
                     
                 }
