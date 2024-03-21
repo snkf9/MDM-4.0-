@@ -30,6 +30,11 @@
         <link href= "https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
 
         <title>MDM SANTOMAS VIỆT NAM</title>
+        <!-- socket.io -->
+        <script src = "socket.io/socket.io.js"></script>
+        <script>
+            var socket = io("http://192.168.1.27:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
+        </script>
 
     </head>
 
@@ -83,7 +88,7 @@
         <main>
             <div class="container">                               
                 <div class="card">
-
+                    
                     <div class="card-header">
 
                         <div class="row"> 
@@ -173,15 +178,14 @@
                                 </li>                      
                             </ul>
                           </div>
-                          <div class="col-6 col-sm-3">
-                            <button type="button" id="save_measuare" class="btn btn-secondary btn-lg">Save</button>
-                        </div>
+                          
                         <div class="col-6 col-sm-3">
 
                         </div>
                     </div>
                     </div>
                     <div class="card-body">
+                        <form method="post" >
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-compact " id="part_data_table">
                                 <thead>
@@ -209,10 +213,13 @@
                             </table>
                             
                         </div>
+                        <div class="col-6 col-sm-3">
+                            <button type="submit" method="post" id="save_measuare" class="btn btn-secondary btn-lg" >Save</button>
+                        </div>
+                    </form>
                     </div>
                 </div>
             </div>
-
             
         </main>
         <footer>
@@ -244,11 +251,11 @@
 
         function load_datapart()
         {
+            
             var urlValue= window.location.search;
             var urlParams = new URLSearchParams(urlValue);
             var id = urlParams.get('partId');
-              var x =0;
-              var y =0;
+              
               var iqpc = document.getElementById('iqpc');
                 if (iqpc.checked === true){
                     iqpc = '1';
@@ -272,12 +279,14 @@
                 }
               
             $.ajax({
-                url:"http://localhost:3000/measuare/measuarePart/actionPart",
+                url:"http://192.168.1.27:3000/measuare/measuarePart/actionPart",
                 method:"POST",
                 data:{partId:id, actionPart:'getAllPart'},
                 dataType : "JSON",
                 success:function(data){
-                      
+                    var x =0;
+                    var y =0;  
+                    
                     var html1 = '';
                         for(var count = 0; count < data.data.recordset.length; count++)
                         {
@@ -292,39 +301,40 @@
                                 <td ></td>
                                 <td ></td>                                
                                 <td >`+data.data.recordset[count].Tool+`</td>
-                                <td ><input type="checkbox" class="btn-check" id="`+x+1+`.`+y+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+1+`.`+y+`">OK</label><br>                                    
+                                <td ><input type="checkbox" class="btn-check" name="0.0.`+y+`" id="0.0.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="0.0.`+y+`">OK</label><br>                                    
                                 </td>
-                                <td ><input type="checkbox" class="btn-check" id="`+x+2+`.`+y+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+2+`.`+y+`">OK</label><br>                                    
+                                <td ><input type="checkbox" class="btn-check" name="0.1.`+y+`" id="0.1.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="0.1.`+y+`">OK</label><br>                                    
                                 </td>
-                                <td ><input type="checkbox" class="btn-check" id="`+x+3+`.`+y+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+3+`.`+y+`">OK</label><br>                                    
+                                <td ><input type="checkbox" class="btn-check" name="0.2.`+y+`" id="0.2.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="0.2.`+y+`">OK</label><br>                                    
                                 </td>
-                                <td ><input type="checkbox" class="btn-check" id="`+x+4+`.`+y+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+4+`.`+y+`">OK</label><br>                                    
+                                <td ><input type="checkbox" class="btn-check" name="0.3.`+y+`" id="0.3.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="0.3.`+y+`">OK</label><br>                                    
                                 </td>
-                                <td ><input type="checkbox" class="btn-check" id="`+x+5+`.`+y+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+5+`.`+y+`">OK</label><br>                                    
+                                <td ><input type="checkbox" class="btn-check" name="0.4.`+y+`" id="0.4.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="0.4.`+y+`">OK</label><br>                                    
                                 </td>
                                 
                             </tr>
                             `;
-                            x = x+6;
-                            y = y++;
+                            
+                            y = y+1;        
                 }
                 //  $('#part_data_table tbody').html(html);
                 $('#abc').html(html1);
-                
+                console.log(abc);
           }});
 
           $.ajax({
-            url:"http://localhost:3000/measuare/measuarePart/actionPart",
+            url:"http://192.168.1.27:3000/measuare/measuarePart/actionPart",
             method:"POST",
             data:{partId:id, actionPart:'getAllPartd'},
             dataType : "JSON",
             success:function(data){
-
+                var x =0;
+                var y =0;
                 var html2 = '';      
                         for(var count1 = 0; count1 < data.data.recordset.length; count1++)
                         {
@@ -339,25 +349,27 @@
                                 <td >`+data.data.recordset[count1].FA_Accepted_max+`</td>
                                 <td >`+data.data.recordset[count1].Position+`</td>
                                 <td >`+data.data.recordset[count1].DimTool+`</td>
-                                <td ><input type="checkbox" class="btn-check" id="`+x+`.`+y+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+`.`+y+`">OK</label><br>                                    
+                                <td ><input type="checkbox" class="btn-check" name="1.0.`+y+`" id="1.0.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="1.0.`+y+`">OK</label><br>                                    
                                 </td>
-                                <td ><input type="text" class="form-control" id="`+x+1+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                  
+                                <td ><input type="text" class="form-control" name="1.1.`+y+`" id="1.1.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                  
                                 </td>
-                                <td ><input type="text" class="form-control" id="`+x+2+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                    
+                                <td ><input type="text" class="form-control" name="1.2.`+y+`" id="1.2.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                    
                                 </td>
-                                <td ><input type="text" class="form-control" id="`+x+3+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                    
+                                <td ><input type="text" class="form-control" name="1.3.`+y+`" id="1.3.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                    
                                 </td>
-                                <td ><input type="text" class="form-control" id="`+x+4+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                   
+                                <td ><input type="text" class="form-control" name="1.4.`+y+`" id="1.4.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                   
                                 </td>
                                 
                             </tr>
                             `;
-                            x = x+5;
-                            y = y++;
                             
+                            y = y+1;
                             }
                             $('#def').html(html2);
+                            
+                           
+                              console.log(def);
                               
                         }
                          
@@ -409,7 +421,8 @@
                 $('#partId').val(id);
                 event.preventDefault();
                $.ajax({
-                url:"http://localhost:3000/measuare/measuarePart/actionPart",
+                // url:"http://localhost:3000/measuare/measuarePart/actionPart",
+                url:"http://192.168.1.27:3000/measuare/measuarePart/actionPart",
                 method:"POST",
                 data:{partId:id , iqpc:iqpc , qa:qa , oqc:oqc , actionPart:'getAllParte'},
                 dataType:"JSON",
@@ -459,7 +472,8 @@
             });
 
             $.ajax({
-                url:"http://localhost:3000/measuare/measuarePart/actionPart",
+                // url:"http://localhost:3000/measuare/measuarePart/actionPart",
+                url:"http://192.168.1.27:3000/measuare/measuarePart/actionPart",
                 method:"POST",
                 data:{partId:id , iqpc:iqpc , qa:qa , oqc:oqc , actionPart:'getAllPartf'},
                 dataType:"JSON",

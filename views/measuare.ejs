@@ -30,6 +30,11 @@
         <link href= "https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
 
         <title>MDM SANTOMAS VIỆT NAM</title>
+        <!-- socket.io -->
+        <script src = "socket.io/socket.io.js"></script>
+        <script>
+            var socket = io("http://192.168.1.27:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
+        </script>
 
     </head>
 
@@ -141,7 +146,8 @@
         function load_datapart()
         {
             $.ajax({
-                url:"http://localhost:3000/partData/actionPart",
+                // url:"http://localhost:3000/partData/actionPart",
+                url:"http://192.168.1.27:3000/partData/actionPart",
                 method:"POST",
                 data:{actionPart:'getAllPart'},
                 dataType : "JSON",

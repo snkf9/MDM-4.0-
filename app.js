@@ -18,8 +18,13 @@ var bcheckpointrouter = require('./routes/bCheckpoint.router');
 var app = express();
 
 //socket.io
-// var server = require("http").Server(app);
-// var io = require("socket.io")(server);
+var server = require("http").Server(app);
+var io = require("socket.io")(server);
+io.on('connection', function(socket) {
+    
+  console.log('Node is listening to port');
+  
+});
 // server.listen(3000);
 
 //
