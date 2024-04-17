@@ -314,6 +314,7 @@
 </div>
 
 <script>
+    const ip_pc = "http://192.168.1.155:3000";
    $('#checkbox-value').text($('#checkbox1').val());
 
     $("#checkbox1").on('change', function() {
@@ -347,7 +348,7 @@
            
             $.ajax({
                 // url:  "http://localhost:3000" + window.location.pathname+ "/actionac",
-                url:  "http://192.168.1.27:3000" + window.location.pathname+ "/actionac",
+                url:  ip_pc + window.location.pathname+ "/actionac",
                 method:"POST",
                 data:{id:id, actionpc:'getAllPart'},
                 dataType : "JSON",
@@ -475,7 +476,7 @@
             
             $.ajax({
                 // url:"http://localhost:3000" + window.location.pathname+ "/actionac",
-                url:  "http://192.168.1.27:3000" + window.location.pathname+ "/actionac",
+                url:  ip_pc + window.location.pathname+ "/actionac",
                 method:"POST",
                 data:$('#partdata_form').serialize(),
                 dataType:"JSON",
@@ -517,7 +518,7 @@
 
                 $.ajax({
                     // url:"http://localhost:3000" + window.location.pathname+ "/actionac",
-                    url:  "http://192.168.1.27:3000" + window.location.pathname+ "/actionac",
+                    url:  ip_pc + window.location.pathname+ "/actionac",
                     method:"POST",
                     data:{id:id, actionpc:'getOnePart'},
                     dataType:"JSON",
@@ -543,7 +544,7 @@
                     {
                         $.ajax({
                             // url:"http://localhost:3000" + window.location.pathname+ "/actionac",
-                            url:  "http://192.168.1.27:3000" + window.location.pathname+ "/actionac",
+                            url:  ip_pc + window.location.pathname+ "/actionac",
                             method:"POST",
                             data:{actionpc:'deletePart', id:id},
                             dataType:"JSON",

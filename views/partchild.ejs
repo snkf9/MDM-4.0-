@@ -33,7 +33,7 @@
         <!-- socket.io -->
         <script src = "socket.io/socket.io.js"></script>
         <script>
-            var socket = io("http://192.168.1.27:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
+            var socket = io("http://192.168.1.155:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
         </script>
 
     </head>
@@ -406,7 +406,7 @@
 
 <script>
 
-    
+    const ip_pc = "http://192.168.1.155:3000";
     $(document).ready(function(){
         // var id = window.location.pathname.slice(10);
         const urlValue= window.location.search;
@@ -424,7 +424,7 @@
            
             $.ajax({
                 // url:  "http://localhost:3000" + window.location.pathname+ "/actionpc",
-                url:  "http://192.168.1.27:3000" + window.location.pathname+ "/actionpc",
+                url: ip_pc + window.location.pathname+ "/actionpc",
                 method:"POST",
                 data:{id:id, actionpc:'getOnePart'},
                 dataType : "JSON",
@@ -507,7 +507,7 @@
         event.preventDefault();
     $.ajax({
             //    url:  "http://localhost:3000" + window.location.pathname+ "/actionpc",
-            url:  "http://192.168.1.27:3000" + window.location.pathname+ "/actionpc",
+            url:  ip_pc + window.location.pathname+ "/actionpc",
                 method:"POST",
                 data:$('#partdata_form').serialize(),
                 dataType:"JSON",

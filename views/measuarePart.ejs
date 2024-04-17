@@ -30,11 +30,7 @@
         <link href= "https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
 
         <title>MDM SANTOMAS VIỆT NAM</title>
-        <!-- socket.io -->
-        <script src = "socket.io/socket.io.js"></script>
-        <script>
-            var socket = io("http://192.168.1.27:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
-        </script>
+        
 
     </head>
 
@@ -237,12 +233,18 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
+        <!-- socket.io -->
+        <script src = "../socket.io/socket.io.js"></script>
+        <script>
+            var socket = io("http://192.168.1.155:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
+        </script>
     </body>
 </html>
 
 
 <script>
-
+    
+    const ip_pc = "http://192.168.1.155:3000";
     
     $(document).ready(function(){
         
@@ -279,7 +281,7 @@
                 }
               
             $.ajax({
-                url:"http://192.168.1.27:3000/measuare/measuarePart/actionPart",
+                url: ip_pc + "/measuare/measuarePart/actionPart",
                 method:"POST",
                 data:{partId:id, actionPart:'getAllPart'},
                 dataType : "JSON",
@@ -324,11 +326,11 @@
                 }
                 //  $('#part_data_table tbody').html(html);
                 $('#abc').html(html1);
-                console.log(abc);
+                
           }});
 
           $.ajax({
-            url:"http://192.168.1.27:3000/measuare/measuarePart/actionPart",
+            url: ip_pc + "/measuare/measuarePart/actionPart",
             method:"POST",
             data:{partId:id, actionPart:'getAllPartd'},
             dataType : "JSON",
@@ -369,7 +371,7 @@
                             $('#def').html(html2);
                             
                            
-                              console.log(def);
+                              
                               
                         }
                          
@@ -379,147 +381,170 @@
             }
     
         
-        $('#btt_choose').click(function(){  
-            var urlValue= window.location.search;
-            var urlParams = new URLSearchParams(urlValue);
-            var id = urlParams.get('partId');
+    //     $('#btt_choose').click(function(){  
+    //         var urlValue= window.location.search;
+    //         var urlParams = new URLSearchParams(urlValue);
+    //         var id = urlParams.get('partId');
             
-            $('#actionPart').val('getAllPart');
-            $('#partId').val(id);
+    //         $('#actionPart').val('getAllPart');
+    //         $('#partId').val(id);
           
 
 
-        });
+    //     });
 
-        $('#partdata_form').on('submit', function(event){
-            var iqpc = document.getElementById('iqpc');
-                if (iqpc.checked === true){
-                    iqpc = '1';
-                }
-                else {
-                    iqpc = '0';
-                }
-                var qa = document.getElementById('qa');
-                if (qa.checked === true){
-                    qa = '1';
-                }
-                else {
-                    qa = '0';
-                }
-                var oqc = document.getElementById('oqc');
-                if (oqc.checked === true){
-                    oqc = '1';
-                }
-                else {
-                    oqc = '0';
-                }
-                var urlValue= window.location.search;
-                var urlParams = new URLSearchParams(urlValue);
-                var id = urlParams.get('partId');
-                var x =0;
-                var y =0;
-                $('#partId').val(id);
-                event.preventDefault();
-               $.ajax({
-                // url:"http://localhost:3000/measuare/measuarePart/actionPart",
-                url:"http://192.168.1.27:3000/measuare/measuarePart/actionPart",
-                method:"POST",
-                data:{partId:id , iqpc:iqpc , qa:qa , oqc:oqc , actionPart:'getAllParte'},
-                dataType:"JSON",
-                success:function(data)
-                {
-                    var html1= '';
-                        for(var count = 0; count < data.data.recordset.length; count++)
-                        {
+    //     $('#partdata_form').on('submit', function(event){
+    //         var iqpc = document.getElementById('iqpc');
+    //             if (iqpc.checked === true){
+    //                 iqpc = '1';
+    //             }
+    //             else {
+    //                 iqpc = '0';
+    //             }
+    //             var qa = document.getElementById('qa');
+    //             if (qa.checked === true){
+    //                 qa = '1';
+    //             }
+    //             else {
+    //                 qa = '0';
+    //             }
+    //             var oqc = document.getElementById('oqc');
+    //             if (oqc.checked === true){
+    //                 oqc = '1';
+    //             }
+    //             else {
+    //                 oqc = '0';
+    //             }
+    //             var urlValue= window.location.search;
+    //             var urlParams = new URLSearchParams(urlValue);
+    //             var id = urlParams.get('partId');
+    //             var x =0;
+    //             var y =0;
+    //             $('#partId').val(id);
+    //             event.preventDefault();
+    //            $.ajax({
+    //             // url:"http://localhost:3000/measuare/measuarePart/actionPart",
+    //             url:"http://192.168.1.27:3000/measuare/measuarePart/actionPart",
+    //             method:"POST",
+    //             data:{partId:id , iqpc:iqpc , qa:qa , oqc:oqc , actionPart:'getAllParte'},
+    //             dataType:"JSON",
+    //             success:function(data)
+    //             {
+    //                 var html1= '';
+    //                     for(var count = 0; count < data.data.recordset.length; count++)
+    //                     {
                             
-                            html1 += `
-                            <tr>
-                                <td >`+data.data.recordset[count].Item_No+`</td>                                
-                                <td >`+data.data.recordset[count].Check_content+`</td>
-                                <td ></td>
-                                <td ></td>
-                                <td ></td>
-                                <td ></td>
-                                <td ></td>                                
-                                <td >`+data.data.recordset[count].Tool+`</td>
-                                <td ><input type="checkbox" class="btn-check" id="`+x+1+`.`+y+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+1+`.`+y+`">OK</label><br>                                    
-                                </td>
-                                <td ><input type="checkbox" class="btn-check" id="`+x+2+`.`+y+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+2+`.`+y+`">OK</label><br>                                    
-                                </td>
-                                <td ><input type="checkbox" class="btn-check" id="`+x+3+`.`+y+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+3+`.`+y+`">OK</label><br>                                    
-                                </td>
-                                <td ><input type="checkbox" class="btn-check" id="`+x+4+`.`+y+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+4+`.`+y+`">OK</label><br>                                    
-                                </td>
-                                <td ><input type="checkbox" class="btn-check" id="`+x+5+`.`+y+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+5+`.`+y+`">OK</label><br>                                    
-                                </td>
+    //                         html1 += `
+    //                         <tr>
+    //                             <td >`+data.data.recordset[count].Item_No+`</td>                                
+    //                             <td >`+data.data.recordset[count].Check_content+`</td>
+    //                             <td ></td>
+    //                             <td ></td>
+    //                             <td ></td>
+    //                             <td ></td>
+    //                             <td ></td>                                
+    //                             <td >`+data.data.recordset[count].Tool+`</td>
+    //                             <td ><input type="checkbox" class="btn-check" id="`+x+1+`.`+y+`" autocomplete="off">
+    //                                 <label class="btn btn-outline-primary" for="`+x+1+`.`+y+`">OK</label><br>                                    
+    //                             </td>
+    //                             <td ><input type="checkbox" class="btn-check" id="`+x+2+`.`+y+`" autocomplete="off">
+    //                                 <label class="btn btn-outline-primary" for="`+x+2+`.`+y+`">OK</label><br>                                    
+    //                             </td>
+    //                             <td ><input type="checkbox" class="btn-check" id="`+x+3+`.`+y+`" autocomplete="off">
+    //                                 <label class="btn btn-outline-primary" for="`+x+3+`.`+y+`">OK</label><br>                                    
+    //                             </td>
+    //                             <td ><input type="checkbox" class="btn-check" id="`+x+4+`.`+y+`" autocomplete="off">
+    //                                 <label class="btn btn-outline-primary" for="`+x+4+`.`+y+`">OK</label><br>                                    
+    //                             </td>
+    //                             <td ><input type="checkbox" class="btn-check" id="`+x+5+`.`+y+`" autocomplete="off">
+    //                                 <label class="btn btn-outline-primary" for="`+x+5+`.`+y+`">OK</label><br>                                    
+    //                             </td>
                                 
-                            </tr>
-                            `;
-                            x = x+6;
-                            y = y++;
-                }
-                //  $('#part_data_table tbody').html(html);
-                $('#abc').html(html1);
-                console.log(html1);
+    //                         </tr>
+    //                         `;
+    //                         x = x+6;
+    //                         y = y++;
+    //             }
+    //             //  $('#part_data_table tbody').html(html);
+    //             $('#abc').html(html1);
+                
 
                     
-                }
-            });
+    //             }
+    //         });
 
-            $.ajax({
-                // url:"http://localhost:3000/measuare/measuarePart/actionPart",
-                url:"http://192.168.1.27:3000/measuare/measuarePart/actionPart",
-                method:"POST",
-                data:{partId:id , iqpc:iqpc , qa:qa , oqc:oqc , actionPart:'getAllPartf'},
-                dataType:"JSON",
-                success:function(data)
-                {
-                    var html2 = '';      
-                        for(var count1 = 0; count1 < data.data.recordset.length; count1++)
-                        {
+    //         $.ajax({
+    //             // url:"http://localhost:3000/measuare/measuarePart/actionPart",
+    //             url:"http://192.168.1.27:3000/measuare/measuarePart/actionPart",
+    //             method:"POST",
+    //             data:{partId:id , iqpc:iqpc , qa:qa , oqc:oqc , actionPart:'getAllPartf'},
+    //             dataType:"JSON",
+    //             success:function(data)
+    //             {
+    //                 var html2 = '';      
+    //                     for(var count1 = 0; count1 < data.data.recordset.length; count1++)
+    //                     {
                             
-                            html2 += `
-                            <tr>
-                                <td >`+data.data.recordset[count1].Item_No+`</td>                                
-                                <td >`+data.data.recordset[count1].Geometric_Tolerance+``+data.data.recordset[count1].Specs+`</td>
-                                <td >`+data.data.recordset[count1].Tolerance+`</td>
-                                <td >`+data.data.recordset[count1].Lower_limit+`~`+data.data.recordset[count1].Upper_limit+`</td>
-                                <td >`+data.data.recordset[count1].FA_Accepted_min+`</td>
-                                <td >`+data.data.recordset[count1].FA_Accepted_max+`</td>
-                                <td >`+data.data.recordset[count1].Tool+`</td>
-                                <td >`+data.data.recordset[count1].Position+`</td>
-                                <td ><input type="checkbox" class="btn-check" id="`+x+`.`+y+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="`+x+`.`+y+`">OK</label><br>                                    
-                                </td>
-                                <td ><input type="text" class="form-control" id="`+x+1+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                  
-                                </td>
-                                <td ><input type="text" class="form-control" id="`+x+2+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                    
-                                </td>
-                                <td ><input type="text" class="form-control" id="`+x+3+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                    
-                                </td>
-                                <td ><input type="text" class="form-control" id="`+x+4+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                   
-                                </td>
+    //                         html2 += `
+    //                         <tr>
+    //                             <td >`+data.data.recordset[count1].Item_No+`</td>                                
+    //                             <td >`+data.data.recordset[count1].Geometric_Tolerance+``+data.data.recordset[count1].Specs+`</td>
+    //                             <td >`+data.data.recordset[count1].Tolerance+`</td>
+    //                             <td >`+data.data.recordset[count1].Lower_limit+`~`+data.data.recordset[count1].Upper_limit+`</td>
+    //                             <td >`+data.data.recordset[count1].FA_Accepted_min+`</td>
+    //                             <td >`+data.data.recordset[count1].FA_Accepted_max+`</td>
+    //                             <td >`+data.data.recordset[count1].Tool+`</td>
+    //                             <td >`+data.data.recordset[count1].Position+`</td>
+    //                             <td ><input type="checkbox" class="btn-check" id="`+x+`.`+y+`" autocomplete="off">
+    //                                 <label class="btn btn-outline-primary" for="`+x+`.`+y+`">OK</label><br>                                    
+    //                             </td>
+    //                             <td ><input type="text" class="form-control" id="`+x+1+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                  
+    //                             </td>
+    //                             <td ><input type="text" class="form-control" id="`+x+2+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                    
+    //                             </td>
+    //                             <td ><input type="text" class="form-control" id="`+x+3+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                    
+    //                             </td>
+    //                             <td ><input type="text" class="form-control" id="`+x+4+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                   
+    //                             </td>
                                 
-                            </tr>
-                            `;
-                            x = x+5;
-                            y = y++;
+    //                         </tr>
+    //                         `;
+    //                         x = x+5;
+    //                         y = y++;
                             
-                            }
-                            $('#def').html(html2);
+    //                         }
+    //                         $('#def').html(html2);
                     
 
                     
-                }
-            });
+    //             }
+    //         });
 
-            });    
+    //         });   
+     
     })
+    var socket = io.connect("http://192.168.1.155:3000");
+    var a=1, b=0;
+    
+    
+    socket.on('value', function(data) {
+        // console.log(data);
+        
+        if(data.data.length==20){
+            console.log('Thiết bị chưa được kết nối!')
+        }
+        if(data.data.length==21) {
+        console.log('1.'+a+'.'+b);
+        document.getElementById('1.'+a+'.'+b).value = data.data.slice(13, 19);
+        a=a+1;
+        if(a==5){
+            b=b+1;
+            a=1;
+        } 
+        
+        }
+     });
+    
 </script>
 
 

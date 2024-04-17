@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var {conn, sql} = require('../connect');
-
+var io = require('../app')
+var {port, parser} = require('../serialport');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -57,6 +58,7 @@ router.post("/actionPart", async function(req, res){
     });
   }
 });
+
 
 
 module.exports = router;

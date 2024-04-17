@@ -31,10 +31,8 @@
 
         <title>MDM SANTOMAS VIỆT NAM</title>
         <!-- socket.io -->
-        <script src = "socket.io/socket.io.js"></script>
-        <script>
-            var socket = io("http://192.168.1.27:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
-        </script>
+        <!-- <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script> -->
+        
 
     </head>
 
@@ -132,13 +130,17 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
+        <script src = "/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io("http://192.168.1.155:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
+        </script>
     </body>
 </html>
 
-
-<script>
-
     
+<script>
+    
+    const ip_pc = "http://192.168.1.155:3000";
     $(document).ready(function(){
         
         load_datapart();
@@ -147,7 +149,7 @@
         {
             $.ajax({
                 // url:"http://localhost:3000/partData/actionPart",
-                url:"http://192.168.1.27:3000/partData/actionPart",
+                url: ip_pc + "/partData/actionPart",
                 method:"POST",
                 data:{actionPart:'getAllPart'},
                 dataType : "JSON",
@@ -223,4 +225,5 @@
                 });
          
     })
+    
 </script>

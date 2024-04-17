@@ -15,16 +15,24 @@ var toolrouter = require('./routes/tool.router');
 var partchildrouter = require('./routes/partchild.router');
 var acheckpointrouter = require('./routes/aCheckPoint.router');
 var bcheckpointrouter = require('./routes/bCheckpoint.router');
+var {port, parser} = require('./serialport');
 var app = express();
 
 //socket.io
-var server = require("http").Server(app);
-var io = require("socket.io")(server);
-io.on('connection', function(socket) {
+
+var http = require('http').createServer(app);
+var server = http.listen(3000, "0.0.0.0", () => { //Khởi động máy chủ, nghe trên cổng 4000. 
+  console.log("Đang nghe yêu cầu trên cổng 3000..."); 
+}) 
+// var io = require('socket.io')(http);
+var io = require('socket.io')(server);
+// var server = require("http").Server(app);
+// var io = require("socket.io")(server);
+// io.on('connection', function(socket) {
     
-  console.log('Node is listening to port');
+// console.log('Node is listening to port');
   
-});
+// });
 // server.listen(3000);
 
 //
@@ -78,6 +86,21 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
+
+port.pipe(parser);
+  
+port.on('data', function (data){
+  
+  console.log(data.toString());
+  console.log(data.length);
+  io.sockets.emit('value' , {data : data.toString()});
+      
+});
+ 
 
 
 module.exports = app;

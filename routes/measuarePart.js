@@ -3,6 +3,8 @@ var router = express.Router();
 var {conn, sql} = require('../connect');
 var {port, parser} = require('../serialport');
 
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('home', { title: 'Express' });
@@ -119,25 +121,11 @@ router.post("/actionPart", async function(req, res){
       });
     });
   }
-
-  
-
-
-
 })
 
-port.open((err)=>{
-  if(err) {
-      console.log('error: '+ err.message);
-  }
-});
 
-port.pipe(parser);
 
-port.on('data', function (data){
-  console.log(data.toString());
-  io.emit('data', data);
-      
-});
+
+
 
 module.exports = router;

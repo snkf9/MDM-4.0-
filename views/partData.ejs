@@ -33,7 +33,7 @@
         <!-- socket.io -->
         <script src = "socket.io/socket.io.js"></script>
         <script>
-            var socket = io("http://192.168.1.27:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
+            var socket = io("http://192.168.1.155:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
         </script>
 
     </head>
@@ -200,7 +200,7 @@
 
 <script>
 
-    
+    const ip_pc = "http://192.168.1.155:3000";
     $(document).ready(function(){
         
         load_datapart();
@@ -209,7 +209,7 @@
         {
             $.ajax({
                 // url:"http://localhost:3000/partData/actionPart",
-                url:"http://192.168.1.27:3000/partData/actionPart",
+                url: ip_pc + "/partData/actionPart",
                 method:"POST",
                 data:{actionPart:'getAllPart'},
                 dataType : "JSON",
@@ -279,7 +279,7 @@
 
             $.ajax({
                 // url:"http://localhost:3000/partData/actionPart",
-                url:"http://192.168.1.27:3000/partData/actionPart",
+                url: ip_pc + "/partData/actionPart",
                 method:"POST",
                 data:$('#partdata_form').serialize(),
                 dataType:"JSON",
@@ -319,7 +319,7 @@
 
                 $.ajax({
                     // url:"http://localhost:3000/partData/actionPart",
-                    url:"http://192.168.1.27:3000/partData/actionPart",
+                    url: ip_pc + "/partData/actionPart",
                     method:"POST",
                     data:{id:id, actionPart:'getOnePart'},
                     dataType:"JSON",
@@ -345,7 +345,7 @@
                     {
                         $.ajax({
                             // url:"http://localhost:3000/partData/actionPart",
-                            url:"http://192.168.1.27:3000/partData/actionPart",
+                            url: ip_pc + "/partData/actionPart",
                             method:"POST",
                             data:{actionPart:'deletePart', id:id},
                             dataType:"JSON",

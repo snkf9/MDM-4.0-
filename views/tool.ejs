@@ -32,7 +32,7 @@
         <!-- socket.io -->
         <script src = "socket.io/socket.io.js"></script>
         <script>
-            var socket = io("http://192.168.1.27:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
+            var socket = io("http://192.168.1.155:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
         </script>
 
     </head> 
@@ -196,7 +196,7 @@
 </div>
 
 <script>
-
+    const ip_pc = "http://192.168.1.155:3000";
     $(document).ready(function(){
         
         load_datatool();
@@ -204,7 +204,7 @@
         function load_datatool()
         {
             $.ajax({
-                url:"http://192.168.1.27:3000/tool/actionTool",
+                url: ip_pc + "/tool/actionTool",
                 method:"POST",
                 data:{actionTool:'getAllTool'},
                 dataType : "JSON",
@@ -264,7 +264,7 @@
             event.preventDefault();
 
             $.ajax({
-                url:"http://192.168.1.27:3000/tool/actionTool",
+                url: ip_pc + "/tool/actionTool",
                 method:"POST",
                 data:$('#tool_form').serialize(),
                 dataType:"JSON",
@@ -302,7 +302,7 @@
                 $('#tool_action_modal').modal('show');
 
                 $.ajax({
-                    url:"http://192.168.1.27:3000/tool/actionTool",
+                    url: ip_pc + "/tool/actionTool",
                     method:"POST",
                     data:{id:id, actionTool:'getOneTool'},
                     dataType:"JSON",
@@ -326,7 +326,7 @@
                     if(confirm("Are you sure you want to delete this data?"))
                     {
                         $.ajax({
-                            url:"http://192.168.1.27:3000/tool/actionTool",
+                            url: ip_pc + "/tool/actionTool",
                             method:"POST",
                             data:{actionTool:'deleteTool', id:id},
                             dataType:"JSON",
