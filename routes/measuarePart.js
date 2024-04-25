@@ -50,6 +50,24 @@ router.get("/measuare/measuarePart", function(req, res){
   res.render("measuarePart")
 });
 
+
+// tool
+router.post("/actionTool", async function(req, res){
+  var action = req.body.actionTool;
+  if(action == 'getAllTool'){
+    var pool =await conn;
+    var query = "SELECT * FROM Tool_measuare ";
+    return await pool.request()
+    .query(query, function(err, data){
+      res.json({
+        data:data
+      });
+    });
+  }
+});
+
+
+
 router.post("/actionPart", async function(req, res){
   var action = req.body.actionPart;
   var id = req.body.partId;

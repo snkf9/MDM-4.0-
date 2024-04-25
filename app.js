@@ -4,6 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const { SerialPort } = require('serialport');
+const { ReadlineParser} = require('@serialport/parser-readline');
+const parser= new  ReadlineParser({ delimiter: '\r\n', length: 21 });
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var managerRouter = require('./routes/manager.router');
@@ -15,7 +20,7 @@ var toolrouter = require('./routes/tool.router');
 var partchildrouter = require('./routes/partchild.router');
 var acheckpointrouter = require('./routes/aCheckPoint.router');
 var bcheckpointrouter = require('./routes/bCheckpoint.router');
-var {port, parser} = require('./serialport');
+var {port_config} = require('./serialport');
 var app = express();
 
 //socket.io
@@ -91,10 +96,34 @@ io.on('connection', function(socket){
   console.log('a user connected');
 });
 
+const port = new SerialPort(port_config);
+port.open((err)=>{
+  if (err) {
+ 
+    return console.log('Error: ', err.message);
+ }
+  console.log('message written')
+});
+
+
+
+port.on('close', function(err){
+  console.log("Port closed.");
+  if(err.disconnected === true){
+    console.log("Disconnected!");
+    port.resume(function(e){
+      
+      reconnectDevice(); // Serial Port Initialization Function. It's your method to declare serial port.
+      console.log("Error on resuming port:", e);
+    });
+  }
+});
+
+
 port.pipe(parser);
   
 port.on('data', function (data){
-  
+  comstatus = true;
   console.log(data.toString());
   console.log(data.length);
   io.sockets.emit('value' , {data : data.toString()});

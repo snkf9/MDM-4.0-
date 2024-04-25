@@ -82,6 +82,13 @@
             </nav>
         </header>
         <main>
+            <div class="container">
+                <select class="form-select" aria-label="Default select example" id="select_tool" onchange="choose_tool(this)">
+                    
+                  </select>
+            </div>
+
+            
             <div class="container">                               
                 <div class="card">
                     
@@ -245,11 +252,41 @@
 <script>
     
     const ip_pc = "http://192.168.1.155:3000";
-    
-    $(document).ready(function(){
-        
-        load_datapart();
+    var id_select_tool;
+    function choose_tool(){
             
+            id_select_tool = select_tool.value;
+            console.log(id_select_tool);
+        }
+    $(document).ready(function(){
+        load_tool();
+        load_datapart();
+        
+        function choose_tool(){
+            
+            id_select_tool = select_tool.value;
+        }
+        function load_tool(){
+            $.ajax({
+                url: ip_pc + "/measuare/measuarePart/actionTool",
+                method:"POST",
+                data:{actionTool:'getAllTool'},
+                dataType : "JSON",
+                success:function(data){
+                    var select = '';
+                     
+                    if(data.data.recordset.length >0){
+                        for( var count = 0; count < data.data.recordset.length; count++){
+                            select += `
+                                <option value = "`+data.data.recordset[count].Id_Tool+`">`+data.data.recordset[count].Name_t+`</option>
+                            `;
+                        }
+                    }
+                    console.log(select);
+                    $('#select_tool').html(select);
+                }
+            })
+        }
 
         function load_datapart()
         {
@@ -533,6 +570,7 @@
         if(data.data.length==20){
             console.log('Thiết bị chưa được kết nối!')
         }
+        
         if(data.data.length==21) {
         console.log('1.'+a+'.'+b);
         document.getElementById('1.'+a+'.'+b).value = data.data.slice(13, 19);

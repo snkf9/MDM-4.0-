@@ -11,17 +11,18 @@ const config = {
     autoOpen: false,
     rtscts: true,
 };
-const port = new SerialPort(config);
+// const port = new SerialPort(config);
 
-port.open((err)=>{
-    if(err) {
-        console.log('error: '+ err.message);
-    }
-  });
+// port.open((err)=>{
+//     if(err) {
+//         console.log('error: '+ err.message);
+//     }
+//   });
   
 
 
 module.exports = {
-    port: port,
-    parser: parser
+    port_config: config,
+    // port: port,
+    // parser: parser
 }
