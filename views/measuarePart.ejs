@@ -82,9 +82,10 @@
             </nav>
         </header>
         <main>
+            
             <div class="container">
                 <select class="form-select" aria-label="Default select example" id="select_tool" onchange="choose_tool(this)">
-                    
+                <option selected>Lựa chọn thiết bị đo</option>  
                   </select>
             </div>
 
@@ -97,7 +98,7 @@
                         <div class="row"> 
 
                             <div class="col-sm-9">
-                                <form method="post" id="partdata_form">
+                                <form method="POST" id="partdata_form">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" value="true" name="qa" id="qa"  >
                                         <label class="form-check-label" for="inlineCheckbox2">QA</label>
@@ -111,8 +112,10 @@
                                         <label class="form-check-label" for="inlineCheckbox2">OQC</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <button type="submit" id="btt_choose" class="btn btn-success btn-sm ">OK</button>
                                         <input type="hidden" name="partId" id="partId">
+                                        <input type="hidden" name=" actionPart" id="actionPart">
+                                        <button type="submit" id="btt_choose" class="btn btn-success btn-sm ">OK</button>
+                                        
                                     </div>
                                 
                                 </form>    
@@ -120,75 +123,74 @@
 
                              
                         
-                         <div class="col-sm-13">
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <label class="form-check-label" for="inlineCheckbox2">INJ Date</label>
-                                    <input type="date" name="injDate" id="injDate">
-                                </li>
-                                <li class="list-inline-item">
-                                    <label class="form-check-label" for="batch">Batch</label>
-                                </li>
-                                <li class="list-inline-item">
-                                    
-                                    <select class="form-select" id="batch" style="width: 100px;">
-                                    <option selected>Batch</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">New batch</option>
-                                    </select>
-                                </li>  
-                                <li class="list-inline-item">
-                                    <label>MC</label>
-                                </li>  
-                                <li class="list-inline-item">
-                                    
-                                        <input type="number" id="mc" name="mc" style="width: 50px;">
-                                    
-                                </li>      
-                                <li class="list-inline-item">
-                                    <label>Shift</label>
-                                </li>  
-                                <li class="list-inline-item">
-                                    <select class="form-select" id="shift">
-                                        <option selected>Shift</option>
-                                        <option value="ms">MS</option>
-                                        <option value="as">AS</option>
-                                        <option value="ns">NS</option>
-                                        </select>
-                                </li> 
-                                <li class="list-inline-item">
-                                    <label>Note</label>
-                                </li>  
-                                <li class="list-inline-item">
-                                    <input type="text" id="note" name="note" style="width: 250px;">
-                                </li>    
-                                <li class="list-inline-item">
-                                    <label>Temp</label>
-                                </li>  
-                                <li class="list-inline-item">
-                                    <input type="text" id="temp" name="temp" style="width: 50px;">
-                                </li>  
-                                <li class="list-inline-item">
-                                    <label>ºC      </label>
-                                    <label>Humidity</label>
-                                </li>  
-                                <li class="list-inline-item">
-                                    <input type="text" id="humidity" name="humidity" style="width: 50px;">
-                                </li>    
-                                <li class="list-inline-item">
-                                    <label>%</label>
-                                </li>                      
-                            </ul>
-                          </div>
+                         
                           
-                        <div class="col-6 col-sm-3">
-
-                        </div>
+                        
                     </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" >
+                        <form method="post" id="data_mesuarement">
+                            <div class="col-sm-13">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <label class="form-check-label" for="inlineCheckbox2">INJ Date</label>
+                                        <input type="date" name="injDate" id="injDate">
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <label class="form-check-label" for="batch">Batch</label>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        
+                                        <select class="form-select" id="batch" style="width: 100px;">
+                                        <option selected>Batch</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">New batch</option>
+                                        </select>
+                                    </li>  
+                                    <li class="list-inline-item">
+                                        <label>MC</label>
+                                    </li>  
+                                    <li class="list-inline-item">
+                                        
+                                            <input type="number" id="mc" name="mc" style="width: 50px;">
+                                        
+                                    </li>      
+                                    <li class="list-inline-item">
+                                        <label>Shift</label>
+                                    </li>  
+                                    <li class="list-inline-item">
+                                        <select class="form-select" id="shift">
+                                            <option selected>Shift</option>
+                                            <option value="ms">MS</option>
+                                            <option value="as">AS</option>
+                                            <option value="ns">NS</option>
+                                            </select>
+                                    </li> 
+                                    <li class="list-inline-item">
+                                        <label>Note</label>
+                                    </li>  
+                                    <li class="list-inline-item">
+                                        <input type="text" id="note" name="note" style="width: 250px;">
+                                    </li>    
+                                    <li class="list-inline-item">
+                                        <label>Temp</label>
+                                    </li>  
+                                    <li class="list-inline-item">
+                                        <input type="text" id="temp" name="temp" style="width: 50px;">
+                                    </li>  
+                                    <li class="list-inline-item">
+                                        <label>ºC      </label>
+                                        <label>Humidity</label>
+                                    </li>  
+                                    <li class="list-inline-item">
+                                        <input type="text" id="humidity" name="humidity" style="width: 50px;">
+                                    </li>    
+                                    <li class="list-inline-item">
+                                        <label>%</label>
+                                    </li>                      
+                                </ul>
+                              </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-compact " id="part_data_table">
                                 <thead>
@@ -253,10 +255,20 @@
     
     const ip_pc = "http://192.168.1.155:3000";
     var id_select_tool;
+    var row_qty;
+
     function choose_tool(){
             
             id_select_tool = select_tool.value;
-            console.log(id_select_tool);
+            
+        }
+        function select_all(target){
+
+            var id_col = target.id ;
+            for(var k=0 ; k <row_qty ; k++){
+                document.getElementById('0.'+id_col+'.'+k).checked=true;
+                
+            }
         }
     $(document).ready(function(){
         load_tool();
@@ -273,7 +285,9 @@
                 data:{actionTool:'getAllTool'},
                 dataType : "JSON",
                 success:function(data){
-                    var select = '';
+                    var select = `
+                    <option selected>Lựa chọn thiết bị đo</option>  
+                    `;
                      
                     if(data.data.recordset.length >0){
                         for( var count = 0; count < data.data.recordset.length; count++){
@@ -288,6 +302,8 @@
             })
         }
 
+        
+
         function load_datapart()
         {
             
@@ -295,27 +311,7 @@
             var urlParams = new URLSearchParams(urlValue);
             var id = urlParams.get('partId');
               
-              var iqpc = document.getElementById('iqpc');
-                if (iqpc.checked === true){
-                    iqpc = '1';
-                }
-                else {
-                    iqpc = '0';
-                }
-                var qa = document.getElementById('qa');
-                if (qa.checked === true){
-                    qa = '1';
-                }
-                else {
-                    qa = '0';
-                }
-                var oqc = document.getElementById('oqc');
-                if (oqc.checked === true){
-                    oqc = '1';
-                }
-                else {
-                    oqc = '0';
-                }
+              
               
             $.ajax({
                 url: ip_pc + "/measuare/measuarePart/actionPart",
@@ -326,7 +322,31 @@
                     var x =0;
                     var y =0;  
                     
-                    var html1 = '';
+                    var html1 = `
+                        <tr>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> <input type="checkbox" class="btn-check"  id="1" onclick="select_all(this)">
+                                    <label class="btn btn-outline-primary" for="1">ALL_OK</label><br>   
+                            </td>
+                            <td> <input type="checkbox" class="btn-check"  id="2" onclick="select_all(this)">
+                                <label class="btn btn-outline-primary" for="2">ALL_OK</label><br>   
+                            </td>
+                            <td> <input type="checkbox" class="btn-check"  id="3" onclick="select_all(this)">
+                                <label class="btn btn-outline-primary" for="3">ALL_OK</label><br>   
+                            </td>
+                            <td> <input type="checkbox" class="btn-check"  id="4" onclick="select_all(this)">
+                                <label class="btn btn-outline-primary" for="4">ALL_OK</label><br>   
+                            </td>
+                        </tr>
+                    `;
                         for(var count = 0; count < data.data.recordset.length; count++)
                         {
                             
@@ -340,11 +360,12 @@
                                 <td ></td>
                                 <td ></td>                                
                                 <td >`+data.data.recordset[count].Tool+`</td>
-                                <td ><input type="checkbox" class="btn-check" name="0.0.`+y+`" id="0.0.`+y+`" autocomplete="off">
+                                <td ><input type="checkbox" class="btn-check" name="0.0.`+y+`" id="0.0.`+y+`" autocomplete="off" >
                                     <label class="btn btn-outline-primary" for="0.0.`+y+`">OK</label><br>                                    
                                 </td>
-                                <td ><input type="checkbox" class="btn-check" name="0.1.`+y+`" id="0.1.`+y+`" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="0.1.`+y+`">OK</label><br>                                    
+                                <td >
+                                    <input  type="checkbox" class="btn-check" name = "0.1.`+y+`" id= "0.1.`+y+`" autocomplete="off" >                               
+                                    <label class="btn btn-outline-primary" for="0.1.`+y+`" "> OK </label><br>  
                                 </td>
                                 <td ><input type="checkbox" class="btn-check" name="0.2.`+y+`" id="0.2.`+y+`" autocomplete="off">
                                     <label class="btn btn-outline-primary" for="0.2.`+y+`">OK</label><br>                                    
@@ -362,6 +383,7 @@
                             y = y+1;        
                 }
                 //  $('#part_data_table tbody').html(html);
+                row_qty = y;
                 $('#abc').html(html1);
                 
           }});
@@ -399,7 +421,7 @@
                                 </td>
                                 <td ><input type="text" class="form-control" name="1.4.`+y+`" id="1.4.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                   
                                 </td>
-                                
+                                <td ></td> 
                             </tr>
                             `;
                             
@@ -417,149 +439,152 @@
          
             }
     
-        
-    //     $('#btt_choose').click(function(){  
-    //         var urlValue= window.location.search;
-    //         var urlParams = new URLSearchParams(urlValue);
-    //         var id = urlParams.get('partId');
+
+     
+    })
+
+       $('#btt_choose').click(function(){  
+            var urlValue= window.location.search;
+            var urlParams = new URLSearchParams(urlValue);
+            var id = urlParams.get('partId');
             
-    //         $('#actionPart').val('getAllPart');
-    //         $('#partId').val(id);
+            $('#actionPart').val('getAllPart');
+            $('#partId').val(id);
           
 
 
-    //     });
+        });
 
-    //     $('#partdata_form').on('submit', function(event){
-    //         var iqpc = document.getElementById('iqpc');
-    //             if (iqpc.checked === true){
-    //                 iqpc = '1';
-    //             }
-    //             else {
-    //                 iqpc = '0';
-    //             }
-    //             var qa = document.getElementById('qa');
-    //             if (qa.checked === true){
-    //                 qa = '1';
-    //             }
-    //             else {
-    //                 qa = '0';
-    //             }
-    //             var oqc = document.getElementById('oqc');
-    //             if (oqc.checked === true){
-    //                 oqc = '1';
-    //             }
-    //             else {
-    //                 oqc = '0';
-    //             }
-    //             var urlValue= window.location.search;
-    //             var urlParams = new URLSearchParams(urlValue);
-    //             var id = urlParams.get('partId');
-    //             var x =0;
-    //             var y =0;
-    //             $('#partId').val(id);
-    //             event.preventDefault();
-    //            $.ajax({
-    //             // url:"http://localhost:3000/measuare/measuarePart/actionPart",
-    //             url:"http://192.168.1.27:3000/measuare/measuarePart/actionPart",
-    //             method:"POST",
-    //             data:{partId:id , iqpc:iqpc , qa:qa , oqc:oqc , actionPart:'getAllParte'},
-    //             dataType:"JSON",
-    //             success:function(data)
-    //             {
-    //                 var html1= '';
-    //                     for(var count = 0; count < data.data.recordset.length; count++)
-    //                     {
+        $('#partdata_form').on('submit', function(event){
+            var iqpc = document.getElementById('iqpc');
+                if (iqpc.checked === true){
+                    iqpc = '1';
+                }
+                else {
+                    iqpc = '0';
+                }
+                var qa = document.getElementById('qa');
+                if (qa.checked === true){
+                    qa = '1';
+                }
+                else {
+                    qa = '0';
+                }
+                var oqc = document.getElementById('oqc');
+                if (oqc.checked === true){
+                    oqc = '1';
+                }
+                else {
+                    oqc = '0';
+                }
+                var urlValue= window.location.search;
+                var urlParams = new URLSearchParams(urlValue);
+                var id = urlParams.get('partId');
+                var x =0;
+                var y =0;
+                $('#partId').val(id);
+                event.preventDefault();
+               $.ajax({
+                // url:"http://localhost:3000/measuare/measuarePart/actionPart",
+                url: ip_pc+"/measuare/measuarePart/actionPart",
+                method:"POST",
+                data:{partId:id , iqpc:iqpc , qa:qa , oqc:oqc , actionPart:'getAllParte'},
+                dataType:"JSON",
+                success:function(data)
+                {
+                    var html1= '';
+                        for(var count = 0; count < data.data.recordset.length; count++)
+                        {
                             
-    //                         html1 += `
-    //                         <tr>
-    //                             <td >`+data.data.recordset[count].Item_No+`</td>                                
-    //                             <td >`+data.data.recordset[count].Check_content+`</td>
-    //                             <td ></td>
-    //                             <td ></td>
-    //                             <td ></td>
-    //                             <td ></td>
-    //                             <td ></td>                                
-    //                             <td >`+data.data.recordset[count].Tool+`</td>
-    //                             <td ><input type="checkbox" class="btn-check" id="`+x+1+`.`+y+`" autocomplete="off">
-    //                                 <label class="btn btn-outline-primary" for="`+x+1+`.`+y+`">OK</label><br>                                    
-    //                             </td>
-    //                             <td ><input type="checkbox" class="btn-check" id="`+x+2+`.`+y+`" autocomplete="off">
-    //                                 <label class="btn btn-outline-primary" for="`+x+2+`.`+y+`">OK</label><br>                                    
-    //                             </td>
-    //                             <td ><input type="checkbox" class="btn-check" id="`+x+3+`.`+y+`" autocomplete="off">
-    //                                 <label class="btn btn-outline-primary" for="`+x+3+`.`+y+`">OK</label><br>                                    
-    //                             </td>
-    //                             <td ><input type="checkbox" class="btn-check" id="`+x+4+`.`+y+`" autocomplete="off">
-    //                                 <label class="btn btn-outline-primary" for="`+x+4+`.`+y+`">OK</label><br>                                    
-    //                             </td>
-    //                             <td ><input type="checkbox" class="btn-check" id="`+x+5+`.`+y+`" autocomplete="off">
-    //                                 <label class="btn btn-outline-primary" for="`+x+5+`.`+y+`">OK</label><br>                                    
-    //                             </td>
+                            html1 += `
+                            <tr>
+                                <td >`+data.data.recordset[count].Item_No+`</td>                                
+                                <td >`+data.data.recordset[count].Check_content+`</td>
+                                <td ></td>
+                                <td ></td>
+                                <td ></td>
+                                <td ></td>
+                                <td ></td>                                
+                                <td >`+data.data.recordset[count].Tool+`</td>
+                                <td ><input type="checkbox" class="btn-check" id="`+x+1+`.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="`+x+1+`.`+y+`">OK</label><br>                                    
+                                </td>
+                                <td ><input type="checkbox" class="btn-check" id="`+x+2+`.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="`+x+2+`.`+y+`">OK</label><br>                                    
+                                </td>
+                                <td ><input type="checkbox" class="btn-check" id="`+x+3+`.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="`+x+3+`.`+y+`">OK</label><br>                                    
+                                </td>
+                                <td ><input type="checkbox" class="btn-check" id="`+x+4+`.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="`+x+4+`.`+y+`">OK</label><br>                                    
+                                </td>
+                                <td ><input type="checkbox" class="btn-check" id="`+x+5+`.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="`+x+5+`.`+y+`">OK</label><br>                                    
+                                </td>
                                 
-    //                         </tr>
-    //                         `;
-    //                         x = x+6;
-    //                         y = y++;
-    //             }
-    //             //  $('#part_data_table tbody').html(html);
-    //             $('#abc').html(html1);
+                            </tr>
+                            `;
+                            x = x+6;
+                            y = y++;
+                }
+                //  $('#part_data_table tbody').html(html);
+                $('#abc').html(html1);
                 
 
                     
-    //             }
-    //         });
+                }
+            });
 
-    //         $.ajax({
-    //             // url:"http://localhost:3000/measuare/measuarePart/actionPart",
-    //             url:"http://192.168.1.27:3000/measuare/measuarePart/actionPart",
-    //             method:"POST",
-    //             data:{partId:id , iqpc:iqpc , qa:qa , oqc:oqc , actionPart:'getAllPartf'},
-    //             dataType:"JSON",
-    //             success:function(data)
-    //             {
-    //                 var html2 = '';      
-    //                     for(var count1 = 0; count1 < data.data.recordset.length; count1++)
-    //                     {
+            $.ajax({
+                // url:"http://localhost:3000/measuare/measuarePart/actionPart",
+                url: ip_pc+ "/measuare/measuarePart/actionPart",
+                method:"POST",
+                data:{partId:id , iqpc:iqpc , qa:qa , oqc:oqc , actionPart:'getAllPartf'},
+                dataType:"JSON",
+                success:function(data)
+                {
+                    var html2 = '';      
+                        for(var count1 = 0; count1 < data.data.recordset.length; count1++)
+                        {
                             
-    //                         html2 += `
-    //                         <tr>
-    //                             <td >`+data.data.recordset[count1].Item_No+`</td>                                
-    //                             <td >`+data.data.recordset[count1].Geometric_Tolerance+``+data.data.recordset[count1].Specs+`</td>
-    //                             <td >`+data.data.recordset[count1].Tolerance+`</td>
-    //                             <td >`+data.data.recordset[count1].Lower_limit+`~`+data.data.recordset[count1].Upper_limit+`</td>
-    //                             <td >`+data.data.recordset[count1].FA_Accepted_min+`</td>
-    //                             <td >`+data.data.recordset[count1].FA_Accepted_max+`</td>
-    //                             <td >`+data.data.recordset[count1].Tool+`</td>
-    //                             <td >`+data.data.recordset[count1].Position+`</td>
-    //                             <td ><input type="checkbox" class="btn-check" id="`+x+`.`+y+`" autocomplete="off">
-    //                                 <label class="btn btn-outline-primary" for="`+x+`.`+y+`">OK</label><br>                                    
-    //                             </td>
-    //                             <td ><input type="text" class="form-control" id="`+x+1+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                  
-    //                             </td>
-    //                             <td ><input type="text" class="form-control" id="`+x+2+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                    
-    //                             </td>
-    //                             <td ><input type="text" class="form-control" id="`+x+3+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                    
-    //                             </td>
-    //                             <td ><input type="text" class="form-control" id="`+x+4+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                   
-    //                             </td>
+                            html2 += `
+                            <tr>
+                                <td >`+data.data.recordset[count1].Item_No+`</td>                                
+                                <td >`+data.data.recordset[count1].Geometric_Tolerance+``+data.data.recordset[count1].Specs+`</td>
+                                <td >`+data.data.recordset[count1].Tolerance+`</td>
+                                <td >`+data.data.recordset[count1].Lower_limit+`~`+data.data.recordset[count1].Upper_limit+`</td>
+                                <td >`+data.data.recordset[count1].FA_Accepted_min+`</td>
+                                <td >`+data.data.recordset[count1].FA_Accepted_max+`</td>
+                                <td >`+data.data.recordset[count1].Tool+`</td>
+                                <td >`+data.data.recordset[count1].Position+`</td>
+                                <td ><input type="checkbox" class="btn-check" id="`+x+`.`+y+`" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="`+x+`.`+y+`">OK</label><br>                                    
+                                </td>
+                                <td ><input type="text" class="form-control" id="`+x+1+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                  
+                                </td>
+                                <td ><input type="text" class="form-control" id="`+x+2+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                    
+                                </td>
+                                <td ><input type="text" class="form-control" id="`+x+3+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                    
+                                </td>
+                                <td ><input type="text" class="form-control" id="`+x+4+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                   
+                                </td>
                                 
-    //                         </tr>
-    //                         `;
-    //                         x = x+5;
-    //                         y = y++;
+                            </tr>
+                            `;
+                            x = x+5;
+                            y = y++;
                             
-    //                         }
-    //                         $('#def').html(html2);
+                            }
+                            $('#def').html(html2);
                     
 
                     
-    //             }
-    //         });
+                }
+            });
 
-    //         });   
-     
-    })
+            });   
+
+
     var socket = io.connect("http://192.168.1.155:3000");
     var a=1, b=0;
     
@@ -570,10 +595,13 @@
         if(data.data.length==20){
             console.log('Thiết bị chưa được kết nối!')
         }
-        
+        if(data.data.slice(3, 4)==id_select_tool){
         if(data.data.length==21) {
         console.log('1.'+a+'.'+b);
-        document.getElementById('1.'+a+'.'+b).value = data.data.slice(13, 19);
+        var current_value = parseFloat(data.data.slice(8 , 19));
+        
+        document.getElementById('1.'+a+'.'+b).value = current_value;
+        document.getElementById('1.'+a+'.'+b).style.backgroundColor = "green";
         a=a+1;
         if(a==5){
             b=b+1;
@@ -581,7 +609,7 @@
         } 
         
         }
-     });
+     }});
     
 </script>
 
