@@ -18,11 +18,22 @@ const config = {
 //         console.log('error: '+ err.message);
 //     }
 //   });
-  
+// var port = new SerialPort(config);
+// function connect_device(){
+//     port = new SerialPort(config);
+//     port.open((err)=>{
+//     if (err) {
+    
+//         return console.log('Error: ', err.message);
+//     }
+//     console.log('message written')
+// });
+// } 
+
 
 
 module.exports = {
     port_config: config,
-    // port: port,
-    // parser: parser
+    
+    parser: parser
 }

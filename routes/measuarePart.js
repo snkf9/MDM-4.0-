@@ -2,10 +2,6 @@ var express = require('express');
 var router = express.Router();
 var {conn, sql} = require('../connect');
 
-const { SerialPort } = require('serialport');
-var {port_config} = require('../serialport');
-const { ReadlineParser} = require('@serialport/parser-readline');
-const parser= new  ReadlineParser({ delimiter: '\r\n', length: 21 });
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('home', { title: 'Express' });
@@ -140,12 +136,19 @@ router.post("/actionPart", async function(req, res){
       });
     });
   }
+  if(action =='getOnePart'){
+    var pool = await conn;
+    var query = "SELECT * FROM Partdata WHERE Part_Id = "+id;
+   
+    return await pool.request()
+    .query(query, function(err, data){
+      res.json({data})
+    })
+    // .query(query1, function(err, data){
+    //   res.json({data})
+    // } )
+  }
 })
-
-
-
-
-
 
 
 module.exports = router;

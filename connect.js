@@ -17,7 +17,11 @@ const conn = new sql.ConnectionPool(config)
     return pool;
 });
 
+
+
+
 module.exports = {
     conn: conn,
-    sql: sql
+    sql: sql,
+    
 }

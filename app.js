@@ -20,7 +20,7 @@ var toolrouter = require('./routes/tool.router');
 var partchildrouter = require('./routes/partchild.router');
 var acheckpointrouter = require('./routes/aCheckPoint.router');
 var bcheckpointrouter = require('./routes/bCheckpoint.router');
-var {port_config} = require('./serialport');
+var {port_config } = require('./serialport');
 var app = express();
 
 //socket.io
@@ -29,18 +29,9 @@ var http = require('http').createServer(app);
 var server = http.listen(3000, "0.0.0.0", () => { //Khởi động máy chủ, nghe trên cổng 4000. 
   console.log("Đang nghe yêu cầu trên cổng 3000..."); 
 }) 
-// var io = require('socket.io')(http);
-var io = require('socket.io')(server);
-// var server = require("http").Server(app);
-// var io = require("socket.io")(server);
-// io.on('connection', function(socket) {
-    
-// console.log('Node is listening to port');
-  
-// });
-// server.listen(3000);
 
-//
+var io = require('socket.io')(server);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -93,42 +84,67 @@ app.use(function(err, req, res, next) {
 });
 
 io.on('connection', function(socket){
-  console.log('a user connected');
-});
-
-const port = new SerialPort(port_config);
-port.open((err)=>{
-  if (err) {
- 
-    return console.log('Error: ', err.message);
- }
-  console.log('message written')
-});
-
-
-
-port.on('close', function(err){
-  console.log("Port closed.");
-  if(err.disconnected === true){
-    console.log("Disconnected!");
-    port.resume(function(e){
-      
-      reconnectDevice(); // Serial Port Initialization Function. It's your method to declare serial port.
-      console.log("Error on resuming port:", e);
-    });
-  }
-});
-
-
-port.pipe(parser);
   
-port.on('data', function (data){
-  comstatus = true;
-  console.log(data.toString());
-  console.log(data.length);
-  io.sockets.emit('value' , {data : data.toString()});
-      
 });
+
+
+//connect to device
+var connectDevice = function(){
+  const port = new SerialPort(port_config);
+  port.open((err)=>{
+      if(err){       
+        reconnect();
+  
+      }
+      
+  })
+  port.on('close', function(err){
+
+    reconnect();
+  });
+  port.on('data', function (data){
+    comstatus = true;
+    setTimeout(function(){
+      // console.log(data.toString());
+      // console.log(data.length);
+      //io.sockets.emit('value' , {data : data.toString()});
+    }, 500);
+    console.log(data.toString());
+    console.log(data.length);
+    // io.sockets.emit('value' , {data : data.toString()});
+    io.sockets.emit('value' , {data : data.toString()});   
+  });      
+}
+  connectDevice(); 
+
+  //function reconnect to device 
+  function reconnect(){
+
+    console.log('INITIATING RECONNECT');
+  setTimeout(function(){
+    console.log('RECONNECTING TO DEVICe');
+    connectDevice();
+  }, 2000);
+  }  
+  
+ 
+ 
+// port.pipe(parser);
+    
+ 
+   
+    
+   
+  
+
+
+
+
+    
+
+
+
+
  
 
 
