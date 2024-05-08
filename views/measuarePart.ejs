@@ -130,7 +130,7 @@
                     </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" id="data_mesuarement">
+                        <form method="post" id="data_mesuarement"  >
                             <div class="col-sm-13">
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
@@ -138,15 +138,14 @@
                                         <input type="date" name="injDate" id="injDate">
                                     </li>
                                     <li class="list-inline-item">
+                                        
                                         <label class="form-check-label" for="batch">Batch</label>
                                     </li>
                                     <li class="list-inline-item">
                                         
-                                        <select class="form-select" id="batch" style="width: 100px;">
-                                        <option selected>Batch</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">New batch</option>
+                                        <select class="form-select" name= "batch" id="batch3" style="width: 100px;">
+                                        <option >Lựa chọn</option>
+                                        
                                         </select>
                                     </li>  
                                     <li class="list-inline-item">
@@ -157,11 +156,9 @@
                                             <input type="number" id="mc" name="mc" style="width: 50px;">
                                         
                                     </li>      
+                                    
                                     <li class="list-inline-item">
-                                        <label>Shift</label>
-                                    </li>  
-                                    <li class="list-inline-item">
-                                        <select class="form-select" id="shift">
+                                        <select class="form-select" id="shift" name="shift">
                                             <option selected>Shift</option>
                                             <option value="ms">MS</option>
                                             <option value="as">AS</option>
@@ -191,7 +188,7 @@
                                         <label>%</label>
                                     </li>                      
                                 </ul>
-                                <input type="button" id="check" >CHECK</button>
+                                
                               </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-compact " id="part_data_table">
@@ -219,7 +216,16 @@
                             
                         </div>
                         <div class="col-6 col-sm-3">
-                            
+                            <input type="hidden" name="no_of_cav" id="no_of_cav">
+                            <input type="hidden" name="partId" id="partId1">
+                            <input type="hidden" name="qty_a_item" id="qty_a_item">
+                            <input type="hidden" name="qty_d_item" id="qty_d_item">   
+                            <input type="hidden" name="actionPart" id="actionParts">           
+                            <input type="hidden" name="qa" id="qa_1">
+                            <input type="hidden" name="oqc" id="oqc_1">
+                            <input type="hidden" name="iqpc" id="iqpc_1">                                    
+                            <input type="hidden" name="max_batch" id="max_batch1">
+                            <input type="button" id="check" class="btn btn-outline-success btn-lg" value="CHECK" />
                             <button type="submit" method="post" id="save_measuare" class="btn btn-secondary btn-lg" >Save</button>
                         </div>
                     </form>
@@ -246,7 +252,8 @@
         <!-- socket.io -->
         <script src = "../socket.io/socket.io.js"></script>
         <script>
-            var socket = io("http://192.168.1.155:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
+            // var socket = io("http://192.168.1.155:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
+            var socket = io("http://localhost:3000");
         </script>
     </body>
 </html>
@@ -254,43 +261,54 @@
 
 <script>
     
-    const ip_pc = "http://192.168.1.155:3000";
+    // const ip_pc = "http://192.168.1.155:3000";
+    const ip_pc = "http://localhost:3000";
     var id_select_tool;
     var row_qty;
     var qty_id_x;
     var qty_a_check_point, qty_d_check_point;
 
+    
     document.getElementById('check').onclick = function(){
     // function check(){
         
-
+        
         for(var row = 0; row < qty_a_check_point; row ++){
-            for( var col =1; col<= qty_id_x; col ++){
-                var cell = document.getElementsByName(`0.`+col+`.`+row);
-                console.log(document.getElementById(`0.`+col+`.`+row+`.1`).checked);
-                if(document.getElementById(`0.`+col+`.`+row+`.1`).checked === false ){
-                    document.getElementById(`0.0.`+row+`.2`).checked = true;
-                    
-                }
-                else{
-                    document.getElementById(`0.0.`+row+`.1`).checked = true;
-                }
+            var cell = 0;
+            for( var col =1; col<= qty_id_x; col ++){              
+                
+                if(document.getElementById(`a`+col+row+`.1`).checked === false ){                    
+                    cell=cell+1;                    
+                }                
             }
-            
+            if(cell==0){
+                document.getElementById(`a0`+row+`.1`).checked = true;
+            }
+            else{
+                document.getElementById(`a0`+row+`.2`).checked = true;
+        }
         };
+        
+        
 
         for(var row = 0; row < qty_d_check_point; row ++){
-            for( var col =1; col<= qty_id_x; col ++){
-                
-                if(document.getElementById(`1.`+col+`.`+row).value === '' ){
-                    document.getElementById(`1.0.`+row+`.2`).checked = true;
-                    document.getElementById(`1.`+col+`.`+row).style.backgroundColor = "red";
-                }
-                
+            var cell1 = 0;
+            for( var col =1; col<= qty_id_x; col ++){                
+                if(document.getElementById(`d`+col+row).value === '' ){
+                    cell1 = cell1+1;
+                    // document.getElementById(`d0`+row+`.2`).checked = true;
+                    document.getElementById(`d`+col+row).style.backgroundColor = "red";
+                }                
                 else{
-                    document.getElementById(`1.`+col+`.`+row).style.backgroundColor = "green"
-                    document.getElementById(`1.0.`+row+`.1`).checked = true;
+                    document.getElementById(`d`+col+row).style.backgroundColor = "green"
+                    // document.getElementById(`d0`+row+`.1`).checked = true;
                 }
+            }
+            if(cell1 ==0){
+                document.getElementById(`d0`+row+`.1`).checked = true;
+            }
+            else{
+                document.getElementById(`d0`+row+`.2`).checked = true;
             }
             
         }
@@ -305,17 +323,55 @@
 
             var id_col = target.id ;
             for(var k=0 ; k <row_qty ; k++){
-                document.getElementById('0.'+id_col+'.'+k+'.1').checked=true;
+                document.getElementById('a'+id_col+k+'.1').checked=true;
                 
             }
         }
+
+        
+
     $(document).ready(function(){
         load_tool();
         load_no_cav();
         load_datapart();
         load_d_data();
         
+        function load_batch(){
+            var urlValue= window.location.search;
+            var urlParams = new URLSearchParams(urlValue);
+            var id = urlParams.get('partId');
+            var inj_date = document.getElementById('injDate').value;
+           
+            
+            $.ajax({
+                url: ip_pc+"/measuare/measuarePart/actionPart",
+                method: "POST",
+                data: {inj_date: inj_date, partId: id ,actionPart: 'getBatch'},
+                dataType: "JSON",
+                success: function(data){
+                    var batch_input = `<option selected value="0">New Batch</option>
+                    `
+                    var max_batch;
+                    if(data.data.recordset.length >0){
+                    for(var l = 1; l <= data.data.recordset.length ; l++){
+                        batch_input += `<option value="`+data.data.recordset[l]+`">`+data.data.recordset[l]+`</option>
+                        `
+                        document.getElementById('#max_batch1').value = data.data.recordset[l].batch;
+                        // $('#max_batch').val(data.data.recordset[l].batch);
+                    }
+                }
+                    console.log(batch_input);
+                    
+                    $('#batch3').html(batch_input);
+                }
+            })
+        }
+
         
+        
+        $('#injDate').change(function(){
+            load_batch();
+        })
 
         function load_no_cav(){
             var urlValue= window.location.search;
@@ -349,6 +405,7 @@
                     `
                     $('#part_data_table thead').html(html);
                 }
+
             })
         }
         
@@ -368,9 +425,9 @@
                     `;
                      
                     if(data.data.recordset.length >0){
-                        for( var count = 0; count < data.data.recordset.length; count++){
+                        for( var countb = 0; countb < data.data.recordset.length; countb++){
                             select += `
-                                <option value = "`+data.data.recordset[count].Id_Tool+`">`+data.data.recordset[count].Name_t+`</option>
+                                <option value = "`+data.data.recordset[countb].Id_Tool+`">`+data.data.recordset[countb].Name_t+`</option>
                             `;
                         }
                     }
@@ -380,7 +437,7 @@
             })
         }
 
-        
+
 
         function load_datapart()
         {
@@ -414,37 +471,37 @@
                             
                         
                     `;
-                    for(var count = 1; count <= qty_id_x ; count ++){
+                    for(var counth = 1; counth <= qty_id_x ; counth ++){
                         html1 +=`
-                            <td> <input type="checkbox" class="btn-check"  id=`+count+` onclick="select_all(this)">
-                                    <label class="btn btn-outline-primary" for=`+count+`>ALL_OK</label><br>   
+                            <td> <input type="checkbox" class="btn-check"  id=`+counth+` onclick="select_all(this)">
+                                    <label class="btn btn-outline-primary" for=`+counth+`>ALL_OK</label><br>   
                             </td>
                         `
                     }
                         html1 +=`
-                            </tr>
+                            </tr> 
                             
                         `
-                        for(var count = 0; count < data.data.recordset.length; count++)
+                        for(var countj = 0; countj < data.data.recordset.length; countj++)
                         {
                             
                             html1 += `
                             <tr>
-                                <td >`+data.data.recordset[count].Item_No+`</td>                                
-                                <td >`+data.data.recordset[count].Check_content+`</td>
+                                <td >`+data.data.recordset[countj].Item_No+`</td>                                
+                                <td >`+data.data.recordset[countj].Check_content+`</td>
                                 <td ></td>
                                 <td ></td>
                                 <td ></td>
                                 <td ></td>
                                 <td ></td>                                
-                                <td >`+data.data.recordset[count].Tool+`</td>
+                                <td >`+data.data.recordset[countj].Tool+`</td>
                                 <td >
                                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                    <input type="radio" class="btn-check" name="0.0.`+y+`" id="0.0.`+y+`.1" value = "true" disabled autocomplete="off" >
-                                    <label class="btn btn-outline-success" for="0.0.`+y+`.1">OK</label>
+                                    <input type="radio" class="btn-check" name="a0`+y+`" id="a0`+y+`.1" value = "true" disabled autocomplete="off" >
+                                    <label class="btn btn-outline-success" for="a0`+y+`.1">OK</label>
                                     
-                                    <input type="radio" class="btn-check" name="0.0.`+y+`" id="0.0.`+y+`.2" value ="false" disabled autocomplete="off" checked>
-                                    <label class="btn btn-outline-danger" for="0.0.`+y+`.2">NG</label>
+                                    <input type="radio" class="btn-check" name="a0`+y+`" id="a0`+y+`.2" value ="false" disabled autocomplete="off" checked>
+                                    <label class="btn btn-outline-danger" for="a0`+y+`.2">NG</label>
                                     </div>
                                                                        
                                 </td>
@@ -454,11 +511,11 @@
                                 html1 +=`
                                         <td >
                                             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                            <input type="radio" class="btn-check" name="0.`+count2+`.`+y+`" id="0.`+count2+`.`+y+`.1" value="true" autocomplete="off" >
-                                            <label class="btn btn-outline-success" for="0.`+count2+`.`+y+`.1">OK</label>
+                                            <input type="radio" class="btn-check" name="a`+count2+y+`" id="a`+count2+y+`.1" value="1" autocomplete="off" >
+                                            <label class="btn btn-outline-success" for="a`+count2+y+`.1">OK</label>
                                             
-                                            <input type="radio" class="btn-check" name="0.`+count2+`.`+y+`" id="0.`+count2+`.`+y+`.2" value="false" autocomplete="off" checked>
-                                            <label class="btn btn-outline-danger" for="0.`+count2+`.`+y+`.2">NG</label>
+                                            <input type="radio" class="btn-check" name="a`+count2+y+`" id="a`+count2+y+`.2" value="0" autocomplete="off" checked>
+                                            <label class="btn btn-outline-danger" for="a`+count2+y+`.2">NG</label>
                                             </div>
                                                                             
                                         </td>
@@ -508,20 +565,20 @@
                                 <td >`+data.data.recordset[count1].DimTool+`</td>
                                 <td >
                                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                    <input type="radio" class="btn-check" name="1.0.`+y+`" id="1.0.`+y+`.1" disabled value = "true" autocomplete="off" >
-                                    <label class="btn btn-outline-success" for="1.0.`+y+`.1">OK</label>
+                                    <input type="radio" class="btn-check" name="d0`+y+`" id="d0`+y+`.1" disabled value = "true" autocomplete="off" >
+                                    <label class="btn btn-outline-success" for="d0`+y+`.1">OK</label>
                                     
-                                    <input type="radio" class="btn-check" name="1.0.`+y+`" id="1.0.`+y+`.2" disabled value ="false" autocomplete="off" checked>
-                                    <label class="btn btn-outline-danger" for="1.0.`+y+`.2">NG</label>
+                                    <input type="radio" class="btn-check" name="d0`+y+`" id="d0`+y+`.2" disabled value ="false" autocomplete="off" checked>
+                                    <label class="btn btn-outline-danger" for="d0`+y+`.2">NG</label>
                                                                    
                                 </td>
 
 
                                 
                             `;
-                            for(count=1; count<= qty_id_x ; count ++){
+                            for(counto=1; counto<= qty_id_x ; counto ++){
                                 html2 +=`
-                                    <td ><input type="text" class="form-control" name="1.`+count+`.`+y+`" id="1.`+count+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                  
+                                    <td ><input type="text" class="form-control" name="d`+counto+y+`" id="d`+counto+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                  
                                     </td>
                                 `
                             }
@@ -546,6 +603,48 @@
             }
     
 
+
+        $('#data_mesuarement').on('submit', function(event){
+            
+            $('#no_of_cav').val(qty_id_x);
+                $('#qty_a_item').val(qty_a_check_point);
+                $('#qty_d_item').val(qty_d_check_point);
+                $('#actionParts').val('saveACheckPoint');
+               
+
+            event.preventDefault();
+            var checkNewBatch = document.getElementById('batch3').value;
+            var urlValue= window.location.search;
+            var urlParams = new URLSearchParams(urlValue);
+            var id = urlParams.get('partId');
+            $('#partId1').val(id);
+            // if(checkNewBatch == 0){
+            //     var maxBatch= document.getElementById('max_batch').value;
+                
+            //     if(maxBatch == ''){
+                    
+            //         maxBatch =0;
+            //     }
+
+            //     maxBatch +=1 ;
+            //     console.log(maxBatch);
+                
+                $('#batch3').val(1);
+            $.ajax({
+                url: ip_pc+"/measuare/measuarePart/actionPart",
+                method:"POST",
+                data:$('#data_mesuarement').serialize(),
+                dataType:"JSON",
+                success:function(data){
+                    setTimeout(function(){
+                        
+                    }, 5000);
+                }
+
+            })
+        
+            
+        })
      
     })
 
@@ -560,6 +659,8 @@
 
 
         });
+
+        
 
         $('#partdata_form').on('submit', function(event){
             var iqpc = document.getElementById('iqpc');
@@ -589,6 +690,7 @@
                 var x =0;
                 var y =0;
                 $('#partId').val(id);
+
                 event.preventDefault();
                $.ajax({
                 // url:"http://localhost:3000/measuare/measuarePart/actionPart",
@@ -614,10 +716,10 @@
                             
                         
                     `;
-                    for(var count = 1; count <= qty_id_x ; count ++){
+                    for(var countq = 1; countq <= qty_id_x ; countq ++){
                         html1 +=`
-                            <td> <input type="checkbox" class="btn-check"  id=`+count+` onclick="select_all(this)">
-                                    <label class="btn btn-outline-primary" for=`+count+`>ALL_OK</label><br>   
+                            <td> <input type="checkbox" class="btn-check"  id=`+countq+` onclick="select_all(this)">
+                                    <label class="btn btn-outline-primary" for=`+countq+`>ALL_OK</label><br>   
                             </td>
                         `
                     }
@@ -625,40 +727,40 @@
                             </tr>
                             
                         `
-                        for(var count = 0; count < data.data.recordset.length; count++)
+                        for(var counti = 0; counti < data.data.recordset.length; counti++)
                         {
                             
                             html1 += `
                             <tr>
-                                <td >`+data.data.recordset[count].Item_No+`</td>                                
-                                <td >`+data.data.recordset[count].Check_content+`</td>
+                                <td >`+data.data.recordset[counti].Item_No+`</td>                                
+                                <td >`+data.data.recordset[counti].Check_content+`</td>
                                 <td ></td>
                                 <td ></td>
                                 <td ></td>
                                 <td ></td>
                                 <td ></td>                                
-                                <td >`+data.data.recordset[count].Tool+`</td>
+                                <td >`+data.data.recordset[counti].Tool+`</td>
                                 <td >
                                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                    <input type="radio" class="btn-check" name="0.0.`+y+`" id="0.0.`+y+`.1" value = "true" autocomplete="off" >
-                                    <label class="btn btn-outline-success" for="0.0.`+y+`.1">OK</label>
+                                    <input type="radio" class="btn-check" name="a0`+y+`" id="a0`+y+`.1" value = "true" autocomplete="off" >
+                                    <label class="btn btn-outline-success" for="a0`+y+`.1">OK</label>
                                     
-                                    <input type="radio" class="btn-check" name="0.0.`+y+`" id="0.0.`+y+`.2" value ="false" autocomplete="off" checked>
-                                    <label class="btn btn-outline-danger" for="0.0.`+y+`.2">NG</label>
+                                    <input type="radio" class="btn-check" name="a0`+y+`" id="a0`+y+`.2" value ="false" autocomplete="off" checked>
+                                    <label class="btn btn-outline-danger" for="a0`+y+`.2">NG</label>
                                     </div>
                                                                        
                                 </td>
                                
                             `;
-                            for(var count2 = 1; count2 <= qty_id_x ; count2 ++){
+                            for(var countt = 1; countt <= qty_id_x ; countt ++){
                                 html1 +=`
                                         <td >
                                             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                            <input type="radio" class="btn-check" name="0.`+count2+`.`+y+`" id="0.`+count2+`.`+y+`.1" value="true" autocomplete="off" >
-                                            <label class="btn btn-outline-success" for="0.`+count2+`.`+y+`.1">OK</label>
+                                            <input type="radio" class="btn-check" name="a`+countt+y+`" id="a`+countt+y+`.1" value="true" autocomplete="off" >
+                                            <label class="btn btn-outline-success" for="a`+count2+y+`.1">OK</label>
                                             
-                                            <input type="radio" class="btn-check" name="0.`+count2+`.`+y+`" id="0.`+count2+`.`+y+`.2" value="false" autocomplete="off" checked>
-                                            <label class="btn btn-outline-danger" for="0.`+count2+`.`+y+`.2">NG</label>
+                                            <input type="radio" class="btn-check" name="a`+countt+y+`" id="a`+countt+y+`.2" value="false" autocomplete="off" checked>
+                                            <label class="btn btn-outline-danger" for="a`+countt+y+`.2">NG</label>
                                             </div>
                                                                             
                                         </td>
@@ -691,35 +793,35 @@
                 var y =0;
                 
                 var html2 = '';      
-                        for(var count1 = 0; count1 < data.data.recordset.length; count1++)
+                        for(var counts = 0; counts < data.data.recordset.length; counts++)
                         {
                             
                             html2 += `
                             <tr>
-                                <td >`+data.data.recordset[count1].Item_No+`</td>                                
-                                <td >`+data.data.recordset[count1].Geometric_Tolerance+``+data.data.recordset[count1].Specs+`</td>
-                                <td >`+data.data.recordset[count1].Tolerance+`</td>
-                                <td >`+data.data.recordset[count1].Lower_limit+`~`+data.data.recordset[count1].Upper_limit+`</td>
-                                <td >`+data.data.recordset[count1].FA_Accepted_min+`</td>
-                                <td >`+data.data.recordset[count1].FA_Accepted_max+`</td>
-                                <td >`+data.data.recordset[count1].Position+`</td>
-                                <td >`+data.data.recordset[count1].DimTool+`</td>
+                                <td >`+data.data.recordset[counts].Item_No+`</td>                                
+                                <td >`+data.data.recordset[counts].Geometric_Tolerance+``+data.data.recordset[counts].Specs+`</td>
+                                <td >`+data.data.recordset[counts].Tolerance+`</td>
+                                <td >`+data.data.recordset[counts].Lower_limit+`~`+data.data.recordset[counts].Upper_limit+`</td>
+                                <td >`+data.data.recordset[counts].FA_Accepted_min+`</td>
+                                <td >`+data.data.recordset[counts].FA_Accepted_max+`</td>
+                                <td >`+data.data.recordset[counts].Position+`</td>
+                                <td >`+data.data.recordset[counts].DimTool+`</td>
                                 <td >
                                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                    <input type="radio" class="btn-check" name="1.0.`+y+`" id="1.0.`+y+`.1" value = "true" autocomplete="off" >
-                                    <label class="btn btn-outline-success" for="1.0.`+y+`.1">OK</label>
+                                    <input type="radio" class="btn-check" name="d0`+y+`" id="d0`+y+`.1" value = "true" autocomplete="off" >
+                                    <label class="btn btn-outline-success" for="d0`+y+`.1">OK</label>
                                     
-                                    <input type="radio" class="btn-check" name="1.0.`+y+`" id="1.0.`+y+`.2" value ="false" autocomplete="off" checked>
-                                    <label class="btn btn-outline-danger" for="1.0.`+y+`.2">NG</label>
+                                    <input type="radio" class="btn-check" name="d0`+y+`" id="d0`+y+`.2" value ="false" autocomplete="off" checked>
+                                    <label class="btn btn-outline-danger" for="d0`+y+`.2">NG</label>
                                                                    
                                 </td>
 
 
                                 
                             `;
-                            for(count=1; count<= qty_id_x ; count ++){
+                            for(counte=1; counte<= qty_id_x ; counte ++){
                                 html2 +=`
-                                    <td ><input type="text" class="form-control" name="1.`+count+`.`+y+`" id="1.`+count+`.`+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                  
+                                    <td ><input type="text" class="form-control" name="1`+counte+y+`" id="d`+counte+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                  
                                     </td>
                                 `
                             }
@@ -742,25 +844,26 @@
             });   
 
 
-    var socket = io.connect("http://192.168.1.155:3000");
+    var socket = io.connect("http://localhost:3000");
     var a=1, b=0;
     
     
     socket.on('value', function(data) {
-        // console.log(data);
+        console.log(data);
         
         // if(data.data.length!=21){
             if(data.data.length!=20){
             console.log('Thiết bị chưa được kết nối!')
+            
         }
         if(data.data.slice(3, 4)==id_select_tool){
         // if(data.data.length==21) {
             if(data.data.length==20) {
-        console.log('1.'+a+'.'+b);
-        var current_value = parseFloat(data.data.slice(8 , 19));
         
-        document.getElementById('1.'+a+'.'+b).value = current_value;
-        document.getElementById('1.'+a+'.'+b).style.backgroundColor = "green";
+        var current_value = parseFloat(data.data.slice(8 , 19));
+        console.log('d'+a+b);
+        document.getElementById('d'+a+b).value = current_value;
+        document.getElementById('d'+a+b).style.backgroundColor = "green";
         a=a+1;
                 
         if(a==5){
