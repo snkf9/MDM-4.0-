@@ -120,9 +120,9 @@ var connectDevice = function(){
   //function reconnect to device 
   function reconnect(){
 
-    console.log('INITIATING RECONNECT');
+    
   setTimeout(function(){
-    console.log('RECONNECTING TO DEVICe');
+    
     connectDevice();
   }, 2000);
   }  

@@ -155,17 +155,96 @@ router.post("/actionPart", async function(req, res){
   if(action == 'getBatch'){
     var pool = await conn;
     var id = req.body.partId;
-    var date = req.body.inj_date;
+    
+    
 
-    var query = `SELECT * FROM checksheet.batchData WHERE INJ_Date = ` + date + ` AND partId = `+ id
+    var query = `SELECT * FROM checksheet.batchData WHERE INJ_Date = @inj_date AND partId = `+ id
     
     return await pool.request()
+    .input('inj_date', sql.NVarChar , req.body.inj_date)
     .query(query, function(err, data){
+      console.log(err);
       res.json({data})
     })
   }
 
+  if(action == 'checkBatch'){
+    var pool = await conn;
+    var id = req.body.partId;
 
+    var query = `SELECT * FROM checksheet.batchData WHERE INJ_Date = @inj_date AND partId = `+id+` AND batch = @batch`
+    return await pool.request()
+    .input('inj_date', sql.NVarChar , req.body.inj_date)
+    .query(query, function(){
+
+    })
+  }
+
+  if(action=='editBatch'){
+    var pool= await conn;
+    var id = req.body.partId;
+    var qty_cav = req.body.no_of_cav;
+    var qty_a_item = req.body.qty_a_item;
+    var data_a = req.body;    
+    var qty_d_item = req.body.qty_d_item;
+    var batch = req.body.batch;
+    var query =``;
+
+
+  }
+
+  if(action=='showBatch'){
+    var pool= await conn;
+    var id = req.body.partId;
+    var qty_cav = req.body.no_of_cav;
+    var qty_a_item = req.body.qty_a_item;
+    var data_a = req.body;    
+    var qty_d_item = req.body.qty_d_item;
+    var batch = req.body.batch;
+    var query =`SELECT * FROM checksheet.batchData WHERE partId = `+id+` AND batch = `+batch+` AND INJ_Date = @inj_date
+                `;
+
+    return await pool.request()
+    .input('inj_date', sql.NVarChar , req.body.inj_date)
+    .query(query, function(err, data){
+      console.log(err);
+      res.json({data});
+    })
+  }
+
+  if(action == 'showADataBatch'){
+    var pool= await conn;
+    var id = req.body.partId;
+    var qty_cav = req.body.no_of_cav;
+    var qty_a_item = req.body.qty_a_item;
+    var data_a = req.body;    
+    var qty_d_item = req.body.qty_d_item;
+    var batch = req.body.batch;
+    var query =`SELECT * FROM checksheet.aCheckPointData WHERE partId = `+id+` AND batch = `+batch+` AND injDate = @inj_date `
+    return await pool.request()
+    .input('inj_date', sql.NVarChar , req.body.inj_date)
+    .query(query, function(err, data){
+      console.log(err);
+      res.json({data});
+    })
+  }
+
+  if(action == 'showDDataBatch'){
+    var pool= await conn;
+    var id = req.body.partId;
+    var qty_cav = req.body.no_of_cav;
+    var qty_a_item = req.body.qty_a_item;
+    var data_a = req.body;    
+    var qty_d_item = req.body.qty_d_item;
+    var batch = req.body.batch;
+    var query =`SELECT * FROM checksheet.dCheckPointData WHERE partId = `+id+` AND batch = `+batch+` AND injDate = @inj_date `
+    return await pool.request()
+    .input('inj_date', sql.NVarChar , req.body.inj_date)
+    .query(query, function(err, data){
+      console.log(err);
+      res.json({data});
+    })
+  }
 
   if(action == 'saveACheckPoint'){ 
     var pool = await conn;
@@ -175,6 +254,11 @@ router.post("/actionPart", async function(req, res){
     var data_a = req.body;    
     var qty_d_item = req.body.qty_d_item;
     var batch = req.body.batch;
+    var date = req.body.injDate;
+    var qa = req.body.qa_1;
+    var iqpc = req.body.iqpc_1;
+    var oqc = req.body.oqc_1;
+
 
     var query = ``;
 
@@ -190,8 +274,8 @@ router.post("/actionPart", async function(req, res){
           y=0;
         }
         
-        query +=`INSERT INTO checksheet.aCheckPointData (batch, partId , Item_No , cav , check_OK_NG)
-                  VALUES (`+batch+` , `+id+` , `+a+` , `+b+` , `+ d +`)
+        query +=`INSERT INTO checksheet.aCheckPointData (batch, partId , Item_No , cav , injDate , check_OK_NG)
+                  VALUES (`+batch+` , `+id+` , `+a+` , `+b+` , @inj_date  , `+ d +`)
 
         `
       }
@@ -202,14 +286,16 @@ router.post("/actionPart", async function(req, res){
       for(var e=1; e<= qty_cav; e++){
         var f=`d`+e+h;
         var r=data_a[f];
-        query1 +=`INSERT INTO checksheet.dCheckPointData (batch , partId , Iteam_No , cav , measuareResult)        
-        VALUES (`+batch+` , `+id+ ` , `+ h + ` , ` + e + ` , `+r+`)
+        if (r==''){r=0};
+        
+        query1 +=`INSERT INTO checksheet.dCheckPointData (batch , partId , Iteam_No , cav , measuareResult , injDate)        
+        VALUES (`+batch+` , `+id+ ` , `+ h + ` , ` + e + ` , `+ r + ` ,  @inj_date)
         `
       }
     }
     var query3 = `INSERT INTO checksheet.batchData 
                   (batch, INJ_Date , partId, MC, Shift_prod , Temp , Humidity , Note , QA , OQC , IQPC)
-                  VALUES (`+batch+` , @inj_date , `+id+` , @mc , @shift , @temp , @humidity , @note , @qa , @oqc , @iqpc)
+                  VALUES (`+batch+` , @inj_date , `+id+` , @mc , @shift , @temp , @humidity , @note , `+qa+` , `+iqpc+ ` , `+oqc+`)
     `;
     
     var query2= query1+query +query3;
@@ -221,14 +307,15 @@ router.post("/actionPart", async function(req, res){
       .input('temp', sql.Float , req.body.temp)
       .input('humidity', sql.Float , req.body.humidity)
       .input('note', sql.Bit , req.body.note)
-      .input('qa', sql.Bit , req.body.qa)
-      .input('oqc', sql.Bit , req.body.oqc)
-      .input('iqpc', sql.Bit , req.body.iqpc)
+      // .input('qa', sql.Bit , req.body.qa_1)
+      // .input('oqc', sql.Bit , req.body.oqc_1)
+      // .input('iqpc', sql.Bit , req.body.iqpc_1)
       .query(query2, function(err, data){
         console.log(err);
         res.json({
           message : 'Data Added'
         });
+       
       });
   }
 

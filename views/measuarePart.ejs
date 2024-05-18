@@ -84,13 +84,21 @@
         <main>
             
             <div class="container">
+                <div>
                 <select class="form-select" aria-label="Default select example" id="select_tool" onchange="choose_tool(this)">
                 <option selected>Lựa chọn thiết bị đo</option>  
                   </select>
+                </div>
+                  <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="typeMeasuare" id="typeMeasuare.1"  value = "true" autocomplete="off" >
+                    <label class="btn btn-outline-success" for="typeMeasuare.1">Đo theo từng CAV</label>
+                    
+                    <input type="radio" class="btn-check" name="typeMeasuare" id="typeMeasuare.2"  value ="false" autocomplete="off" checked>
+                    <label class="btn btn-outline-success" for="typeMeasuare.2">Đo theo từng check point</label>
+                </div>     
              
             </div>
 
-            
             <div class="container">                               
                 <div class="card">
                     
@@ -102,15 +110,15 @@
                                 <form method="POST" id="partdata_form">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" value="true" name="qa" id="qa"  >
-                                        <label class="form-check-label" for="inlineCheckbox2">QA</label>
+                                        <label class="form-check-label" for="qa">QA</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" value="true" name="iqpc" id="iqpc" >
-                                        <label class="form-check-label" for="inlineCheckbox2">IQPC</label>
+                                        <label class="form-check-label" for="iqpc">IQPC</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" value="true" name="oqc" id="oqc">
-                                        <label class="form-check-label" for="inlineCheckbox2">OQC</label>
+                                        <label class="form-check-label" for="oqc">OQC</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input type="hidden" name="partId" id="partId">
@@ -141,12 +149,12 @@
                                         
                                         <label class="form-check-label" for="batch">Batch</label>
                                     </li>
-                                    <li class="list-inline-item">
+                                    <li class="list-inline-item" id="selectBatch">
                                         
-                                        <select class="form-select" name= "batch" id="batch3" style="width: 100px;">
-                                        <option >Lựa chọn</option>
+                                        <!-- <select class="form-select" name= "batch" id="batch" style="width: 100px;"> -->
                                         
-                                        </select>
+                                        
+                                        <!-- </select> -->
                                     </li>  
                                     <li class="list-inline-item">
                                         <label>MC</label>
@@ -221,17 +229,17 @@
                             <input type="hidden" name="qty_a_item" id="qty_a_item">
                             <input type="hidden" name="qty_d_item" id="qty_d_item">   
                             <input type="hidden" name="actionPart" id="actionParts">           
-                            <input type="hidden" name="qa" id="qa_1">
-                            <input type="hidden" name="oqc" id="oqc_1">
-                            <input type="hidden" name="iqpc" id="iqpc_1">                                    
-                            <input type="hidden" name="max_batch" id="max_batch1">
+                            <input type="hidden" name="qa_1" id="qa_1">
+                            <input type="hidden" name="oqc_1" id="oqc_1">
+                            <input type="hidden" name="iqpc_1" id="iqpc_1">                                    
+                            <input type="hidden" name="maxBatch" id="maxBatch">
                             <input type="button" id="check" class="btn btn-outline-success btn-lg" value="CHECK" />
                             <button type="submit" method="post" id="save_measuare" class="btn btn-secondary btn-lg" >Save</button>
                         </div>
                     </form>
                     </div>
                 </div>
-            </div>
+                
             
         </main>
         <footer>
@@ -252,8 +260,8 @@
         <!-- socket.io -->
         <script src = "../socket.io/socket.io.js"></script>
         <script>
-            // var socket = io("http://192.168.1.155:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
-            var socket = io("http://localhost:3000");
+            var socket = io("http://192.168.1.155:3000"); // IP tĩnh (hoặc IP động, hoặc localhost)
+            // var socket = io("http://localhost:3000");
         </script>
     </body>
 </html>
@@ -261,8 +269,8 @@
 
 <script>
     
-    // const ip_pc = "http://192.168.1.155:3000";
-    const ip_pc = "http://localhost:3000";
+    const ip_pc = "http://192.168.1.155:3000";
+    // const ip_pc = "http://localhost:3000";
     var id_select_tool;
     var row_qty;
     var qty_id_x;
@@ -333,8 +341,8 @@
     $(document).ready(function(){
         load_tool();
         load_no_cav();
-        load_datapart();
-        load_d_data();
+        // load_datapart();
+        // load_d_data();
         
         function load_batch(){
             var urlValue= window.location.search;
@@ -349,20 +357,32 @@
                 data: {inj_date: inj_date, partId: id ,actionPart: 'getBatch'},
                 dataType: "JSON",
                 success: function(data){
-                    var batch_input = `<option selected value="0">New Batch</option>
+                    var batch_input = `
+                        <select class="form-select" name= "batch" id="batch" style="width: 100px;">
+                        
                     `
-                    var max_batch;
-                    if(data.data.recordset.length >0){
-                    for(var l = 1; l <= data.data.recordset.length ; l++){
-                        batch_input += `<option value="`+data.data.recordset[l]+`">`+data.data.recordset[l]+`</option>
-                        `
-                        document.getElementById('#max_batch1').value = data.data.recordset[l].batch;
-                        // $('#max_batch').val(data.data.recordset[l].batch);
+                    var max_batch = 1;
+                    if(data.data.recordset.length ==0){
+                        max_batch =0;
                     }
-                }
+                    if(data.data.recordset.length >0){
+                    for(var l = 0; l < data.data.recordset.length ; l++){
+                        batch_input += `<option value="`+data.data.recordset[l].batch+`">`+data.data.recordset[l].batch+`</option>
+                        `
+                        
+                        if(max_batch < data.data.recordset[l].batch){
+                            max_batch= data.data.recordset[l].batch;
+                        }
+                       
+                    }
+                    } 
+                    max_batch = max_batch+1;  
+                    batch_input += `
+                        <option selected value="`+max_batch+`">New Batch</option>
+                        </select>`;
                     console.log(batch_input);
-                    
-                    $('#batch3').html(batch_input);
+                    document.getElementById('maxBatch').value=max_batch;
+                    $('#selectBatch').html(batch_input);
                 }
             })
         }
@@ -371,7 +391,301 @@
         
         $('#injDate').change(function(){
             load_batch();
+            var table =``;
+            $('#abc').html(table);
+            $('#def').html(table);
+            $('#actionParts').val('saveACheckPoint');  
         })
+
+        $('#selectBatch').change(function(){
+            
+            batchChoosed = document.getElementById('batch').value;
+            console.log(batchChoosed);
+            maxBatch = document.getElementById('maxBatch').value;
+            
+            if(batchChoosed == maxBatch ){
+                var table =``;
+                $('#actionParts').val('saveACheckPoint'); 
+                $('#abc').html(table);
+                $('#def').html(table);
+                $('#actionParts').val('saveACheckPoint');  
+                document.getElementById('qa').disabled = false;
+                    document.getElementById('oqc').disabled = false;
+                    document.getElementById('iqpc').disabled = false;
+                    document.getElementById('btt_choose').disabled = false;     
+                         
+            }
+            if(batchChoosed < maxBatch ){
+                $('#actionParts').val('editCheckPoint'); 
+                showOldBatch();
+                // getTable();
+                // getData();
+                  
+            }
+        })
+
+        function showOldBatch(){
+            var urlValue= window.location.search;
+            var urlParams = new URLSearchParams(urlValue);
+            var id = urlParams.get('partId');
+            var batch = document.getElementById('batch').value;
+            var inj_date = document.getElementById('injDate').value;
+            var qa_2, iqpc_2 , oqc_2;
+            $.ajax({
+                url: ip_pc+"/measuare/measuarePart/actionPart",
+                method: "POST",
+                data: {inj_date: inj_date, batch: batch, partId: id ,actionPart: 'showBatch'},
+                dataType: "JSON",
+                success: function(data){
+                    
+                    var temp =document.getElementById('temp');
+                    var note = document.getElementById('note');
+                    var humidity = document.getElementById('humidity');
+                    var mc = document.getElementById('mc');
+                    var shift = document.getElementById('shift')
+                    for(var a= 0; a<data.data.recordset.length; a++){
+                        mc.value =data.data.recordset[a].mc;
+                        shift.value = data.data.recordset[a].Shift_prod;
+                        temp.value=data.data.recordset[a].temp;
+                        note.value=data.data.recordset[a].note;
+                        humidity.value=data.data.recordset[a].humidity;
+                        qa_2 = data.data.recordset[a].QA;
+                        iqpc_2 = data.data.recordse[a].IQPC;
+                        oqc_2 = data.data.recordset[a].OQC;
+
+                    }
+                    
+                    
+                }
+            })
+        // }
+
+        // function getTable(){
+        //     var urlValue= window.location.search;
+        //     var urlParams = new URLSearchParams(urlValue);
+        //     var id = urlParams.get('partId');
+        //     var batch = document.getElementById('batch').value;
+        //     var inj_date = document.getElementById('injDate').value;
+            $.ajax({
+                // url:"http://localhost:3000/measuare/measuarePart/actionPart",
+                url: ip_pc+"/measuare/measuarePart/actionPart",
+                method:"POST",
+                data:{partId:id , iqpc:iqpc_2 , qa:qa_2 , oqc:oqc_2 , actionPart:'getAllParte'},
+                dataType:"JSON",
+                success:function(data){
+                    var x =0;
+                    var y =0;  
+                    
+                    var html1 = `
+                        <tr>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            
+                        
+                    `;
+                    for(var countq = 1; countq <= qty_id_x ; countq ++){
+                        html1 +=`
+                            <td> <input type="checkbox" class="btn-check"  id=`+countq+` onclick="select_all(this)">
+                                    <label class="btn btn-outline-primary" for=`+countq+`>ALL_OK</label><br>   
+                            </td>
+                        `
+                    }
+                        html1 +=`
+                            </tr>
+                            
+                        `
+                        for(var counti = 0; counti < data.data.recordset.length; counti++)
+                        {
+                            
+                            html1 += `
+                            <tr>
+                                <td >`+data.data.recordset[counti].Item_No+`</td>                                
+                                <td >`+data.data.recordset[counti].Check_content+`</td>
+                                <td ></td>
+                                <td ></td>
+                                <td ></td>
+                                <td ></td>
+                                <td ></td>                                
+                                <td >`+data.data.recordset[counti].Tool+`</td>
+                                <td >
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check" name="a0`+y+`" id="a0`+y+`.1" value = "true" autocomplete="off" >
+                                    <label class="btn btn-outline-success" for="a0`+y+`.1">OK</label>
+                                    
+                                    <input type="radio" class="btn-check" name="a0`+y+`" id="a0`+y+`.2" value ="false" autocomplete="off" checked>
+                                    <label class="btn btn-outline-danger" for="a0`+y+`.2">NG</label>
+                                    </div>
+                                                                       
+                                </td>
+                               
+                            `;
+                            for(var countt = 1; countt <= qty_id_x ; countt ++){
+                                html1 +=`
+                                        <td >
+                                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                            <input type="radio" class="btn-check" name="a`+countt+y+`" id="a`+countt+y+`.1" value="1" autocomplete="off" >
+                                            <label class="btn btn-outline-success" for="a`+countt+y+`.1">OK</label>
+                                            
+                                            <input type="radio" class="btn-check" name="a`+countt+y+`" id="a`+countt+y+`.2" value="0" autocomplete="off" checked>
+                                            <label class="btn btn-outline-danger" for="a`+countt+y+`.2">NG</label>
+                                            </div>
+                                                                            
+                                        </td>
+                                `
+                            }
+                                html1 +=`
+                                    </tr>
+                                    
+                                `
+                            y = y+1;        
+                }
+                
+                //  $('#part_data_table tbody').html(html);
+                row_qty = y;
+                qty_a_check_point = y;
+                
+                $('#abc').html(html1);
+                
+          }
+            });
+
+            $.ajax({
+                // url:"http://localhost:3000/measuare/measuarePart/actionPart",
+                url: ip_pc+ "/measuare/measuarePart/actionPart",
+                method:"POST",
+                data:{partId:id , iqpc:iqpc_2 , qa:qa_2 , oqc:oqc_2 , actionPart:'getAllPartf'},
+                dataType:"JSON",
+                success:function(data){
+                var x =0;
+                var y =0;
+                
+                var html2 = '';      
+                        for(var counts = 0; counts < data.data.recordset.length; counts++)
+                        {
+                            
+                            html2 += `
+                            <tr>
+                                <td >`+data.data.recordset[counts].Item_No+`</td>                                
+                                <td >`+data.data.recordset[counts].Geometric_Tolerance+``+data.data.recordset[counts].Specs+`</td>
+                                <td >`+data.data.recordset[counts].Tolerance+`</td>
+                                <td >`+data.data.recordset[counts].Lower_limit+`~`+data.data.recordset[counts].Upper_limit+`</td>
+                                <td >`+data.data.recordset[counts].FA_Accepted_min+`</td>
+                                <td >`+data.data.recordset[counts].FA_Accepted_max+`</td>
+                                <td >`+data.data.recordset[counts].Position+`</td>
+                                <td >`+data.data.recordset[counts].DimTool+`</td>
+                                <td >
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check" name="d0`+y+`" id="d0`+y+`.1" value = "true" autocomplete="off" >
+                                    <label class="btn btn-outline-success" for="d0`+y+`.1">OK</label>
+                                    
+                                    <input type="radio" class="btn-check" name="d0`+y+`" id="d0`+y+`.2" value ="false" autocomplete="off" checked>
+                                    <label class="btn btn-outline-danger" for="d0`+y+`.2">NG</label>
+                                                                   
+                                </td>
+
+
+                                
+                            `;
+                            for(counte=1; counte<= qty_id_x ; counte ++){
+                                html2 +=`
+                                    <td ><input type="text" class="form-control" name="d`+counte+y+`" id="d`+counte+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                  
+                                    </td>
+                                `
+                            }
+                            html2 +=`
+                                </tr>
+                            `
+                            
+                            y = y+1;
+                            }
+                            qty_d_check_point = y;
+                            $('#def').html(html2);
+                        }
+                        });
+        //             }
+        // function getData(){
+        //     var urlValue= window.location.search;
+        //     var urlParams = new URLSearchParams(urlValue);
+        //     var id = urlParams.get('partId');
+        //     var batch = document.getElementById('batch').value;
+        //     var inj_date = document.getElementById('injDate').value;
+            $.ajax({
+                url: ip_pc+"/measuare/measuarePart/actionPart",
+                method: "POST",
+                data: {inj_date: inj_date, batch: batch, partId: id ,actionPart: 'showADataBatch'},
+                dataType: "JSON",
+                
+            })
+
+            $.ajax({
+                url: ip_pc+"/measuare/measuarePart/actionPart",
+                method: "POST",
+                data: {inj_date: inj_date, batch: batch, partId: id ,actionPart: 'showDDataBatch'},
+                dataType: "JSON",
+                
+            })
+            if(qa_2 == true){
+                        document.getElementById('qa').checked= true;
+                    }
+                    if(qa_2 == false){
+                        document.getElementById('qa').checked= false;
+                    }
+                    
+
+                    if(iqpc_2 == true){
+                        document.getElementById('iqpc').checked= true;
+                    }
+                    if(iqpc_2 == false){
+                        document.getElementById('iqpc').checked= false;
+                    }
+                    
+
+                    if(oqc_2 == true){
+                        document.getElementById('oqc').checked= true;
+                    }
+                    if(oqc_2 == false){
+                        document.getElementById('oqc').checked= false;
+                    }
+                    
+
+                    document.getElementById('qa').disabled = true;
+                    document.getElementById('oqc').disabled = true;
+                    document.getElementById('iqpc').disabled = true;
+                    document.getElementById('btt_choose').disabled = true;
+            
+        }
+
+        // function checkBatch(){
+        //     var urlValue= window.location.search;
+        //     var urlParams = new URLSearchParams(urlValue);
+        //     var id = urlParams.get('partId');
+        //     var batch = document.getElementById('batch').value;
+           
+            
+        //     $.ajax({
+        //         url: ip_pc+"/measuare/measuarePart/actionPart",
+        //         method: "POST",
+        //         data: {inj_date: inj_date, batch: batch, partId: id ,actionPart: 'checkBatch'},
+        //         dataType: "JSON",
+        //         success: function(data){
+        //             var batchNo = 0;
+        //             for( var x= 0 ; x< data.data.recordset.length ; x++){
+        //                 if(batchNo< data.data.recordset[x].batch){
+        //                     batchNo = data.data.recordset[x].batch;
+        //                 }
+        //             }
+                    
+        //         }
+        //     })
+
+        // }
 
         function load_no_cav(){
             var urlValue= window.location.search;
@@ -431,7 +745,7 @@
                             `;
                         }
                     }
-                    console.log(select);
+                    
                     $('#select_tool').html(select);
                 }
             })
@@ -605,31 +919,44 @@
 
 
         $('#data_mesuarement').on('submit', function(event){
-            
+            var iqpc = document.getElementById('iqpc');
+                if (iqpc.checked === true){
+                    iqpc = 1;
+                }
+                else {
+                    iqpc = 0;
+                }
+                var qa = document.getElementById('qa');
+                if (qa.checked === true){
+                    qa = 1;
+                }
+                else {
+                    qa = 0;
+                }
+                var oqc = document.getElementById('oqc');
+                if (oqc.checked === true){
+                    oqc = 1;
+                }
+                else {
+                    oqc = 0;
+                }
             $('#no_of_cav').val(qty_id_x);
                 $('#qty_a_item').val(qty_a_check_point);
                 $('#qty_d_item').val(qty_d_check_point);
-                $('#actionParts').val('saveACheckPoint');
+            
+            $('#qa_1').val(qa);
+            $('#iqpc_1').val(iqpc);
+            $('#oqc_1').val(oqc);
                
 
             event.preventDefault();
-            var checkNewBatch = document.getElementById('batch3').value;
+            
             var urlValue= window.location.search;
             var urlParams = new URLSearchParams(urlValue);
             var id = urlParams.get('partId');
             $('#partId1').val(id);
-            // if(checkNewBatch == 0){
-            //     var maxBatch= document.getElementById('max_batch').value;
+            $('#actionParts').val('saveACheckPoint');
                 
-            //     if(maxBatch == ''){
-                    
-            //         maxBatch =0;
-            //     }
-
-            //     maxBatch +=1 ;
-            //     console.log(maxBatch);
-                
-                $('#batch3').val(1);
             $.ajax({
                 url: ip_pc+"/measuare/measuarePart/actionPart",
                 method:"POST",
@@ -637,8 +964,9 @@
                 dataType:"JSON",
                 success:function(data){
                     setTimeout(function(){
+                        load_batch();
                         
-                    }, 5000);
+                    }, 500);
                 }
 
             })
@@ -663,6 +991,10 @@
         
 
         $('#partdata_form').on('submit', function(event){
+            document.getElementById('qa').disabled = true;
+            document.getElementById('oqc').disabled = true;
+            document.getElementById('iqpc').disabled = true;
+            document.getElementById('btt_choose').disabled = true;
             var iqpc = document.getElementById('iqpc');
                 if (iqpc.checked === true){
                     iqpc = '1';
@@ -756,10 +1088,10 @@
                                 html1 +=`
                                         <td >
                                             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                            <input type="radio" class="btn-check" name="a`+countt+y+`" id="a`+countt+y+`.1" value="true" autocomplete="off" >
-                                            <label class="btn btn-outline-success" for="a`+count2+y+`.1">OK</label>
+                                            <input type="radio" class="btn-check" name="a`+countt+y+`" id="a`+countt+y+`.1" value="1" autocomplete="off" >
+                                            <label class="btn btn-outline-success" for="a`+countt+y+`.1">OK</label>
                                             
-                                            <input type="radio" class="btn-check" name="a`+countt+y+`" id="a`+countt+y+`.2" value="false" autocomplete="off" checked>
+                                            <input type="radio" class="btn-check" name="a`+countt+y+`" id="a`+countt+y+`.2" value="0" autocomplete="off" checked>
                                             <label class="btn btn-outline-danger" for="a`+countt+y+`.2">NG</label>
                                             </div>
                                                                             
@@ -821,7 +1153,7 @@
                             `;
                             for(counte=1; counte<= qty_id_x ; counte ++){
                                 html2 +=`
-                                    <td ><input type="text" class="form-control" name="1`+counte+y+`" id="d`+counte+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                  
+                                    <td ><input type="text" class="form-control" name="d`+counte+y+`" id="d`+counte+y+`" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">                                  
                                     </td>
                                 `
                             }
@@ -844,12 +1176,23 @@
             });   
 
 
-    var socket = io.connect("http://localhost:3000");
+    var socket = io.connect(ip_pc);
     var a=1, b=0;
     
+
+    function beep() {
+    var snd = new Audio("data:audio/wav;base64,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qJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=");  
+    snd.play();
+}
+
     
     socket.on('value', function(data) {
-        console.log(data);
+        var nextCAV = document.getElementById('typeMeasuare.1');
+        var nextCheckPoint = document.getElementById('typeMeasuare.2');
+        if(nextCheckPoint.checked === true){
+        if(b == qty_d_check_point && a==1){
+            alert('Hết giá trị checkpoint!');
+         }
         
         // if(data.data.length!=21){
             if(data.data.length!=20){
@@ -861,18 +1204,67 @@
             if(data.data.length==20) {
         
         var current_value = parseFloat(data.data.slice(8 , 19));
-        console.log('d'+a+b);
+        
         document.getElementById('d'+a+b).value = current_value;
         document.getElementById('d'+a+b).style.backgroundColor = "green";
+        document.getElementById('typeMeasuare.1').disabled = true;
+        document.getElementById('typeMeasuare.2').disabled = true;
+        if(b == qty_d_check_point && a==2){
+            alert('Hết giá trị checkpoint!');
+         }
+        beep();
         a=a+1;
-                
-        if(a==5){
+     
+        if(a > qty_id_x){
+            
             b=b+1;
             a=1;
+            
         } 
         
+        
+
         }
-     }});
+     }}
+     if(nextCAV.checked === true){
+        if(a > qty_id_x && b==0){
+            alert('Hết giá trị checkpoint!');
+         }
+        
+        // if(data.data.length!=21){
+            if(data.data.length!=20){
+            console.log('Thiết bị chưa được kết nối!')
+            
+        }
+        if(data.data.slice(3, 4)==id_select_tool){
+        // if(data.data.length==21) {
+            if(data.data.length==20) {
+        
+        var current_value = parseFloat(data.data.slice(8 , 19));
+        
+        document.getElementById('d'+a+b).value = current_value;
+        document.getElementById('d'+a+b).style.backgroundColor = "green";
+        document.getElementById('typeMeasuare.1').disabled = true;
+        document.getElementById('typeMeasuare.2').disabled = true;
+        console.log('a');
+        if(b == qty_d_check_point && a==2){
+            alert('Hết giá trị checkpoint!');
+         }
+        beep();
+        b=b+1;
+     
+        if(b == qty_d_check_point){
+            
+            a=a+1;
+            b=0;
+            
+        } 
+        
+        
+
+        }
+     }}
+    });
     
 </script>
 
